@@ -162,6 +162,20 @@ function populateSpecialtyFilter() {
     h.doctors.forEach(d => specialties.add(d.specialization));
   });
   const sel = document.getElementById('filter-specialty');
+  if (!sel) return;
+  while (sel.options.length > 1) {
+    sel.remove(1);
+  }
+  [...specialties].sort().forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s;
+    const key = s.toLowerCase().replace(/ /g, '_');
+    const translated = t(key);
+    opt.textContent = translated !== key ? translated : s;
+    sel.appendChild(opt);
+  });
+});
+  const sel = document.getElementById('filter-specialty');
   [...specialties].sort().forEach(s => {
     const opt = document.createElement('option');
     opt.value = s; opt.textContent = s;
@@ -592,6 +606,7 @@ function bindEvents() {
 // ====== LANGUAGE CHANGE HANDLER ======
 document.addEventListener('languageChanged', () => {
   // Re-render all dynamic content with new language
+  populateSpecialtyFilter();
   applyFiltersAndSort();
   updateStats();
   // Update role display
