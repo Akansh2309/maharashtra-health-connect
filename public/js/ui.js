@@ -104,6 +104,12 @@ const UIController = {
         const bedColor = this.getBedColor(hospital.totalBeds);
 
         content.innerHTML = `
+            <div id="referral-action-box" style="margin-bottom:20px;">
+                <button class="tm-btn primary" onclick="UIController.simulateReferral('${hospital.id}')" style="background:var(--color-primary); color:white; width:100%; padding:12px; border:none; border-radius:8px; font-weight:bold; cursor:pointer;">
+                    <i class="fas fa-notes-medical"></i> Initiate Referral & Teleconsultation
+                </button>
+                <div id="referral-success-${hospital.id}" style="display:none;"></div>
+            </div>
             <div style="margin-bottom:20px;">
                 <h3 style="font-size:0.9rem; margin-bottom:10px; color:var(--text-muted);">Overview</h3>
                 <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span>Rating:</span> <strong>${hospital.rating} <i class="fas fa-star" style="color:var(--accent-amber); font-size:0.8rem;"></i> (${hospital.reviewCount} reviews)</strong></div>
@@ -172,6 +178,28 @@ const UIController = {
         navBtn.onclick = () => {
             window.open(`https://www.google.com/maps/dir/?api=1&destination=${hospital.lat},${hospital.lng}`, '_blank');
         };
+    },
+
+    simulateReferral: function(hospitalId) {
+        const box = document.getElementById(`referral-success-${hospitalId}`);
+        const btn = document.querySelector('#referral-action-box button');
+        
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+        btn.style.opacity = '0.7';
+        
+        setTimeout(() => {
+            btn.style.display = 'none';
+            box.style.display = 'block';
+            box.innerHTML = `
+                <div class="referral-success">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Referral Acknowledged</h4>
+                    <p>Teleconsultation Slot: <strong>2:00 PM Today</strong></p>
+                    <p>Medicine Availability: <strong style="color:var(--color-primary)">Confirmed</strong></p>
+                    <p style="margin-top:10px;"><i class="fas fa-sms"></i> SMS sent to patient.</p>
+                </div>
+            `;
+        }, 1500);
     },
 
     closeDetailPanel: function() {

@@ -7,6 +7,62 @@
   <meta name="copyright" content="Copyright (c) 2026 Kacchodis. All rights reserved.">
   <title>Maharashtra Health Connect — Kacchodis | SIH 2026</title>
   
+  
+  <!-- ASHA Worker FAB -->
+  <button id="asha-fab" class="asha-fab" onclick="TriageController.openModal()">
+    <i class="fas fa-plus"></i> New Patient Triage
+  </button>
+
+  <!-- ASHA Patient Triage Modal -->
+  <div id="triage-modal-overlay" class="triage-modal-overlay" onclick="TriageController.closeModal()"></div>
+  <div id="triage-modal" class="triage-modal">
+    <div class="tm-header">
+      <h3><i class="fas fa-clipboard-user"></i> Patient Registration & Triage</h3>
+      <button onclick="TriageController.closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="tm-content">
+      <div id="tm-step-1" class="tm-step active">
+        <h4>1. Patient Details</h4>
+        <input type="text" placeholder="Patient Name" class="tm-input" />
+        <div style="display:flex; gap:10px;">
+          <input type="number" placeholder="Age" class="tm-input" />
+          <select class="tm-input"><option>Male</option><option>Female</option><option>Other</option></select>
+        </div>
+        <input type="text" placeholder="ABHA ID (Optional)" class="tm-input" />
+        <button class="tm-btn primary" onclick="TriageController.nextStep(2)">Next: Vitals & Symptoms</button>
+      </div>
+
+      <div id="tm-step-2" class="tm-step">
+        <h4>2. Clinical Triage</h4>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="tm-bp" placeholder="BP (e.g. 120/80)" class="tm-input" />
+          <input type="number" id="tm-temp" placeholder="Temp (°C)" class="tm-input" />
+        </div>
+        <select id="tm-symptoms" class="tm-input">
+          <option value="none">Routine Checkup</option>
+          <option value="chest_pain">Severe Chest Pain (Cardiac)</option>
+          <option value="trauma">Severe Bleeding / Trauma</option>
+          <option value="pregnancy_danger">High BP in Pregnancy (Danger Sign)</option>
+          <option value="breathless">Severe Breathlessness</option>
+        </select>
+        <button class="tm-btn primary" onclick="TriageController.analyzeVitals()">Analyze & Escalate</button>
+        <button class="tm-btn secondary" onclick="TriageController.nextStep(1)">Back</button>
+      </div>
+
+      <div id="tm-step-3" class="tm-step">
+        <div class="tm-red-flag">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h4>HIGH RISK ESCALATION</h4>
+          <p id="tm-risk-reason">Red flag detected. Immediate referral required.</p>
+        </div>
+        <button class="tm-btn danger" onclick="TriageController.triggerEmergencyReferral()">
+          <i class="fas fa-ambulance"></i> Find Emergency Facility
+        </button>
+        <button class="tm-btn secondary" onclick="TriageController.nextStep(2)">Back</button>
+      </div>
+    </div>
+  </div>
+
   <!-- External Libraries -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -213,6 +269,62 @@
     </div>
   </div>
 
+  
+  <!-- ASHA Worker FAB -->
+  <button id="asha-fab" class="asha-fab" onclick="TriageController.openModal()">
+    <i class="fas fa-plus"></i> New Patient Triage
+  </button>
+
+  <!-- ASHA Patient Triage Modal -->
+  <div id="triage-modal-overlay" class="triage-modal-overlay" onclick="TriageController.closeModal()"></div>
+  <div id="triage-modal" class="triage-modal">
+    <div class="tm-header">
+      <h3><i class="fas fa-clipboard-user"></i> Patient Registration & Triage</h3>
+      <button onclick="TriageController.closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="tm-content">
+      <div id="tm-step-1" class="tm-step active">
+        <h4>1. Patient Details</h4>
+        <input type="text" placeholder="Patient Name" class="tm-input" />
+        <div style="display:flex; gap:10px;">
+          <input type="number" placeholder="Age" class="tm-input" />
+          <select class="tm-input"><option>Male</option><option>Female</option><option>Other</option></select>
+        </div>
+        <input type="text" placeholder="ABHA ID (Optional)" class="tm-input" />
+        <button class="tm-btn primary" onclick="TriageController.nextStep(2)">Next: Vitals & Symptoms</button>
+      </div>
+
+      <div id="tm-step-2" class="tm-step">
+        <h4>2. Clinical Triage</h4>
+        <div style="display:flex; gap:10px;">
+          <input type="text" id="tm-bp" placeholder="BP (e.g. 120/80)" class="tm-input" />
+          <input type="number" id="tm-temp" placeholder="Temp (°C)" class="tm-input" />
+        </div>
+        <select id="tm-symptoms" class="tm-input">
+          <option value="none">Routine Checkup</option>
+          <option value="chest_pain">Severe Chest Pain (Cardiac)</option>
+          <option value="trauma">Severe Bleeding / Trauma</option>
+          <option value="pregnancy_danger">High BP in Pregnancy (Danger Sign)</option>
+          <option value="breathless">Severe Breathlessness</option>
+        </select>
+        <button class="tm-btn primary" onclick="TriageController.analyzeVitals()">Analyze & Escalate</button>
+        <button class="tm-btn secondary" onclick="TriageController.nextStep(1)">Back</button>
+      </div>
+
+      <div id="tm-step-3" class="tm-step">
+        <div class="tm-red-flag">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h4>HIGH RISK ESCALATION</h4>
+          <p id="tm-risk-reason">Red flag detected. Immediate referral required.</p>
+        </div>
+        <button class="tm-btn danger" onclick="TriageController.triggerEmergencyReferral()">
+          <i class="fas fa-ambulance"></i> Find Emergency Facility
+        </button>
+        <button class="tm-btn secondary" onclick="TriageController.nextStep(2)">Back</button>
+      </div>
+    </div>
+  </div>
+
   <!-- External Libraries -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   
@@ -221,6 +333,7 @@
   <script src="js/map.js"></script>
   <script src="js/ui.js"></script>
   <script src="js/emergency.js"></script>
+  <script src="js/triage.js"></script>
   <script src="js/main.js"></script>
 
 </body>
