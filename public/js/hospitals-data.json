@@ -19,17 +19,71 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Pediatrics","Obstetrics & Gynecology","Oncology","Nephrology","Urology","Dermatology","Psychiatry","ENT","Ophthalmology","Pulmonology","Gastroenterology","Endocrinology","Rheumatology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","Radiology","MRI","CT Scan","Dialysis","Physiotherapy","Pathology Lab","Ambulance Service","Burn Unit"],
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Pediatrics",
+      "Obstetrics & Gynecology",
+      "Oncology",
+      "Nephrology",
+      "Urology",
+      "Dermatology",
+      "Psychiatry",
+      "ENT",
+      "Ophthalmology",
+      "Pulmonology",
+      "Gastroenterology",
+      "Endocrinology",
+      "Rheumatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Pathology Lab",
+      "Ambulance Service",
+      "Burn Unit"
+    ],
     "doctors": [
-      {"name": "Dr. Rajesh Patil", "specialization": "Cardiologist", "experience": 22, "available": true},
-      {"name": "Dr. Sneha Kulkarni", "specialization": "Neurologist", "experience": 18, "available": true},
-      {"name": "Dr. Vinod Sharma", "specialization": "Orthopedic Surgeon", "experience": 20, "available": true},
-      {"name": "Dr. Priya Deshmukh", "specialization": "Gynecologist", "experience": 15, "available": true},
-      {"name": "Dr. Arun Joshi", "specialization": "General Surgeon", "experience": 25, "available": true},
-      {"name": "Dr. Meena Nair", "specialization": "Pediatrician", "experience": 16, "available": true},
-      {"name": "Dr. Sanjay More", "specialization": "Oncologist", "experience": 19, "available": false},
-      {"name": "Dr. Kavita Bhosale", "specialization": "Nephrologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 91",
+        "specialization": "orthopedics",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "neurology",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 28",
+        "specialization": "general",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 19",
+        "specialization": "pediatrics",
+        "experience": 14,
+        "available": true
+      }
     ]
   },
   {
@@ -52,14 +106,55 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology","Dermatology","Psychiatry","Radiology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","Radiology","CT Scan","Dialysis","Pathology Lab","Ambulance Service"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology",
+      "Psychiatry",
+      "Radiology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Dialysis",
+      "Pathology Lab",
+      "Ambulance Service"
+    ],
     "doctors": [
-      {"name": "Dr. Mahesh Deshpande", "specialization": "General Surgeon", "experience": 21, "available": true},
-      {"name": "Dr. Sunita Pawar", "specialization": "Gynecologist", "experience": 17, "available": true},
-      {"name": "Dr. Ramesh Gupta", "specialization": "Orthopedic Surgeon", "experience": 19, "available": true},
-      {"name": "Dr. Neha Jadhav", "specialization": "Pediatrician", "experience": 12, "available": true},
-      {"name": "Dr. Vikram Rane", "specialization": "Psychiatrist", "experience": 15, "available": false}
+      {
+        "name": "Dr. Sample 21",
+        "specialization": "neurology",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "oncology",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 18",
+        "specialization": "maternity",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 57",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -81,16 +176,64 @@
     "ventilators": 30,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 1200, "dailyCharge": 8000, "category": "premium", "minEstimate": 15000, "maxEstimate": 200000},
-    "specializations": ["Cardiology","Neurology","Oncology","Orthopedics","Urology","Nephrology","Gastroenterology","Pulmonology","Obstetrics & Gynecology","Dermatology","ENT","Ophthalmology","Plastic Surgery","Endocrinology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","PET Scan","Dialysis","Physiotherapy","Pathology Lab","Ambulance","Cath Lab","Robotic Surgery"],
+    "budget": {
+      "consultationFee": 1200,
+      "dailyCharge": 8000,
+      "category": "premium",
+      "minEstimate": 15000,
+      "maxEstimate": 200000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Orthopedics",
+      "Urology",
+      "Nephrology",
+      "Gastroenterology",
+      "Pulmonology",
+      "Obstetrics & Gynecology",
+      "Dermatology",
+      "ENT",
+      "Ophthalmology",
+      "Plastic Surgery",
+      "Endocrinology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "PET Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Pathology Lab",
+      "Ambulance",
+      "Cath Lab",
+      "Robotic Surgery"
+    ],
     "doctors": [
-      {"name": "Dr. Ashok Kirpalani", "specialization": "Cardiologist", "experience": 30, "available": true},
-      {"name": "Dr. Roshni Kapoor", "specialization": "Neurologist", "experience": 22, "available": true},
-      {"name": "Dr. Sameer Malhotra", "specialization": "Oncologist", "experience": 18, "available": true},
-      {"name": "Dr. Pooja Shah", "specialization": "Gynecologist", "experience": 16, "available": true},
-      {"name": "Dr. Nitin Bhandari", "specialization": "Urologist", "experience": 20, "available": true},
-      {"name": "Dr. Anjali Mehta", "specialization": "Dermatologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 27",
+        "specialization": "neurology",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 71",
+        "specialization": "general",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -112,15 +255,61 @@
     "ventilators": 35,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 1500, "dailyCharge": 10000, "category": "premium", "minEstimate": 20000, "maxEstimate": 300000},
-    "specializations": ["Cardiology","Neurosurgery","Orthopedics","Oncology","Gastroenterology","Nephrology","Pulmonology","Urology","Obstetrics & Gynecology","Endocrinology","Rheumatology","Hematology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","PET Scan","Dialysis","Cath Lab","Robotic Surgery","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 1500,
+      "dailyCharge": 10000,
+      "category": "premium",
+      "minEstimate": 20000,
+      "maxEstimate": 300000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurosurgery",
+      "Orthopedics",
+      "Oncology",
+      "Gastroenterology",
+      "Nephrology",
+      "Pulmonology",
+      "Urology",
+      "Obstetrics & Gynecology",
+      "Endocrinology",
+      "Rheumatology",
+      "Hematology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "PET Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Robotic Surgery",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Sushil Shah", "specialization": "Cardiologist", "experience": 28, "available": true},
-      {"name": "Dr. Rekha Patel", "specialization": "Gynecologist", "experience": 20, "available": true},
-      {"name": "Dr. Aditya Kelkar", "specialization": "Neurosurgeon", "experience": 24, "available": true},
-      {"name": "Dr. Madhuri Jain", "specialization": "Endocrinologist", "experience": 15, "available": true},
-      {"name": "Dr. Pramod Desai", "specialization": "Gastroenterologist", "experience": 19, "available": false}
+      {
+        "name": "Dr. Sample 38",
+        "specialization": "cardiology",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 56",
+        "specialization": "pediatrics",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "orthopedics",
+        "experience": 17,
+        "available": true
+      }
     ]
   },
   {
@@ -142,17 +331,67 @@
     "ventilators": 50,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 2000, "dailyCharge": 15000, "category": "premium", "minEstimate": 30000, "maxEstimate": 500000},
-    "specializations": ["Cardiology","Neurology","Oncology","Orthopedics","Transplant Surgery","Nephrology","Gastroenterology","Pulmonology","Urology","Obstetrics & Gynecology","Pediatric Surgery","Plastic Surgery","Spine Surgery","Bariatric Surgery"],
-    "facilities": ["24/7 Emergency","ICU","NICU","PICU","Blood Bank","Pharmacy","MRI","CT Scan","PET-CT","Dialysis","Cath Lab","Robotic Surgery","Bone Marrow Transplant","Liver Transplant","Kidney Transplant","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 2000,
+      "dailyCharge": 15000,
+      "category": "premium",
+      "minEstimate": 30000,
+      "maxEstimate": 500000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Orthopedics",
+      "Transplant Surgery",
+      "Nephrology",
+      "Gastroenterology",
+      "Pulmonology",
+      "Urology",
+      "Obstetrics & Gynecology",
+      "Pediatric Surgery",
+      "Plastic Surgery",
+      "Spine Surgery",
+      "Bariatric Surgery"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "PICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "PET-CT",
+      "Dialysis",
+      "Cath Lab",
+      "Robotic Surgery",
+      "Bone Marrow Transplant",
+      "Liver Transplant",
+      "Kidney Transplant",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ram Narain", "specialization": "Cardiologist", "experience": 25, "available": true},
-      {"name": "Dr. Farah Khan", "specialization": "Oncologist", "experience": 20, "available": true},
-      {"name": "Dr. Suresh Rao", "specialization": "Neurosurgeon", "experience": 22, "available": true},
-      {"name": "Dr. Lata Bhat", "specialization": "Gynecologist", "experience": 18, "available": true},
-      {"name": "Dr. Deepak Namjoshi", "specialization": "Orthopedic Surgeon", "experience": 21, "available": true},
-      {"name": "Dr. Anita Soni", "specialization": "Pediatric Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Harish Shetty", "specialization": "Psychiatrist", "experience": 24, "available": true}
+      {
+        "name": "Dr. Sample 79",
+        "specialization": "neurology",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 53",
+        "specialization": "pediatrics",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 21",
+        "specialization": "general",
+        "experience": 14,
+        "available": true
+      }
     ]
   },
   {
@@ -175,13 +414,57 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Sudhir Kale", "specialization": "General Surgeon", "experience": 18, "available": true},
-      {"name": "Dr. Anjali Sawant", "specialization": "Gynecologist", "experience": 14, "available": true},
-      {"name": "Dr. Rajendra Wagh", "specialization": "Orthopedic Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Vaishali Mane", "specialization": "Pediatrician", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 18",
+        "specialization": "orthopedics",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 43",
+        "specialization": "maternity",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 64",
+        "specialization": "cardiology",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 59",
+        "specialization": "general",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 27",
+        "specialization": "pediatrics",
+        "experience": 23,
+        "available": true
+      }
     ]
   },
   {
@@ -193,7 +476,7 @@
     "area": "urban",
     "address": "1877, Dr. Anandrao Nair Marg, Agripada, Mumbai 400011",
     "phone": "022-61784444",
-    "lat": 18.9850,
+    "lat": 18.985,
     "lng": 72.8303,
     "established": 1989,
     "rating": 4.3,
@@ -203,14 +486,54 @@
     "ventilators": 20,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 800, "dailyCharge": 5000, "category": "moderate", "minEstimate": 10000, "maxEstimate": 120000},
-    "specializations": ["Cardiology","Orthopedics","Neurology","General Surgery","Obstetrics & Gynecology","Nephrology","Urology","Gastroenterology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Cath Lab","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 800,
+      "dailyCharge": 5000,
+      "category": "moderate",
+      "minEstimate": 10000,
+      "maxEstimate": 120000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "Neurology",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Kiran Phadke", "specialization": "Cardiologist", "experience": 17, "available": true},
-      {"name": "Dr. Smita Deshpande", "specialization": "Gynecologist", "experience": 13, "available": true},
-      {"name": "Dr. Ajay Thakur", "specialization": "Orthopedic Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Rohit Bhagwat", "specialization": "Nephrologist", "experience": 12, "available": false}
+      {
+        "name": "Dr. Sample 54",
+        "specialization": "maternity",
+        "experience": 11,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 33",
+        "specialization": "orthopedics",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 53",
+        "specialization": "pediatrics",
+        "experience": 9,
+        "available": true
+      }
     ]
   },
   {
@@ -222,8 +545,8 @@
     "area": "urban",
     "address": "Near Pune Railway Station, Pune 411001",
     "phone": "020-26128000",
-    "lat": 18.5310,
-    "lng": 73.8730,
+    "lat": 18.531,
+    "lng": 73.873,
     "established": 1868,
     "rating": 3.9,
     "reviewCount": 256,
@@ -233,14 +556,56 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","Psychiatry","ENT","Ophthalmology","Dermatology","Forensic Medicine"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","Radiology","CT Scan","Dialysis","Pathology Lab","Ambulance","Burn Unit"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Psychiatry",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology",
+      "Forensic Medicine"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Dialysis",
+      "Pathology Lab",
+      "Ambulance",
+      "Burn Unit"
+    ],
     "doctors": [
-      {"name": "Dr. Murlidhar Tambe", "specialization": "General Surgeon", "experience": 23, "available": true},
-      {"name": "Dr. Suvarna Gaikwad", "specialization": "Gynecologist", "experience": 18, "available": true},
-      {"name": "Dr. Prakash Waykar", "specialization": "Orthopedic Surgeon", "experience": 20, "available": true},
-      {"name": "Dr. Nandini Desai", "specialization": "Pediatrician", "experience": 14, "available": true},
-      {"name": "Dr. Atul Kulkarni", "specialization": "Psychiatrist", "experience": 16, "available": true}
+      {
+        "name": "Dr. Sample 20",
+        "specialization": "neurology",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 13",
+        "specialization": "general",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "cardiology",
+        "experience": 21,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 64",
+        "specialization": "maternity",
+        "experience": 21,
+        "available": true
+      }
     ]
   },
   {
@@ -262,15 +627,60 @@
     "ventilators": 38,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 1000, "dailyCharge": 6000, "category": "moderate", "minEstimate": 12000, "maxEstimate": 150000},
-    "specializations": ["Cardiology","Neurology","Oncology","Orthopedics","Nephrology","Gastroenterology","Pulmonology","Obstetrics & Gynecology","Urology","ENT","Dermatology","Endocrinology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","PET Scan","Dialysis","Cath Lab","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 1000,
+      "dailyCharge": 6000,
+      "category": "moderate",
+      "minEstimate": 12000,
+      "maxEstimate": 150000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Orthopedics",
+      "Nephrology",
+      "Gastroenterology",
+      "Pulmonology",
+      "Obstetrics & Gynecology",
+      "Urology",
+      "ENT",
+      "Dermatology",
+      "Endocrinology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "PET Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. P.K. Grant", "specialization": "Cardiologist", "experience": 26, "available": true},
-      {"name": "Dr. Shilpa Agarwal", "specialization": "Gynecologist", "experience": 19, "available": true},
-      {"name": "Dr. Vikas Oswal", "specialization": "Neurologist", "experience": 17, "available": true},
-      {"name": "Dr. Milind Kirtane", "specialization": "Oncologist", "experience": 21, "available": true},
-      {"name": "Dr. Rashmi Patwardhan", "specialization": "Endocrinologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 36",
+        "specialization": "maternity",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 89",
+        "specialization": "cardiology",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 73",
+        "specialization": "general",
+        "experience": 7,
+        "available": true
+      }
     ]
   },
   {
@@ -292,14 +702,57 @@
     "ventilators": 25,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 900, "dailyCharge": 5500, "category": "moderate", "minEstimate": 10000, "maxEstimate": 130000},
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Nephrology","Gastroenterology","Obstetrics & Gynecology","Pulmonology","Urology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Cath Lab","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 900,
+      "dailyCharge": 5500,
+      "category": "moderate",
+      "minEstimate": 10000,
+      "maxEstimate": 130000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Nephrology",
+      "Gastroenterology",
+      "Obstetrics & Gynecology",
+      "Pulmonology",
+      "Urology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Charudutt Apte", "specialization": "Neurosurgeon", "experience": 28, "available": true},
-      {"name": "Dr. Manisha Jagtap", "specialization": "Gynecologist", "experience": 15, "available": true},
-      {"name": "Dr. Sunil Rao", "specialization": "Cardiologist", "experience": 20, "available": true},
-      {"name": "Dr. Priya Shinde", "specialization": "Dermatologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "general",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 97",
+        "specialization": "oncology",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 34",
+        "specialization": "neurology",
+        "experience": 8,
+        "available": true
+      }
     ]
   },
   {
@@ -321,15 +774,62 @@
     "ventilators": 35,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 1100, "dailyCharge": 7000, "category": "moderate", "minEstimate": 14000, "maxEstimate": 180000},
-    "specializations": ["Cardiology","Neurology","Oncology","Orthopedics","Nephrology","Urology","Gastroenterology","Obstetrics & Gynecology","Pediatrics","Pulmonology","Endocrinology","Rheumatology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","PICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Cath Lab","Robotic Surgery","Physiotherapy","Ambulance","Cancer Centre"],
+    "budget": {
+      "consultationFee": 1100,
+      "dailyCharge": 7000,
+      "category": "moderate",
+      "minEstimate": 14000,
+      "maxEstimate": 180000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Orthopedics",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Pulmonology",
+      "Endocrinology",
+      "Rheumatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "PICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Robotic Surgery",
+      "Physiotherapy",
+      "Ambulance",
+      "Cancer Centre"
+    ],
     "doctors": [
-      {"name": "Dr. Vijay Dikshit", "specialization": "Cardiologist", "experience": 22, "available": true},
-      {"name": "Dr. Shalini Pandit", "specialization": "Oncologist", "experience": 17, "available": true},
-      {"name": "Dr. Rahul Pandit", "specialization": "Pulmonologist", "experience": 19, "available": true},
-      {"name": "Dr. Archana Dhawan", "specialization": "Gynecologist", "experience": 14, "available": true},
-      {"name": "Dr. Prasad Kulkarni", "specialization": "Orthopedic Surgeon", "experience": 16, "available": true}
+      {
+        "name": "Dr. Sample 88",
+        "specialization": "cardiology",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 24",
+        "specialization": "maternity",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 48",
+        "specialization": "orthopedics",
+        "experience": 23,
+        "available": true
+      }
     ]
   },
   {
@@ -341,8 +841,8 @@
     "area": "urban",
     "address": "Erandwane, Near Mhatre Bridge, Pune 411004",
     "phone": "020-40151000",
-    "lat": 18.5050,
-    "lng": 73.8290,
+    "lat": 18.505,
+    "lng": 73.829,
     "established": 1989,
     "rating": 4.4,
     "reviewCount": 367,
@@ -351,14 +851,56 @@
     "ventilators": 28,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 700, "dailyCharge": 4500, "category": "economy", "minEstimate": 8000, "maxEstimate": 100000},
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Obstetrics & Gynecology","Nephrology","ENT","Ophthalmology","Dermatology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 700,
+      "dailyCharge": 4500,
+      "category": "economy",
+      "minEstimate": 8000,
+      "maxEstimate": 100000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Nephrology",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Aniruddha Malpani", "specialization": "Cardiologist", "experience": 20, "available": true},
-      {"name": "Dr. Varsha Kelkar", "specialization": "Gynecologist", "experience": 16, "available": true},
-      {"name": "Dr. Sandeep Patil", "specialization": "Orthopedic Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Leena Dhongde", "specialization": "Pediatrician", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 69",
+        "specialization": "general",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 88",
+        "specialization": "orthopedics",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 88",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -381,14 +923,57 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology","Dermatology","Psychiatry","Forensic Medicine","Radiology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","Radiology","CT Scan","Dialysis","Pathology Lab","Ambulance","Burn Unit"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology",
+      "Psychiatry",
+      "Forensic Medicine",
+      "Radiology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Dialysis",
+      "Pathology Lab",
+      "Ambulance",
+      "Burn Unit"
+    ],
     "doctors": [
-      {"name": "Dr. Ashok Goel", "specialization": "General Surgeon", "experience": 24, "available": true},
-      {"name": "Dr. Swati Mohan", "specialization": "Gynecologist", "experience": 19, "available": true},
-      {"name": "Dr. Anil Dongre", "specialization": "Orthopedic Surgeon", "experience": 18, "available": true},
-      {"name": "Dr. Rekha Borkar", "specialization": "Pediatrician", "experience": 15, "available": true},
-      {"name": "Dr. Manoj Tiwari", "specialization": "Psychiatrist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "general",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 43",
+        "specialization": "maternity",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 28",
+        "specialization": "oncology",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 85",
+        "specialization": "neurology",
+        "experience": 19,
+        "available": true
+      }
     ]
   },
   {
@@ -410,14 +995,55 @@
     "ventilators": 18,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 700, "dailyCharge": 4000, "category": "economy", "minEstimate": 7000, "maxEstimate": 90000},
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Nephrology","Obstetrics & Gynecology","Urology","Gastroenterology","Dermatology","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 700,
+      "dailyCharge": 4000,
+      "category": "economy",
+      "minEstimate": 7000,
+      "maxEstimate": 90000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Nephrology",
+      "Obstetrics & Gynecology",
+      "Urology",
+      "Gastroenterology",
+      "Dermatology",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Anup Marar", "specialization": "Cardiologist", "experience": 19, "available": true},
-      {"name": "Dr. Sonal Bhutada", "specialization": "Gynecologist", "experience": 14, "available": true},
-      {"name": "Dr. Sachin Deshpande", "specialization": "Neurologist", "experience": 16, "available": true},
-      {"name": "Dr. Nikhil Raut", "specialization": "Orthopedic Surgeon", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "general",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 42",
+        "specialization": "neurology",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 37",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      }
     ]
   },
   {
@@ -439,13 +1065,51 @@
     "ventilators": 15,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 600, "dailyCharge": 3500, "category": "economy", "minEstimate": 6000, "maxEstimate": 80000},
-    "specializations": ["Cardiology","Orthopedics","General Surgery","Obstetrics & Gynecology","Pediatrics","Nephrology","Gastroenterology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 600,
+      "dailyCharge": 3500,
+      "category": "economy",
+      "minEstimate": 6000,
+      "maxEstimate": 80000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Nephrology",
+      "Gastroenterology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Prashant Jagtap", "specialization": "Cardiologist", "experience": 15, "available": true},
-      {"name": "Dr. Deepa Naik", "specialization": "Gynecologist", "experience": 12, "available": true},
-      {"name": "Dr. Vinay Shukla", "specialization": "General Surgeon", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 59",
+        "specialization": "oncology",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 33",
+        "specialization": "general",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 62",
+        "specialization": "pediatrics",
+        "experience": 24,
+        "available": true
+      }
     ]
   },
   {
@@ -468,12 +1132,50 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Hemant Sonawane", "specialization": "General Surgeon", "experience": 17, "available": true},
-      {"name": "Dr. Pallavi Ahire", "specialization": "Gynecologist", "experience": 13, "available": true},
-      {"name": "Dr. Sandip More", "specialization": "Orthopedic Surgeon", "experience": 15, "available": true}
+      {
+        "name": "Dr. Sample 37",
+        "specialization": "neurology",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 88",
+        "specialization": "maternity",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 65",
+        "specialization": "pediatrics",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 93",
+        "specialization": "general",
+        "experience": 11,
+        "available": true
+      }
     ]
   },
   {
@@ -486,7 +1188,7 @@
     "address": "Mumbai Naka, Nashik 422002",
     "phone": "0253-6636333",
     "lat": 19.9967,
-    "lng": 73.7710,
+    "lng": 73.771,
     "established": 2006,
     "rating": 4.2,
     "reviewCount": 234,
@@ -495,13 +1197,52 @@
     "ventilators": 14,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 600, "dailyCharge": 3500, "category": "economy", "minEstimate": 6000, "maxEstimate": 75000},
-    "specializations": ["Cardiology","Orthopedics","General Surgery","Obstetrics & Gynecology","Nephrology","Urology","Gastroenterology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 600,
+      "dailyCharge": 3500,
+      "category": "economy",
+      "minEstimate": 6000,
+      "maxEstimate": 75000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Amol Baheti", "specialization": "Cardiologist", "experience": 14, "available": true},
-      {"name": "Dr. Vrushali Godse", "specialization": "Gynecologist", "experience": 11, "available": true},
-      {"name": "Dr. Rajiv Phalke", "specialization": "Orthopedic Surgeon", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 11",
+        "specialization": "cardiology",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 89",
+        "specialization": "general",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 61",
+        "specialization": "pediatrics",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -514,7 +1255,7 @@
     "address": "Rajarampuri, Kolhapur 416001",
     "phone": "0231-2653454",
     "lat": 16.6913,
-    "lng": 74.2270,
+    "lng": 74.227,
     "established": 1960,
     "rating": 3.9,
     "reviewCount": 156,
@@ -524,12 +1265,51 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Sachin Patil", "specialization": "General Surgeon", "experience": 19, "available": true},
-      {"name": "Dr. Rashmi Chavan", "specialization": "Gynecologist", "experience": 15, "available": true},
-      {"name": "Dr. Vijay Mane", "specialization": "Orthopedic Surgeon", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 73",
+        "specialization": "orthopedics",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 40",
+        "specialization": "cardiology",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 39",
+        "specialization": "maternity",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 56",
+        "specialization": "general",
+        "experience": 5,
+        "available": true
+      }
     ]
   },
   {
@@ -541,7 +1321,7 @@
     "area": "semi-urban",
     "address": "Station Road, Kolhapur 416001",
     "phone": "0231-2650000",
-    "lat": 16.7000,
+    "lat": 16.7,
     "lng": 74.2333,
     "established": 1998,
     "rating": 4.1,
@@ -551,13 +1331,50 @@
     "ventilators": 10,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 500, "dailyCharge": 2500, "category": "economy", "minEstimate": 4000, "maxEstimate": 50000},
-    "specializations": ["Cardiology","Orthopedics","General Surgery","Obstetrics & Gynecology","Pediatrics","Nephrology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","CT Scan","Dialysis","Ambulance"],
+    "budget": {
+      "consultationFee": 500,
+      "dailyCharge": 2500,
+      "category": "economy",
+      "minEstimate": 4000,
+      "maxEstimate": 50000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Nephrology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "CT Scan",
+      "Dialysis",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Avinash Potdar", "specialization": "Cardiologist", "experience": 16, "available": true},
-      {"name": "Dr. Shruti Deshmukh", "specialization": "Gynecologist", "experience": 12, "available": true},
-      {"name": "Dr. Yogesh Patil", "specialization": "Orthopedic Surgeon", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 89",
+        "specialization": "oncology",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 57",
+        "specialization": "maternity",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 51",
+        "specialization": "pediatrics",
+        "experience": 11,
+        "available": true
+      }
     ]
   },
   {
@@ -580,12 +1397,47 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology","Dermatology","Psychiatry"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology",
+      "Dermatology",
+      "Psychiatry"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Nandkishor Maske", "specialization": "General Surgeon", "experience": 21, "available": true},
-      {"name": "Dr. Jyoti Giri", "specialization": "Gynecologist", "experience": 17, "available": true},
-      {"name": "Dr. Amar Tupe", "specialization": "Orthopedic Surgeon", "experience": 16, "available": true}
+      {
+        "name": "Dr. Sample 80",
+        "specialization": "neurology",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 75",
+        "specialization": "maternity",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "general",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -607,14 +1459,56 @@
     "ventilators": 20,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 600, "dailyCharge": 3000, "category": "economy", "minEstimate": 5000, "maxEstimate": 70000},
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Obstetrics & Gynecology","Nephrology","Urology","Gastroenterology","Pediatrics","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 600,
+      "dailyCharge": 3000,
+      "category": "economy",
+      "minEstimate": 5000,
+      "maxEstimate": 70000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology",
+      "Pediatrics",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Sudhir Gadgil", "specialization": "Cardiologist", "experience": 18, "available": true},
-      {"name": "Dr. Madhavi Kulkarni", "specialization": "Gynecologist", "experience": 14, "available": true},
-      {"name": "Dr. Ajinkya Deo", "specialization": "Neurologist", "experience": 13, "available": true},
-      {"name": "Dr. Prachi Joshi", "specialization": "Ophthalmologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 60",
+        "specialization": "orthopedics",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 85",
+        "specialization": "maternity",
+        "experience": 11,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 36",
+        "specialization": "pediatrics",
+        "experience": 19,
+        "available": true
+      }
     ]
   },
   {
@@ -637,12 +1531,44 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Prakash Thakkar", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Kavita Chaudhari", "specialization": "Gynecologist", "experience": 13, "available": true},
-      {"name": "Dr. Nilesh Parab", "specialization": "Pediatrician", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 11",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 16",
+        "specialization": "orthopedics",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 25",
+        "specialization": "maternity",
+        "experience": 9,
+        "available": true
+      }
     ]
   },
   {
@@ -654,8 +1580,8 @@
     "area": "urban",
     "address": "Eastern Express Highway, Thane 400601",
     "phone": "022-25472972",
-    "lat": 19.2100,
-    "lng": 72.9800,
+    "lat": 19.21,
+    "lng": 72.98,
     "established": 2007,
     "rating": 4.4,
     "reviewCount": 356,
@@ -664,14 +1590,57 @@
     "ventilators": 22,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 900, "dailyCharge": 5500, "category": "moderate", "minEstimate": 10000, "maxEstimate": 140000},
-    "specializations": ["Cardiology","Neurology","Oncology","Orthopedics","Nephrology","Urology","Gastroenterology","Obstetrics & Gynecology","Pulmonology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Cath Lab","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 900,
+      "dailyCharge": 5500,
+      "category": "moderate",
+      "minEstimate": 10000,
+      "maxEstimate": 140000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Oncology",
+      "Orthopedics",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology",
+      "Obstetrics & Gynecology",
+      "Pulmonology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Cath Lab",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Rajiv Bhagwat", "specialization": "Cardiologist", "experience": 20, "available": true},
-      {"name": "Dr. Savita Mahajan", "specialization": "Gynecologist", "experience": 15, "available": true},
-      {"name": "Dr. Anand Phatak", "specialization": "Oncologist", "experience": 17, "available": true},
-      {"name": "Dr. Tushar Pisal", "specialization": "Urologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 39",
+        "specialization": "pediatrics",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 89",
+        "specialization": "orthopedics",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 66",
+        "specialization": "neurology",
+        "experience": 20,
+        "available": true
+      }
     ]
   },
   {
@@ -694,11 +1663,49 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Rajkumar Desai", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Asha Jadhav", "specialization": "Gynecologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 33",
+        "specialization": "oncology",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "maternity",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 99",
+        "specialization": "pediatrics",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 96",
+        "specialization": "general",
+        "experience": 8,
+        "available": true
+      }
     ]
   },
   {
@@ -721,11 +1728,49 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Mohan Juvale", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Shubhangi Parkar", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 86",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 78",
+        "specialization": "orthopedics",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "cardiology",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 71",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -748,11 +1793,53 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Deepak Bhosale", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Seema Shinde", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "maternity",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 52",
+        "specialization": "neurology",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 94",
+        "specialization": "general",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 49",
+        "specialization": "oncology",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 11",
+        "specialization": "pediatrics",
+        "experience": 24,
+        "available": true
+      }
     ]
   },
   {
@@ -775,11 +1862,41 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Balasaheb Kshirsagar", "specialization": "General Surgeon", "experience": 17, "available": true},
-      {"name": "Dr. Sunanda Jadhav", "specialization": "Gynecologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 64",
+        "specialization": "maternity",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 12",
+        "specialization": "pediatrics",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 66",
+        "specialization": "general",
+        "experience": 7,
+        "available": true
+      }
     ]
   },
   {
@@ -792,7 +1909,7 @@
     "address": "Ratnagiri 415612",
     "phone": "02352-222229",
     "lat": 16.9944,
-    "lng": 73.3000,
+    "lng": 73.3,
     "established": 1958,
     "rating": 3.4,
     "reviewCount": 76,
@@ -802,11 +1919,41 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Subhash Sawardekar", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Medha Satam", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 59",
+        "specialization": "general",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 14",
+        "specialization": "orthopedics",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 76",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      }
     ]
   },
   {
@@ -819,7 +1966,7 @@
     "address": "Vazirabad, Nanded 431601",
     "phone": "02462-234567",
     "lat": 19.1383,
-    "lng": 77.3210,
+    "lng": 77.321,
     "established": 1965,
     "rating": 3.6,
     "reviewCount": 112,
@@ -829,12 +1976,43 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Govind Bhaskar", "specialization": "General Surgeon", "experience": 18, "available": true},
-      {"name": "Dr. Vandana Deshmukh", "specialization": "Gynecologist", "experience": 14, "available": true},
-      {"name": "Dr. Ramesh Kadu", "specialization": "Orthopedic Surgeon", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "general",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 45",
+        "specialization": "oncology",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 53",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      }
     ]
   },
   {
@@ -857,11 +2035,48 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Dilip Tarale", "specialization": "General Surgeon", "experience": 17, "available": true},
-      {"name": "Dr. Jyoti Thakre", "specialization": "Gynecologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 73",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "cardiology",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 92",
+        "specialization": "pediatrics",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      }
     ]
   },
   {
@@ -884,11 +2099,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ashwin Ukey", "specialization": "General Surgeon", "experience": 12, "available": true},
-      {"name": "Dr. Laxmi Meshram", "specialization": "Gynecologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 49",
+        "specialization": "oncology",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 65",
+        "specialization": "maternity",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 45",
+        "specialization": "pediatrics",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 15",
+        "specialization": "general",
+        "experience": 21,
+        "available": true
+      }
     ]
   },
   {
@@ -900,8 +2150,8 @@
     "area": "rural",
     "address": "Shodhgram, Gadchiroli 442605",
     "phone": "07138-255407",
-    "lat": 20.1750,
-    "lng": 79.7800,
+    "lat": 20.175,
+    "lng": 79.78,
     "established": 1986,
     "rating": 4.6,
     "reviewCount": 89,
@@ -910,12 +2160,48 @@
     "ventilators": 2,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 50, "dailyCharge": 200, "category": "economy", "minEstimate": 500, "maxEstimate": 5000},
-    "specializations": ["Community Health","Pediatrics","Obstetrics & Gynecology","General Medicine","Neonatal Care"],
-    "facilities": ["Emergency Care","Basic ICU","Pharmacy","Pathology Lab","Community Health Outreach","Ambulance","Neonatal Care Unit"],
+    "budget": {
+      "consultationFee": 50,
+      "dailyCharge": 200,
+      "category": "economy",
+      "minEstimate": 500,
+      "maxEstimate": 5000
+    },
+    "specializations": [
+      "Community Health",
+      "Pediatrics",
+      "Obstetrics & Gynecology",
+      "General Medicine",
+      "Neonatal Care"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic ICU",
+      "Pharmacy",
+      "Pathology Lab",
+      "Community Health Outreach",
+      "Ambulance",
+      "Neonatal Care Unit"
+    ],
     "doctors": [
-      {"name": "Dr. Abhay Bang", "specialization": "Community Health Specialist", "experience": 38, "available": true},
-      {"name": "Dr. Rani Bang", "specialization": "Gynecologist", "experience": 36, "available": true}
+      {
+        "name": "Dr. Sample 73",
+        "specialization": "maternity",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 95",
+        "specialization": "neurology",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 35",
+        "specialization": "pediatrics",
+        "experience": 16,
+        "available": true
+      }
     ]
   },
   {
@@ -927,8 +2213,8 @@
     "area": "rural",
     "address": "Toranmal Road, Nandurbar 425412",
     "phone": "02564-210033",
-    "lat": 21.3690,
-    "lng": 74.2390,
+    "lat": 21.369,
+    "lng": 74.239,
     "established": 1972,
     "rating": 3.1,
     "reviewCount": 38,
@@ -938,11 +2224,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Pradeep Gavit", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Rekha Vasave", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "general",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 51",
+        "specialization": "oncology",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "orthopedics",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 28",
+        "specialization": "maternity",
+        "experience": 6,
+        "available": true
+      }
     ]
   },
   {
@@ -965,11 +2286,51 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","Basic ICU","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "Basic ICU",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Sanjay Thombre", "specialization": "General Surgeon", "experience": 12, "available": true},
-      {"name": "Dr. Swati Gaikwad", "specialization": "Gynecologist", "experience": 9, "available": true}
+      {
+        "name": "Dr. Sample 24",
+        "specialization": "orthopedics",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 25",
+        "specialization": "maternity",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 54",
+        "specialization": "cardiology",
+        "experience": 11,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 46",
+        "specialization": "general",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 54",
+        "specialization": "pediatrics",
+        "experience": 20,
+        "available": true
+      }
     ]
   },
   {
@@ -982,7 +2343,7 @@
     "address": "Majalgaon Road, Beed 431122",
     "phone": "02442-222355",
     "lat": 18.9893,
-    "lng": 75.7600,
+    "lng": 75.76,
     "established": 1968,
     "rating": 3.2,
     "reviewCount": 56,
@@ -992,11 +2353,47 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Subhash Kale", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Anita Suryawanshi", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 39",
+        "specialization": "general",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 82",
+        "specialization": "maternity",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 88",
+        "specialization": "oncology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 22",
+        "specialization": "neurology",
+        "experience": 6,
+        "available": true
+      }
     ]
   },
   {
@@ -1009,7 +2406,7 @@
     "address": "Near Bus Stand, Dharashiv 413501",
     "phone": "02472-222388",
     "lat": 18.1862,
-    "lng": 76.0430,
+    "lng": 76.043,
     "established": 1969,
     "rating": 3.1,
     "reviewCount": 42,
@@ -1019,11 +2416,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Mahadev Gaikwad", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Ujwala Deshpande", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 72",
+        "specialization": "general",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 72",
+        "specialization": "orthopedics",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 99",
+        "specialization": "maternity",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 82",
+        "specialization": "neurology",
+        "experience": 18,
+        "available": true
+      }
     ]
   },
   {
@@ -1046,11 +2478,41 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Pramod Gaware", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Sunita Pande", "specialization": "Gynecologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "general",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 51",
+        "specialization": "orthopedics",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 74",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -1062,8 +2524,8 @@
     "area": "rural",
     "address": "Hingoli 431513",
     "phone": "02456-222199",
-    "lat": 19.7200,
-    "lng": 77.1500,
+    "lat": 19.72,
+    "lng": 77.15,
     "established": 1980,
     "rating": 3.0,
     "reviewCount": 28,
@@ -1073,11 +2535,39 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","Basic ICU","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "Basic ICU",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Nilesh Ghatole", "specialization": "General Surgeon", "experience": 10, "available": true},
-      {"name": "Dr. Sarika Deshmukh", "specialization": "Gynecologist", "experience": 8, "available": true}
+      {
+        "name": "Dr. Sample 60",
+        "specialization": "neurology",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 69",
+        "specialization": "maternity",
+        "experience": 11,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 73",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -1100,11 +2590,48 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Vinod Deshmukh", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Mangala Naik", "specialization": "Gynecologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 38",
+        "specialization": "general",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 64",
+        "specialization": "maternity",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 49",
+        "specialization": "oncology",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 21",
+        "specialization": "neurology",
+        "experience": 10,
+        "available": true
+      }
     ]
   },
   {
@@ -1127,11 +2654,53 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Suresh Waghamare", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Savita Deshpande", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 67",
+        "specialization": "orthopedics",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 99",
+        "specialization": "maternity",
+        "experience": 21,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 64",
+        "specialization": "cardiology",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 55",
+        "specialization": "general",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 26",
+        "specialization": "pediatrics",
+        "experience": 23,
+        "available": true
+      }
     ]
   },
   {
@@ -1144,7 +2713,7 @@
     "address": "Civil Hospital Road, Gondia 441601",
     "phone": "07182-233022",
     "lat": 21.4602,
-    "lng": 80.1950,
+    "lng": 80.195,
     "established": 1966,
     "rating": 3.2,
     "reviewCount": 41,
@@ -1154,11 +2723,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ratan Pusadkar", "specialization": "General Surgeon", "experience": 13, "available": true},
-      {"name": "Dr. Asha Borkar", "specialization": "Gynecologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 76",
+        "specialization": "general",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 20",
+        "specialization": "oncology",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 58",
+        "specialization": "cardiology",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 11",
+        "specialization": "maternity",
+        "experience": 7,
+        "available": true
+      }
     ]
   },
   {
@@ -1170,7 +2774,7 @@
     "area": "rural",
     "address": "Civil Lines, Chandrapur 442401",
     "phone": "07172-253033",
-    "lat": 19.9500,
+    "lat": 19.95,
     "lng": 79.2961,
     "established": 1962,
     "rating": 3.4,
@@ -1181,12 +2785,49 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ashish Gawande", "specialization": "General Surgeon", "experience": 17, "available": true},
-      {"name": "Dr. Smita Bhoyar", "specialization": "Gynecologist", "experience": 13, "available": true},
-      {"name": "Dr. Rahul Khamkar", "specialization": "Orthopedic Surgeon", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 16",
+        "specialization": "general",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 23",
+        "specialization": "oncology",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 34",
+        "specialization": "pediatrics",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 50",
+        "specialization": "maternity",
+        "experience": 24,
+        "available": true
+      }
     ]
   },
   {
@@ -1199,7 +2840,7 @@
     "address": "Hospital Road, Bhandara 441904",
     "phone": "07184-252055",
     "lat": 21.1678,
-    "lng": 79.6500,
+    "lng": 79.65,
     "established": 1968,
     "rating": 3.1,
     "reviewCount": 35,
@@ -1209,11 +2850,45 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","Basic ICU","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "Basic ICU",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ramchandra Uke", "specialization": "General Surgeon", "experience": 12, "available": true},
-      {"name": "Dr. Anjali Chaware", "specialization": "Gynecologist", "experience": 9, "available": true}
+      {
+        "name": "Dr. Sample 26",
+        "specialization": "general",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 14",
+        "specialization": "oncology",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 55",
+        "specialization": "orthopedics",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 82",
+        "specialization": "maternity",
+        "experience": 24,
+        "available": true
+      }
     ]
   },
   {
@@ -1236,11 +2911,53 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Anil Shinde", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Pratibha Ghuge", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 19",
+        "specialization": "orthopedics",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 75",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "neurology",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 78",
+        "specialization": "general",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 38",
+        "specialization": "oncology",
+        "experience": 5,
+        "available": true
+      }
     ]
   },
   {
@@ -1252,8 +2969,8 @@
     "area": "semi-urban",
     "address": "Near Railway Station, Akola 444001",
     "phone": "0724-2433055",
-    "lat": 20.7000,
-    "lng": 77.0100,
+    "lat": 20.7,
+    "lng": 77.01,
     "established": 1958,
     "rating": 3.4,
     "reviewCount": 89,
@@ -1263,11 +2980,54 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Rajendra Wankhade", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Vaishali Ingle", "specialization": "Gynecologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 39",
+        "specialization": "orthopedics",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 91",
+        "specialization": "maternity",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 47",
+        "specialization": "cardiology",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 12",
+        "specialization": "neurology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 32",
+        "specialization": "general",
+        "experience": 8,
+        "available": true
+      }
     ]
   },
   {
@@ -1290,11 +3050,47 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Mahesh Patil", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Suvarna Mahajan", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 65",
+        "specialization": "neurology",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 34",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 48",
+        "specialization": "pediatrics",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 61",
+        "specialization": "maternity",
+        "experience": 19,
+        "available": true
+      }
     ]
   },
   {
@@ -1306,7 +3102,7 @@
     "area": "semi-urban",
     "address": "Lane No. 4, Dhule 424001",
     "phone": "02562-233044",
-    "lat": 20.8990,
+    "lat": 20.899,
     "lng": 74.7749,
     "established": 1960,
     "rating": 3.3,
@@ -1317,11 +3113,41 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Jayant Sonawane", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Meenal Chaudhari", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 72",
+        "specialization": "general",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 98",
+        "specialization": "oncology",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 35",
+        "specialization": "maternity",
+        "experience": 11,
+        "available": true
+      }
     ]
   },
   {
@@ -1344,11 +3170,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Babasaheb Sirsat", "specialization": "General Surgeon", "experience": 13, "available": true},
-      {"name": "Dr. Sadhana Kale", "specialization": "Gynecologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 83",
+        "specialization": "general",
+        "experience": 6,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 83",
+        "specialization": "maternity",
+        "experience": 21,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 17",
+        "specialization": "orthopedics",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 19",
+        "specialization": "neurology",
+        "experience": 20,
+        "available": true
+      }
     ]
   },
   {
@@ -1371,11 +3232,48 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Shashikant Mali", "specialization": "General Surgeon", "experience": 17, "available": true},
-      {"name": "Dr. Aparna Patil", "specialization": "Gynecologist", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 31",
+        "specialization": "general",
+        "experience": 19,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 84",
+        "specialization": "oncology",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 81",
+        "specialization": "pediatrics",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 24",
+        "specialization": "maternity",
+        "experience": 19,
+        "available": true
+      }
     ]
   },
   {
@@ -1388,7 +3286,7 @@
     "address": "Station Road, Ahmednagar 414001",
     "phone": "0241-2322488",
     "lat": 19.0948,
-    "lng": 74.7480,
+    "lng": 74.748,
     "established": 1958,
     "rating": 3.5,
     "reviewCount": 88,
@@ -1398,11 +3296,54 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Anil Gawli", "specialization": "General Surgeon", "experience": 16, "available": true},
-      {"name": "Dr. Manda Bhakare", "specialization": "Gynecologist", "experience": 13, "available": true}
+      {
+        "name": "Dr. Sample 28",
+        "specialization": "orthopedics",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 15",
+        "specialization": "maternity",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 41",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 54",
+        "specialization": "oncology",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 34",
+        "specialization": "pediatrics",
+        "experience": 14,
+        "available": true
+      }
     ]
   },
   {
@@ -1414,8 +3355,8 @@
     "area": "rural",
     "address": "Dharni Taluka, Melghat, Amravati 444702",
     "phone": "07227-240033",
-    "lat": 21.4550,
-    "lng": 77.0600,
+    "lat": 21.455,
+    "lng": 77.06,
     "established": 1985,
     "rating": 2.8,
     "reviewCount": 18,
@@ -1425,11 +3366,43 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["Emergency Care","Basic Ward","Pharmacy","Ambulance","Vaccination Centre"],
+    "specializations": [
+      "General Medicine",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic Ward",
+      "Pharmacy",
+      "Ambulance",
+      "Vaccination Centre"
+    ],
     "doctors": [
-      {"name": "Dr. Santosh Tayade", "specialization": "General Physician", "experience": 8, "available": true},
-      {"name": "Dr. Nirmala Khandare", "specialization": "Gynecologist", "experience": 6, "available": true}
+      {
+        "name": "Dr. Sample 20",
+        "specialization": "neurology",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 92",
+        "specialization": "general",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 99",
+        "specialization": "oncology",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 68",
+        "specialization": "maternity",
+        "experience": 13,
+        "available": true
+      }
     ]
   },
   {
@@ -1452,11 +3425,46 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Ravindra Patil", "specialization": "General Surgeon", "experience": 11, "available": true},
-      {"name": "Dr. Bharati Thakur", "specialization": "Gynecologist", "experience": 9, "available": true}
+      {
+        "name": "Dr. Sample 35",
+        "specialization": "general",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 15",
+        "specialization": "oncology",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 95",
+        "specialization": "pediatrics",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 95",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      }
     ]
   },
   {
@@ -1479,11 +3487,44 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["Emergency Care","Basic Ward","Pharmacy","Ambulance","Vaccination Centre","Malaria Testing"],
+    "specializations": [
+      "General Medicine",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic Ward",
+      "Pharmacy",
+      "Ambulance",
+      "Vaccination Centre",
+      "Malaria Testing"
+    ],
     "doctors": [
-      {"name": "Dr. Ashok Warghade", "specialization": "General Physician", "experience": 9, "available": true},
-      {"name": "Dr. Smita Bhoir", "specialization": "Gynecologist", "experience": 7, "available": true}
+      {
+        "name": "Dr. Sample 93",
+        "specialization": "orthopedics",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 96",
+        "specialization": "maternity",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 61",
+        "specialization": "oncology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 41",
+        "specialization": "general",
+        "experience": 14,
+        "available": true
+      }
     ]
   },
   {
@@ -1496,7 +3537,7 @@
     "address": "Oros, Sindhudurg 416812",
     "phone": "02362-228044",
     "lat": 16.0533,
-    "lng": 73.6500,
+    "lng": 73.65,
     "established": 1974,
     "rating": 3.3,
     "reviewCount": 38,
@@ -1506,11 +3547,41 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Satish Sawant", "specialization": "General Surgeon", "experience": 13, "available": true},
-      {"name": "Dr. Rashmi Naik", "specialization": "Gynecologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 36",
+        "specialization": "general",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 46",
+        "specialization": "oncology",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "maternity",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -1522,8 +3593,8 @@
     "area": "rural",
     "address": "Kalwan Taluka, Nashik 423501",
     "phone": "02592-220044",
-    "lat": 20.4900,
-    "lng": 73.7100,
+    "lat": 20.49,
+    "lng": 73.71,
     "established": 1988,
     "rating": 2.8,
     "reviewCount": 15,
@@ -1533,10 +3604,49 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["Emergency Care","Basic Ward","Pharmacy","Ambulance","Vaccination Centre"],
+    "specializations": [
+      "General Medicine",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic Ward",
+      "Pharmacy",
+      "Ambulance",
+      "Vaccination Centre"
+    ],
     "doctors": [
-      {"name": "Dr. Vikram Deore", "specialization": "General Physician", "experience": 6, "available": true}
+      {
+        "name": "Dr. Sample 17",
+        "specialization": "maternity",
+        "experience": 20,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 47",
+        "specialization": "cardiology",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 54",
+        "specialization": "neurology",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 66",
+        "specialization": "general",
+        "experience": 22,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 72",
+        "specialization": "oncology",
+        "experience": 19,
+        "available": true
+      }
     ]
   },
   {
@@ -1559,11 +3669,51 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["24/7 Emergency","Basic ICU","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "Basic ICU",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Farooq Sheikh", "specialization": "General Surgeon", "experience": 12, "available": true},
-      {"name": "Dr. Hema Nikam", "specialization": "Gynecologist", "experience": 9, "available": true}
+      {
+        "name": "Dr. Sample 10",
+        "specialization": "orthopedics",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 34",
+        "specialization": "maternity",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 27",
+        "specialization": "cardiology",
+        "experience": 21,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 31",
+        "specialization": "general",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 18",
+        "specialization": "oncology",
+        "experience": 25,
+        "available": true
+      }
     ]
   },
   {
@@ -1575,8 +3725,8 @@
     "area": "rural",
     "address": "Swami Ramanand Tirth Hospital, Ambajogai 431517",
     "phone": "02446-247033",
-    "lat": 18.7300,
-    "lng": 76.3800,
+    "lat": 18.73,
+    "lng": 76.38,
     "established": 1981,
     "rating": 3.4,
     "reviewCount": 56,
@@ -1586,12 +3736,48 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Pravin Landge", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Jyoti Garje", "specialization": "Gynecologist", "experience": 11, "available": true},
-      {"name": "Dr. Sachin Phad", "specialization": "Orthopedic Surgeon", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 50",
+        "specialization": "neurology",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 21",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 44",
+        "specialization": "pediatrics",
+        "experience": 14,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 15",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -1614,11 +3800,47 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Mangesh Patil", "specialization": "General Surgeon", "experience": 14, "available": true},
-      {"name": "Dr. Supriya Bhagat", "specialization": "Gynecologist", "experience": 11, "available": true}
+      {
+        "name": "Dr. Sample 40",
+        "specialization": "oncology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 77",
+        "specialization": "orthopedics",
+        "experience": 16,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 97",
+        "specialization": "maternity",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 67",
+        "specialization": "general",
+        "experience": 23,
+        "available": true
+      }
     ]
   },
   {
@@ -1641,11 +3863,49 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Orthopedics","Obstetrics & Gynecology","Pediatrics","ENT"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","CT Scan","Pathology Lab","Ambulance"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Orthopedics",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "ENT"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "CT Scan",
+      "Pathology Lab",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Vivek Sawant", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Prerna Joshi", "specialization": "Gynecologist", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 44",
+        "specialization": "oncology",
+        "experience": 13,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 25",
+        "specialization": "cardiology",
+        "experience": 11,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 81",
+        "specialization": "maternity",
+        "experience": 15,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 16",
+        "specialization": "general",
+        "experience": 7,
+        "available": true
+      }
     ]
   },
   {
@@ -1657,8 +3917,8 @@
     "area": "urban",
     "address": "Aadinath Society, Kalyan-Shil Road, Kalyan 421306",
     "phone": "0251-6699999",
-    "lat": 19.2350,
-    "lng": 73.1290,
+    "lat": 19.235,
+    "lng": 73.129,
     "established": 2012,
     "rating": 4.3,
     "reviewCount": 267,
@@ -1667,13 +3927,56 @@
     "ventilators": 18,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 800, "dailyCharge": 5000, "category": "moderate", "minEstimate": 10000, "maxEstimate": 120000},
-    "specializations": ["Cardiology","Neurology","Orthopedics","General Surgery","Obstetrics & Gynecology","Nephrology","Urology","Gastroenterology","Dermatology","Pediatrics"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 800,
+      "dailyCharge": 5000,
+      "category": "moderate",
+      "minEstimate": 10000,
+      "maxEstimate": 120000
+    },
+    "specializations": [
+      "Cardiology",
+      "Neurology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Nephrology",
+      "Urology",
+      "Gastroenterology",
+      "Dermatology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Manish Hinduja", "specialization": "Cardiologist", "experience": 16, "available": true},
-      {"name": "Dr. Anita Shenoy", "specialization": "Gynecologist", "experience": 13, "available": true},
-      {"name": "Dr. Pravin Jadhav", "specialization": "Orthopedic Surgeon", "experience": 14, "available": true}
+      {
+        "name": "Dr. Sample 24",
+        "specialization": "oncology",
+        "experience": 9,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 15",
+        "specialization": "orthopedics",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 31",
+        "specialization": "neurology",
+        "experience": 5,
+        "available": true
+      }
     ]
   },
   {
@@ -1685,8 +3988,8 @@
     "area": "urban",
     "address": "Plot No. 35, Sector 3, Vashi, Navi Mumbai 400703",
     "phone": "022-27733333",
-    "lat": 19.0810,
-    "lng": 72.9970,
+    "lat": 19.081,
+    "lng": 72.997,
     "established": 2003,
     "rating": 4.1,
     "reviewCount": 223,
@@ -1695,13 +3998,56 @@
     "ventilators": 19,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 700, "dailyCharge": 4500, "category": "moderate", "minEstimate": 8000, "maxEstimate": 100000},
-    "specializations": ["Cardiology","Orthopedics","General Surgery","Obstetrics & Gynecology","Pediatrics","Nephrology","Gastroenterology","ENT","Dermatology","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","NICU","Blood Bank","Pharmacy","MRI","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 700,
+      "dailyCharge": 4500,
+      "category": "moderate",
+      "minEstimate": 8000,
+      "maxEstimate": 100000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Nephrology",
+      "Gastroenterology",
+      "ENT",
+      "Dermatology",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "NICU",
+      "Blood Bank",
+      "Pharmacy",
+      "MRI",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Amit Maydeo", "specialization": "Gastroenterologist", "experience": 22, "available": true},
-      {"name": "Dr. Nandita Shah", "specialization": "Gynecologist", "experience": 15, "available": true},
-      {"name": "Dr. Rajesh Nair", "specialization": "Cardiologist", "experience": 17, "available": true}
+      {
+        "name": "Dr. Sample 55",
+        "specialization": "general",
+        "experience": 10,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 23",
+        "specialization": "cardiology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 58",
+        "specialization": "orthopedics",
+        "experience": 9,
+        "available": true
+      }
     ]
   },
   {
@@ -1713,8 +4059,8 @@
     "area": "semi-urban",
     "address": "Saat Rasta, Solapur 413001",
     "phone": "0217-2733333",
-    "lat": 17.6700,
-    "lng": 75.9100,
+    "lat": 17.67,
+    "lng": 75.91,
     "established": 2005,
     "rating": 4.0,
     "reviewCount": 156,
@@ -1723,13 +4069,52 @@
     "ventilators": 8,
     "hasEmergency": true,
     "hasAmbulance": true,
-    "budget": {"consultationFee": 500, "dailyCharge": 2500, "category": "economy", "minEstimate": 4000, "maxEstimate": 50000},
-    "specializations": ["Cardiology","Orthopedics","General Surgery","Obstetrics & Gynecology","Pediatrics","Nephrology","Urology","Dermatology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","CT Scan","Dialysis","Physiotherapy","Ambulance"],
+    "budget": {
+      "consultationFee": 500,
+      "dailyCharge": 2500,
+      "category": "economy",
+      "minEstimate": 4000,
+      "maxEstimate": 50000
+    },
+    "specializations": [
+      "Cardiology",
+      "Orthopedics",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Nephrology",
+      "Urology",
+      "Dermatology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "CT Scan",
+      "Dialysis",
+      "Physiotherapy",
+      "Ambulance"
+    ],
     "doctors": [
-      {"name": "Dr. Arun Godbole", "specialization": "Cardiologist", "experience": 14, "available": true},
-      {"name": "Dr. Rajani Kulkarni", "specialization": "Gynecologist", "experience": 11, "available": true},
-      {"name": "Dr. Vikas Bhamare", "specialization": "Orthopedic Surgeon", "experience": 12, "available": true}
+      {
+        "name": "Dr. Sample 51",
+        "specialization": "maternity",
+        "experience": 12,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 32",
+        "specialization": "cardiology",
+        "experience": 23,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 87",
+        "specialization": "general",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -1741,8 +4126,8 @@
     "area": "rural",
     "address": "Kalamb Road, Yavatmal 445001",
     "phone": "07232-244044",
-    "lat": 20.3950,
-    "lng": 78.1250,
+    "lat": 20.395,
+    "lng": 78.125,
     "established": 1990,
     "rating": 3.4,
     "reviewCount": 55,
@@ -1752,12 +4137,55 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","General Surgery","Obstetrics & Gynecology","Pediatrics","Orthopedics","Ophthalmology"],
-    "facilities": ["24/7 Emergency","ICU","Blood Bank","Pharmacy","Radiology","Pathology Lab","Ambulance","Eye Care Unit"],
+    "specializations": [
+      "General Medicine",
+      "General Surgery",
+      "Obstetrics & Gynecology",
+      "Pediatrics",
+      "Orthopedics",
+      "Ophthalmology"
+    ],
+    "facilities": [
+      "24/7 Emergency",
+      "ICU",
+      "Blood Bank",
+      "Pharmacy",
+      "Radiology",
+      "Pathology Lab",
+      "Ambulance",
+      "Eye Care Unit"
+    ],
     "doctors": [
-      {"name": "Dr. Kishor Rathod", "specialization": "General Surgeon", "experience": 15, "available": true},
-      {"name": "Dr. Pushpa Thakare", "specialization": "Gynecologist", "experience": 12, "available": true},
-      {"name": "Dr. Ganesh Wanjari", "specialization": "Ophthalmologist", "experience": 10, "available": true}
+      {
+        "name": "Dr. Sample 48",
+        "specialization": "orthopedics",
+        "experience": 5,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 11",
+        "specialization": "maternity",
+        "experience": 8,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 16",
+        "specialization": "cardiology",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 30",
+        "specialization": "general",
+        "experience": 25,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 83",
+        "specialization": "pediatrics",
+        "experience": 15,
+        "available": true
+      }
     ]
   },
   {
@@ -1769,8 +4197,8 @@
     "area": "rural",
     "address": "Mokhada Taluka, Palghar 401604",
     "phone": "02528-240022",
-    "lat": 19.6600,
-    "lng": 73.3300,
+    "lat": 19.66,
+    "lng": 73.33,
     "established": 1992,
     "rating": 2.7,
     "reviewCount": 12,
@@ -1780,10 +4208,44 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","Obstetrics & Gynecology","Pediatrics"],
-    "facilities": ["Emergency Care","Basic Ward","Pharmacy","Ambulance","Vaccination Centre","Malnutrition Treatment"],
+    "specializations": [
+      "General Medicine",
+      "Obstetrics & Gynecology",
+      "Pediatrics"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic Ward",
+      "Pharmacy",
+      "Ambulance",
+      "Vaccination Centre",
+      "Malnutrition Treatment"
+    ],
     "doctors": [
-      {"name": "Dr. Dipak Patil", "specialization": "General Physician", "experience": 5, "available": true}
+      {
+        "name": "Dr. Sample 43",
+        "specialization": "general",
+        "experience": 17,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 26",
+        "specialization": "orthopedics",
+        "experience": 21,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 70",
+        "specialization": "pediatrics",
+        "experience": 24,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 22",
+        "specialization": "maternity",
+        "experience": 24,
+        "available": true
+      }
     ]
   },
   {
@@ -1795,8 +4257,8 @@
     "area": "rural",
     "address": "Korchi Taluka, Gadchiroli 441209",
     "phone": "07134-240011",
-    "lat": 20.5200,
-    "lng": 79.7400,
+    "lat": 20.52,
+    "lng": 79.74,
     "established": 1995,
     "rating": 2.6,
     "reviewCount": 8,
@@ -1806,10 +4268,42 @@
     "hasEmergency": true,
     "hasAmbulance": true,
     "budget": null,
-    "specializations": ["General Medicine","Obstetrics & Gynecology"],
-    "facilities": ["Emergency Care","Basic Ward","Pharmacy","Ambulance","Vaccination Centre"],
+    "specializations": [
+      "General Medicine",
+      "Obstetrics & Gynecology"
+    ],
+    "facilities": [
+      "Emergency Care",
+      "Basic Ward",
+      "Pharmacy",
+      "Ambulance",
+      "Vaccination Centre"
+    ],
     "doctors": [
-      {"name": "Dr. Sunil Madavi", "specialization": "General Physician", "experience": 4, "available": true}
+      {
+        "name": "Dr. Sample 78",
+        "specialization": "oncology",
+        "experience": 7,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 16",
+        "specialization": "maternity",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 91",
+        "specialization": "pediatrics",
+        "experience": 18,
+        "available": true
+      },
+      {
+        "name": "Dr. Sample 58",
+        "specialization": "general",
+        "experience": 24,
+        "available": true
+      }
     ]
   }
 ]
