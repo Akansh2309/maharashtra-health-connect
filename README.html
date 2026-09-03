@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maharashtra Health Connect - README</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.6;
+      color: #24292f;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 40px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      body {
+        color: #c9d1d9;
+        background-color: #0d1117;
+      }
+      h1, h2, h3, h4, h5, h6 { color: #c9d1d9 !important; border-bottom-color: #21262d !important; }
+      table th { background-color: #161b22 !important; border-color: #30363d !important; }
+      table td, table tr { border-color: #30363d !important; background-color: #0d1117 !important; }
+      table tr:nth-child(2n) { background-color: #161b22 !important; }
+      blockquote { color: #8b949e !important; border-left-color: #30363d !important; }
+      hr { background-color: #21262d !important; }
+      pre, code { background-color: #161b22 !important; color: #c9d1d9 !important; }
+      a { color: #58a6ff; }
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 24px;
+      margin-bottom: 16px;
+      font-weight: 600;
+      line-height: 1.25;
+      color: #24292f;
+    }
+    h1 { font-size: 2em; padding-bottom: .3em; border-bottom: 1px solid #hsla(210,18%,87%,1); }
+    h2 { font-size: 1.5em; padding-bottom: .3em; border-bottom: 1px solid hsla(210,18%,87%,1); }
+    h3 { font-size: 1.25em; }
+    
+    p { margin-top: 0; margin-bottom: 16px; }
+    
+    a { color: #0969da; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    
+    ul, ol { padding-left: 2em; margin-top: 0; margin-bottom: 16px; }
+    
+    blockquote {
+      padding: 0 1em;
+      color: #57606a;
+      border-left: .25em solid #d0d7de;
+      margin: 0 0 16px 0;
+    }
+    
+    hr {
+      height: .25em;
+      padding: 0;
+      margin: 24px 0;
+      background-color: #d0d7de;
+      border: 0;
+    }
+    
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+    table th, table td {
+      padding: 6px 13px;
+      border: 1px solid #d0d7de;
+    }
+    table th { font-weight: 600; background-color: #f6f8fa; }
+    table tr { background-color: #ffffff; border-top: 1px solid #hsla(210,18%,87%,1); }
+    table tr:nth-child(2n) { background-color: #f6f8fa; }
+    
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+      font-size: 85%;
+    }
+    code {
+      padding: .2em .4em;
+      margin: 0;
+      background-color: rgba(175,184,193,0.2);
+      border-radius: 6px;
+    }
+    pre {
+      padding: 16px;
+      overflow: auto;
+      line-height: 1.45;
+      background-color: #f6f8fa;
+      border-radius: 6px;
+    }
+    pre code {
+      display: inline;
+      max-width: auto;
+      padding: 0;
+      margin: 0;
+      overflow: visible;
+      line-height: inherit;
+      word-wrap: normal;
+      background-color: transparent;
+      border: 0;
+    }
+    
+    .align-center { text-align: center; }
+  </style>
+</head>
+<body>
+
+<p class="align-center">
+  <img src="https://img.shields.io/badge/SIH_2026-PS%2326133-orange?style=for-the-badge" alt="SIH 2026" />
+  <img src="https://img.shields.io/badge/Python-3.10+-blue?style=for-the-badge&logo=python&logoColor=white" alt="Python" />
+  <img src="https://img.shields.io/badge/Leaflet.js-Map_Engine-green?style=for-the-badge&logo=leaflet&logoColor=white" alt="Leaflet" />
+  <img src="https://img.shields.io/badge/License-All_Rights_Reserved-red?style=for-the-badge" alt="License" />
+</p>
+
+<h1 class="align-center">Maharashtra Health Connect</h1>
+
+<p class="align-center">
+  <b>Smart Healthcare Accessibility for Every Citizen</b><br/>
+  Urban &middot; Semi-Urban &middot; Rural Maharashtra
+</p>
+
+<p class="align-center">
+  Built for <b>Smart India Hackathon 2026</b> | Problem Statement <b>#26133</b> | Government of Maharashtra<br/>
+  <sub>Developed by <b>Team Kacchodis</b></sub>
+</p>
+
+<hr>
+
+<h2>About The Project</h2>
+
+<p>Maharashtra Health Connect is a <b>real-time healthcare accessibility dashboard</b> designed to bridge the gap between citizens and critical medical infrastructure across the state of Maharashtra.</p>
+
+<p>The platform empowers users &mdash; from urban professionals to rural residents &mdash; to instantly locate the nearest hospitals, assess live bed availability, filter by medical specialty and budget, and receive emergency triage routing to the best-equipped facility within seconds.</p>
+
+<h3>The Problem</h3>
+
+<blockquote>
+  <p>Citizens in Maharashtra &mdash; especially in semi-urban and rural areas &mdash; face significant challenges in identifying nearby hospitals, understanding bed availability, and accessing emergency care in time. There is no unified, real-time system that aggregates hospital data across government and private facilities statewide.</p>
+</blockquote>
+
+<h3>Our Solution</h3>
+
+<p>A unified, dark-themed, map-driven dashboard that aggregates <b>65+ hospitals</b> across <b>30+ districts</b>, providing:</p>
+
+<ul>
+  <li><b>Live bed availability</b> with color-coded capacity indicators</li>
+  <li><b>Emergency triage routing</b> for six critical emergency categories</li>
+  <li><b>Specialist and budget filtering</b> to match patients with the right facility</li>
+  <li><b>Multilingual support</b> in English, Hindi, and Marathi</li>
+  <li><b>Secure authentication</b> with role-based access control</li>
+</ul>
+
+<hr>
+
+<h2>Key Features</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Feature</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><b>Interactive Map</b></td>
+      <td align="left">Leaflet-powered dark-themed map with hospital markers, real-time routing, and distance calculation</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Live Bed Tracking</b></td>
+      <td align="left">Color-coded capacity indicators &mdash; <code>Green</code> (available), <code>Yellow</code> (filling), <code>Red</code> (critical) &mdash; with hourly auto-refresh</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Emergency Triage</b></td>
+      <td align="left">One-click emergency routing across six categories: Cardiac, Trauma, Breathing, Stroke, Pediatric, Severe Burns</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Smart Filters</b></td>
+      <td align="left">Filter hospitals by type (Govt / Private / Rural / ER), medical specialty, and estimated budget</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Multilingual (i18n)</b></td>
+      <td align="left">Full interface translation in English, Hindi, and Marathi with one-click language switching</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Review System</b></td>
+      <td align="left">Authenticated users can rate hospitals on a 5-star scale and leave written reviews</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Secure Auth</b></td>
+      <td align="left">SHA-256 password hashing, session cookies, rate limiting, CSRF protection, and strict HTTP security headers</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Responsive UI</b></td>
+      <td align="left">Glassmorphic dark interface with smooth animations, optimized for desktop and tablet viewports</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>Tech Stack</h2>
+
+<pre><code>┌─────────────────────────────────────────────────────────┐
+│  FRONTEND                                               │
+│  ├── HTML5 (Semantic)                                   │
+│  ├── CSS3 (Glassmorphism, Custom Properties, Flexbox)   │
+│  ├── JavaScript ES6+ (Vanilla, No Frameworks)           │
+│  ├── Leaflet.js (Map Engine)                            │
+│  ├── CARTO Dark Tiles (Map Theme)                       │
+│  └── Font Awesome 6 (Icon Library)                      │
+├─────────────────────────────────────────────────────────┤
+│  BACKEND                                                │
+│  ├── Python 3 (http.server + Custom Router)             │
+│  ├── SHA-256 Password Hashing                           │
+│  ├── Session-based Authentication (Secure Cookies)      │
+│  ├── Rate Limiting (In-memory)                          │
+│  └── Content Security Policy (CSP) + HSTS               │
+└─────────────────────────────────────────────────────────┘</code></pre>
+
+<p><b>Zero external dependencies.</b> The entire backend runs on Python's standard library. No <code>pip install</code> required.</p>
+
+<hr>
+
+<h2>Project Structure</h2>
+
+<pre><code>maharashtra-health-connect/
+│
+├── serve.py                  # Main HTTP server (port 3000)
+├── security.py               # Auth, sessions, RBAC, rate limiting
+├── auth_utils.py             # Legacy authentication utilities
+│
+├── tests/
+│   └── test_auth.py          # Unit tests for authentication
+│
+├── public/                   # Static frontend (served by Python)
+│   ├── index.html            # Dashboard — main application page
+│   ├── login.html            # Login &amp; registration page
+│   ├── 404.html              # Custom error page
+│   │
+│   ├── css/
+│   │   ├── base.css          # CSS custom properties &amp; resets
+│   │   ├── layout.css        # Grid system &amp; page structure
+│   │   ├── components.css    # Reusable UI component styles
+│   │   ├── style.css         # Dashboard-specific styles
+│   │   ├── login.css         # Login page styles
+│   │   └── map.css           # Map container &amp; marker styles
+│   │
+│   ├── js/
+│   │   ├── app.js            # Core application logic &amp; initialization
+│   │   ├── main.js           # API calls, data loading, review submission
+│   │   ├── ui.js             # UI rendering, hospital cards, detail panel
+│   │   ├── map.js            # Leaflet map initialization &amp; markers
+│   │   ├── emergency.js      # Emergency triage system
+│   │   ├── state.js          # Centralized application state
+│   │   ├── login.js          # Login &amp; register form logic
+│   │   ├── i18n.js           # Internationalization (EN / HI / MR)
+│   │   └── hospitals-data.json   # Dataset: 65 hospitals across MH
+│   │
+│   ├── img/
+│   │   └── hospital_logo.png
+│   └── assets/
+│       └── logo.png
+│
+├── .gitignore
+└── README.md</code></pre>
+
+<hr>
+
+<h2>Getting Started</h2>
+
+<h3>Prerequisites</h3>
+
+<ul>
+  <li><b>Python 3.10 or higher</b> &mdash; Check with <code>python3 --version</code></li>
+  <li>A modern web browser (Chrome, Firefox, or Edge)</li>
+  <li>No additional packages or dependencies required</li>
+</ul>
+
+<h3>Installation</h3>
+
+<pre><code># Clone the repository
+git clone https://github.com/YOUR_USERNAME/maharashtra-health-connect.git
+
+# Navigate into the project directory
+cd maharashtra-health-connect
+
+# Start the server
+python3 serve.py</code></pre>
+
+<p>The server will start on <b>http://localhost:3000</b>. Open this URL in your browser.</p>
+
+<h3>Demo Credentials</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Role</th>
+      <th align="left">Email</th>
+      <th align="left">Password</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">Admin</td>
+      <td align="left"><code>akansh@kacchodis.org</code></td>
+      <td align="left"><code>admin123</code></td>
+    </tr>
+    <tr>
+      <td align="left">User</td>
+      <td align="left"><code>demo@kacchodis.org</code></td>
+      <td align="left"><code>demo</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>Security Architecture</h2>
+
+<p>The backend implements <b>defense-in-depth</b> security across multiple layers:</p>
+
+<pre><code>Request Flow:
+
+  Client ──► Rate Limiter ──► Session Validator ──► RBAC ──► Handler
+                  │                   │                │
+                  ▼                   ▼                ▼
+            429 Too Many        401 Unauth        403 Forbidden</code></pre>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Layer</th>
+      <th align="left">Implementation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><b>Password Storage</b></td>
+      <td align="left">SHA-256 hashing &mdash; no plaintext passwords stored anywhere</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Session Management</b></td>
+      <td align="left">Cryptographic session IDs via <code>uuid4</code>, stored in HTTP-only cookies</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Rate Limiting</b></td>
+      <td align="left">Per-IP request throttling on login and registration endpoints</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Security Headers</b></td>
+      <td align="left"><code>Content-Security-Policy</code>, <code>X-Frame-Options: DENY</code>, <code>HSTS</code>, <code>X-Content-Type-Options: nosniff</code>, <code>X-XSS-Protection</code></td>
+    </tr>
+    <tr>
+      <td align="left"><b>Input Sanitization</b></td>
+      <td align="left">All user-submitted text is HTML-escaped and length-capped before storage</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Access Control</b></td>
+      <td align="left">Role-based permissions &mdash; Admin and User roles with distinct capabilities</td>
+    </tr>
+    <tr>
+      <td align="left"><b>Session Expiry</b></td>
+      <td align="left">Automatic cleanup of expired sessions via background thread</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>API Reference</h2>
+
+<p>All API endpoints return JSON. Authentication is session-based via cookies.</p>
+
+<h3>Authentication</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Method</th>
+      <th align="left">Endpoint</th>
+      <th align="left">Auth Required</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>POST</code></td>
+      <td align="left"><code>/api/login</code></td>
+      <td align="left">No</td>
+      <td align="left">Authenticate a user</td>
+    </tr>
+    <tr>
+      <td align="left"><code>POST</code></td>
+      <td align="left"><code>/api/register</code></td>
+      <td align="left">No</td>
+      <td align="left">Register a new account</td>
+    </tr>
+    <tr>
+      <td align="left"><code>GET</code></td>
+      <td align="left"><code>/api/session</code></td>
+      <td align="left">No</td>
+      <td align="left">Check current session</td>
+    </tr>
+    <tr>
+      <td align="left"><code>GET</code></td>
+      <td align="left"><code>/api/logout</code></td>
+      <td align="left">Yes</td>
+      <td align="left">Destroy session, redirect to login</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Hospital Data</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Method</th>
+      <th align="left">Endpoint</th>
+      <th align="left">Auth Required</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>GET</code></td>
+      <td align="left"><code>/api/hospitals</code></td>
+      <td align="left">Yes</td>
+      <td align="left">Fetch all 65 hospitals</td>
+    </tr>
+    <tr>
+      <td align="left"><code>GET</code></td>
+      <td align="left"><code>/api/hospitals/:id</code></td>
+      <td align="left">Yes</td>
+      <td align="left">Fetch a single hospital by ID</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Reviews</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Method</th>
+      <th align="left">Endpoint</th>
+      <th align="left">Auth Required</th>
+      <th align="left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left"><code>GET</code></td>
+      <td align="left"><code>/api/reviews/:id</code></td>
+      <td align="left">No</td>
+      <td align="left">Get reviews for a hospital</td>
+    </tr>
+    <tr>
+      <td align="left"><code>POST</code></td>
+      <td align="left"><code>/api/reviews</code></td>
+      <td align="left">Yes</td>
+      <td align="left">Submit a new review</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2>Dataset</h2>
+
+<p>The hospital dataset covers <b>65 facilities</b> across Maharashtra, including:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th align="left">Category</th>
+      <th align="left">Count</th>
+      <th align="left">Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td align="left">Government Hospitals</td>
+      <td align="left">30+</td>
+      <td align="left">KEM, JJ Hospital, Sassoon, GMC Nagpur</td>
+    </tr>
+    <tr>
+      <td align="left">Private Hospitals</td>
+      <td align="left">20+</td>
+      <td align="left">Lilavati, Hinduja, Ruby Hall, Jupiter</td>
+    </tr>
+    <tr>
+      <td align="left">Rural Health Centers</td>
+      <td align="left">15+</td>
+      <td align="left">PHCs and CHCs across Ratnagiri, Gadchiroli, Yavatmal</td>
+    </tr>
+    <tr>
+      <td align="left">Emergency-Equipped</td>
+      <td align="left">40+</td>
+      <td align="left">Facilities with 24/7 ER, trauma, and ICU capabilities</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each entry includes: name, GPS coordinates, district, bed count, specialties, type classification, budget tier, user rating, and emergency capabilities.</p>
+
+<hr>
+
+<h2>Screenshots</h2>
+
+<blockquote>
+  <p><i>Screenshots of the dashboard, login page, emergency triage panel, and hospital detail view can be added here.</i></p>
+</blockquote>
+
+<!--
+To add screenshots, place them in the `public/img/` folder and reference them like:
+<img src="public/img/screenshot_dashboard.png" alt="Dashboard" />
+<img src="public/img/screenshot_login.png" alt="Login" />
+-->
+
+<hr>
+
+<h2>Roadmap</h2>
+
+<ul>
+  <li>[x] Core dashboard with hospital listing and map</li>
+  <li>[x] Emergency triage routing system</li>
+  <li>[x] Multilingual interface (EN / HI / MR)</li>
+  <li>[x] Secure authentication with rate limiting</li>
+  <li>[x] Hospital review and rating system</li>
+  <li>[ ] Real-time bed data integration via NHM/NIC APIs</li>
+  <li>[ ] Ambulance tracking and ETA estimation</li>
+  <li>[ ] SMS/WhatsApp alerts for bed availability</li>
+  <li>[ ] PWA support for offline access in rural areas</li>
+  <li>[ ] Integration with Ayushman Bharat Digital Mission (ABDM)</li>
+</ul>
+
+<hr>
+
+<h2>Contributing</h2>
+
+<p>This project was built as part of SIH 2026. If you would like to contribute:</p>
+
+<ol>
+  <li>Fork the repository</li>
+  <li>Create a feature branch (<code>git checkout -b feature/your-feature</code>)</li>
+  <li>Commit your changes (<code>git commit -m 'Add your feature'</code>)</li>
+  <li>Push to the branch (<code>git push origin feature/your-feature</code>)</li>
+  <li>Open a Pull Request</li>
+</ol>
+
+<hr>
+
+<h2>Acknowledgements</h2>
+
+<ul>
+  <li><b>Government of Maharashtra</b> &mdash; Problem statement and domain guidance</li>
+  <li><b>National Health Mission (NHM)</b> &mdash; Hospital data references</li>
+  <li><b>OpenStreetMap &amp; CARTO</b> &mdash; Map tile services</li>
+  <li><b>Leaflet.js</b> &mdash; Open-source map library</li>
+  <li><b>Font Awesome</b> &mdash; Icon library</li>
+</ul>
+
+<hr>
+
+<p class="align-center">
+  <b>Maharashtra Health Connect</b><br/>
+  Smart India Hackathon 2026 &middot; Problem Statement #26133<br/>
+  <sub>Copyright 2026 Team Kacchodis. All rights reserved.</sub>
+</p>
+
+</body>
+</html>
