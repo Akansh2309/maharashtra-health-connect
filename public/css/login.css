@@ -1,0 +1,76 @@
+/* Maharashtra Health Connect — Login Styles | (c) 2026 Akansh Shaw */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',-apple-system,sans-serif;background:#060a14;color:#f1f5f9;height:100vh;overflow:hidden}
+
+.bg-animation{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;overflow:hidden}
+.bg-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.3;animation:orbF 15s ease-in-out infinite}
+.orb-1{width:400px;height:400px;background:radial-gradient(circle,#f97316,transparent);top:-100px;left:-100px}
+.orb-2{width:350px;height:350px;background:radial-gradient(circle,#ea580c,transparent);bottom:-50px;right:-50px;animation-delay:-5s;animation-duration:18s}
+.orb-3{width:250px;height:250px;background:radial-gradient(circle,#f59e0b,transparent);top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:-10s;animation-duration:20s}
+@keyframes orbF{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(60px,-40px) scale(1.1)}50%{transform:translate(-30px,50px) scale(.95)}75%{transform:translate(40px,30px) scale(1.05)}}
+
+.login-container{position:relative;z-index:1;width:100vw;height:100vh;display:flex}
+.login-branding{flex:1;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(234,88,12,.08));border-right:1px solid rgba(255,255,255,.06);padding:40px}
+.branding-content{max-width:400px;text-align:center}
+.brand-logo-img{height:120px;margin-bottom:20px;animation:float 4s ease-in-out infinite;mix-blend-mode:screen;filter:drop-shadow(0 0 10px rgba(249,115,22,0.4))}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.branding-content h1{font-size:2.2rem;font-weight:800;line-height:1.2;margin-bottom:12px;background:linear-gradient(135deg,#f97316,#ea580c,#f59e0b);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.brand-tagline{font-size:.92rem;color:#94a3b8;line-height:1.5;margin-bottom:30px}
+.brand-divider{width:60px;height:3px;background:linear-gradient(90deg,#f97316,#ea580c);border-radius:2px;margin:0 auto 24px}
+.brand-stats{display:flex;justify-content:center;gap:30px;margin-bottom:28px}
+.stat{display:flex;flex-direction:column;align-items:center}
+.stat-num{font-size:1.6rem;font-weight:800;color:#f97316}
+.stat-label{font-size:.72rem;color:#64748b;text-transform:uppercase;letter-spacing:.06em;margin-top:2px}
+.brand-features{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-bottom:30px}
+.feature{display:flex;align-items:center;gap:6px;font-size:.72rem;color:#94a3b8;background:rgba(255,255,255,.04);padding:6px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.06)}
+.feature i{color:#f97316;font-size:.7rem}
+.brand-footer{font-size:.75rem;color:#475569;line-height:1.7}
+
+.login-form-panel{width:480px;min-width:480px;display:flex;align-items:center;justify-content:center;padding:40px;background:rgba(15,23,42,.6);backdrop-filter:blur(20px)}
+.form-container{width:100%;max-width:360px}
+.auth-tabs{display:flex;gap:4px;padding:4px;background:rgba(255,255,255,.04);border-radius:12px;margin-bottom:28px}
+.auth-tab{flex:1;padding:10px;font-size:.85rem;font-weight:600;color:#64748b;background:transparent;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .3s}
+.auth-tab.active{background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;box-shadow:0 4px 15px rgba(249,115,22,.3)}
+.auth-form{display:none}
+.auth-form.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.auth-form h2{font-size:1.5rem;font-weight:700;margin-bottom:6px}
+.form-subtitle{font-size:.82rem;color:#64748b;margin-bottom:24px}
+
+.input-group{position:relative;margin-bottom:14px}
+.input-group>i:first-child{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#475569;font-size:.85rem}
+.input-group input{width:100%;padding:13px 14px 13px 42px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;color:#f1f5f9;font-size:.88rem;font-family:inherit;outline:none;transition:all .2s}
+.input-group input:focus{background:rgba(15,23,42,.8);border-color:#f97316;box-shadow:0 0 0 3px rgba(249,115,22,.15)}
+.input-group input:focus ~ i{color:#f97316}
+.input-group input::placeholder{color:#475569}
+.toggle-pw{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:#475569;cursor:pointer;font-size:.85rem;transition:color .2s}
+.toggle-pw:hover{color:#94a3b8}
+
+.remember-me{display:flex;align-items:center;gap:8px;font-size:.75rem;color:#94a3b8;margin-bottom:24px;cursor:pointer}
+.remember-me input[type="checkbox"]{accent-color:#f97316;width:14px;height:14px;cursor:pointer}
+.error-msg{font-size:.78rem;color:#f87171;margin-bottom:10px;min-height:18px;display:flex;align-items:center;gap:6px}
+.submit-btn{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,#f97316,#ea580c);color:#fff;font-size:.9rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;transition:all .3s;box-shadow:0 4px 15px rgba(249,115,22,.25)}
+.submit-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 6px 20px rgba(249,115,22,.35)}
+.submit-btn:disabled{background:#334155;color:#94a3b8;box-shadow:none;cursor:not-allowed;transform:none}
+.demo-hint{padding:10px;background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.12);border-radius:8px;text-align:center;font-size:.75rem;color:#94a3b8}
+.demo-hint strong{color:#f97316}
+.demo-hint code{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:4px;font-family:'Courier New',monospace;font-size:.78rem;color:#e2e8f0}
+.login-copyright{margin-top:24px;text-align:center;padding-top:18px;border-top:1px solid rgba(255,255,255,.06)}
+.login-copyright p{font-size:.72rem;color:#475569}
+.login-copyright strong{color:#94a3b8}
+.copyright-sub{margin-top:2px;font-size:.65rem!important;color:#334155!important}
+
+/* Language Switcher (Floating on login page) */
+.lang-switcher-float{position:fixed;top:16px;right:16px;z-index:9999}
+.lang-switcher{position:relative}
+.lang-toggle{display:flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:#94a3b8;cursor:pointer;font-family:'Inter',sans-serif;font-size:.75rem;font-weight:500;transition:all .2s;white-space:nowrap}
+.lang-toggle:hover{background:rgba(255,255,255,.1);border-color:#38bdf8;color:#f1f5f9}
+.lang-toggle i.fa-globe{color:#38bdf8;font-size:.78rem}
+.lang-dropdown{position:absolute;top:40px;right:0;width:140px;background:rgba(17,24,39,.97);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:6px;display:none;z-index:9999;box-shadow:0 8px 30px rgba(0,0,0,.5)}
+.lang-dropdown.show{display:block;animation:fadeIn .2s ease}
+.lang-option{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;background:transparent;border:none;border-radius:6px;color:#94a3b8;cursor:pointer;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;transition:all .15s;text-align:left}
+.lang-option:hover{background:rgba(255,255,255,.06);color:#f1f5f9}
+.lang-option.active{background:rgba(56,189,248,.1);color:#38bdf8;font-weight:600}
+
+@media(max-width:900px){.login-container{flex-direction:column}.login-branding{display:none}.login-form-panel{width:100%;min-width:100%;flex:1}}

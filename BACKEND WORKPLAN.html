@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backend Engineering Workplan - Maharashtra Health Connect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: rgba(255, 255, 255, 0.03);
+            --bg-card-hover: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --primary: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.4);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg-dark); color: var(--text-main); line-height: 1.7; display: flex; scroll-behavior: smooth; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        /* Layout */
+        .sidebar { width: 320px; height: 100vh; position: sticky; top: 0; background: rgba(15, 17, 21, 0.8); backdrop-filter: blur(12px); border-right: 1px solid var(--border); padding: 2rem 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1rem; }
+        .main-content { flex: 1; max-width: 1000px; padding: 4rem; margin: 0 auto;}
+
+        /* Typography */
+        h1, h2, h3, h4 { color: #fff; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1rem; }
+        h1 { font-size: 2.75rem; line-height: 1.2; background: linear-gradient(135deg, #e0f2fe 0%, #38bdf8 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        h2 { font-size: 1.875rem; margin-top: 3.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border); color: #f8fafc; }
+        h3 { font-size: 1.25rem; margin-top: 2rem; color: #bae6fd; }
+        p { margin-bottom: 1.25rem; color: var(--text-muted); }
+        strong { color: #f1f5f9; }
+        a { color: var(--primary); text-decoration: none; transition: all 0.2s; }
+        a:hover { color: #7dd3fc; text-shadow: 0 0 8px var(--primary-glow); }
+
+        /* Sidebar Links */
+        .sidebar-title { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 1rem; font-weight: 700; }
+        .toc-link { display: block; padding: 0.5rem 0.75rem; color: var(--text-muted); border-radius: 6px; font-size: 0.95rem; transition: all 0.2s; border-left: 2px solid transparent; margin-bottom: 0.25rem; }
+        .toc-link:hover, .toc-link.active { background: var(--bg-card); color: var(--primary); border-left-color: var(--primary); }
+
+        /* Hero / Meta Info */
+        .hero-meta { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin: 2rem 0; box-shadow: 0 4px 24px rgba(0,0,0,0.2); position: relative; overflow: hidden; }
+        .hero-meta::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
+        .hero-meta p { margin-bottom: 0.5rem; }
+        .hero-meta p:last-child { margin-bottom: 0; }
+
+        /* Alerts & Blockquotes */
+        blockquote { padding: 1.25rem 1.5rem; margin: 1.5rem 0; background: var(--bg-card); border-left: 4px solid #475569; border-radius: 0 8px 8px 0; color: #cbd5e1; font-style: italic; }
+        .alert { padding: 1.25rem; border-radius: 8px; margin: 1.5rem 0; background: var(--bg-card); border: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.5rem; position: relative; overflow: hidden; }
+        .alert strong { font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.5rem; }
+        .alert-info { border-left: 4px solid var(--primary); }
+        .alert-info strong { color: var(--primary); }
+        .alert-tip { border-left: 4px solid var(--success); }
+        .alert-tip strong { color: var(--success); }
+        .alert-warning { border-left: 4px solid var(--warning); }
+        .alert-warning strong { color: var(--warning); }
+        .alert-important { border-left: 4px solid var(--danger); }
+        .alert-important strong { color: var(--danger); }
+
+        /* Code Blocks */
+        pre { background: #000; border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; overflow-x: auto; margin: 1.5rem 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02); }
+        code { font-family: 'Fira Code', monospace; font-size: 0.9rem; color: #e2e8f0; }
+        p code, li code { background: rgba(255,255,255,0.1); padding: 0.2rem 0.4rem; border-radius: 4px; font-size: 0.85em; color: #7dd3fc; }
+        .diagram { background: #000; color: #7dd3fc; padding: 2rem; border-radius: 12px; overflow-x: auto; font-size: 0.85rem; line-height: 1.2; letter-spacing: 0; border: 1px solid rgba(125, 211, 252, 0.2); box-shadow: 0 0 20px rgba(125, 211, 252, 0.05); }
+
+        /* Lists */
+        ul, ol { margin: 1rem 0 1rem 1.5rem; color: var(--text-muted); }
+        li { margin-bottom: 0.5rem; }
+        li::marker { color: var(--primary); }
+
+        /* Tables */
+        .table-wrapper { width: 100%; overflow-x: auto; margin: 2rem 0; border-radius: 10px; border: 1px solid var(--border); background: var(--bg-card); }
+        table { width: 100%; border-collapse: collapse; text-align: left; }
+        th, td { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); }
+        th { background: rgba(0,0,0,0.2); color: #f8fafc; font-weight: 600; white-space: nowrap; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--bg-card-hover); }
+
+        /* User Personas blocks */
+        .persona-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; margin-top: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .persona-block h3 { margin-top: 0; color: #e0f2fe; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem; }
+            .main-content { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="sidebar">
+        <div class="sidebar-title">Table of Contents</div>
+        <a href="#1-tools-tech-stack" class="toc-link">1. Tools &amp; Tech Stack</a>
+        <a href="#2-files-to-create" class="toc-link">2. Files to Create</a>
+        <a href="#3-work-division" class="toc-link">3. Work Division (How to split the 2 coders)</a>
+        <a href="#4-critical-checkpoints" class="toc-link">4. Critical Checkpoints for Backend</a>
+    </nav>
+
+    <main class="main-content">
+        <header>
+            <h1>⚙️ Backend Engineering Workplan</h1>
+        </header>
+
+        <div class="hero-meta">
+            <p><strong>Team Size:</strong> 2 Coders</p>
+            <p><strong>Goal:</strong> Build a robust, zero-dependency Python backend that handles auth, sessions, and serves data efficiently.</p>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid var(--border); margin: 3rem 0;">
+
+        <!-- Section 1 -->
+        <section id="1-tools-tech-stack">
+            <h2>🛠 Tools &amp; Tech Stack</h2>
+            <ul>
+                <li><strong>Language:</strong> Python 3 (Standard Library only - <code>http.server</code>, <code>json</code>, <code>uuid</code>)</li>
+                <li><strong>IDE:</strong> VS Code or Cursor</li>
+                <li><strong>API Testing:</strong> Postman, Insomnia, or Terminal <code>curl</code></li>
+                <li><strong>Version Control:</strong> Git / GitHub</li>
+                <li><strong>Collaboration:</strong> Live Share (VS Code extension) to code together in the same file.</li>
+            </ul>
+        </section>
+
+        <!-- Section 2 -->
+        <section id="2-files-to-create">
+            <h2>📁 Files to Create</h2>
+            <p>You only need a few files, but keep the code organized:</p>
+            <ul>
+                <li><code>serve.py</code> (The main HTTP server and request handler)</li>
+                <li><code>api_auth.py</code> (Optional: If <code>serve.py</code> gets too long, put login/register logic here)</li>
+                <li><code>api_data.py</code> (Optional: Logic for reading/serving the hospital JSON)</li>
+                <li><code>logs/server.log</code> (For debugging API calls during the hackathon)</li>
+            </ul>
+        </section>
+
+        <!-- Section 3 -->
+        <section id="3-work-division">
+            <h2>👨‍💻 Work Division (How to split the 2 coders)</h2>
+
+            <div class="persona-block">
+                <h3>🧑‍💻 Backend Coder 1: "The Data &amp; Router Engineer"</h3>
+                <p><strong>Focus:</strong> Server infrastructure and data delivery.</p>
+                <ul>
+                    <li><strong>Hour 1:</strong> Write the base <code>serve.py</code> using <code>http.server.SimpleHTTPRequestHandler</code>. Ensure it serves files from the <code>public/</code> folder correctly.</li>
+                    <li><strong>Hour 2:</strong> Build the API router logic (the <code>do_GET</code> and <code>do_POST</code> overrides that intercept <code>/api/*</code> paths).</li>
+                    <li><strong>Hour 3:</strong> Build the <code>GET /api/hospitals</code> endpoint. Work with the Data/Maths person to load their JSON file into memory and serve it.</li>
+                    <li><strong>Hour 4-5:</strong> Add HTTP headers for caching (<code>Cache-Control</code>) and CORS (<code>Access-Control-Allow-Origin: *</code>) so the frontend doesn't get blocked. Add error handling (try/except blocks) so the server doesn't crash if bad data is sent.</li>
+                </ul>
+            </div>
+
+            <div class="persona-block">
+                <h3>🧑‍💻 Backend Coder 2: "The Auth &amp; Security Engineer"</h3>
+                <p><strong>Focus:</strong> Sessions, cookies, and user management.</p>
+                <ul>
+                    <li><strong>Hour 1-2:</strong> Design the in-memory data structures (<code>USERS = {}</code> and <code>SESSIONS = {}</code>). Pre-seed the demo account (<code>akansh</code> / <code>admin123</code>).</li>
+                    <li><strong>Hour 3:</strong> Build <code>POST /api/login</code> and <code>POST /api/register</code>. Generate UUIDs for sessions.</li>
+                    <li><strong>Hour 4:</strong> Master HTTP Cookies. Make sure the login API sends the <code>Set-Cookie</code> header properly (<code>HttpOnly</code>, <code>Path=/</code>).</li>
+                    <li><strong>Hour 5:</strong> Build <code>GET /api/session</code> (to check if a cookie is valid) and <code>GET /api/logout</code> (to destroy the session).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Section 4 -->
+        <section id="4-critical-checkpoints">
+            <h2>⚠️ Critical Checkpoints for Backend</h2>
+            
+            <div class="alert alert-important" style="margin-top: 1.5rem;">
+                <strong>1. The "No-Crash" Rule:</strong> 
+                <span>During the demo, if the frontend sends a malformed JSON, your backend must return a <code>400 Bad Request</code>, not throw a Python <code>KeyError</code> and crash the server. Wrap your JSON parsing in <code>try/except</code>.</span>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>2. Sync with Frontend:</strong> 
+                <span>By Hour 3, Frontend Coder 2 will need your <code>/api/login</code> endpoint. Ensure you agree on the exact JSON format (e.g., <code>{"username": "...", "password": "..."}</code>).</span>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>3. Log Everything:</strong> 
+                <span>Override <code>log_message</code> in <code>serve.py</code> to print every API call to the terminal. If a bug happens during the hackathon, you need to see exactly what the frontend requested.</span>
+            </div>
+            
+        </section>
+
+        <footer style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+            <p><strong>© 2026 Akansh Shaw. All rights reserved.</strong></p>
+            <p>Smart India Hackathon 2026 — PS#26133 — Government of Maharashtra</p>
+        </footer>
+
+    </main>
+    
+    <script>
+        // Simple scroll spy for active TOC link
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.toc-link');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

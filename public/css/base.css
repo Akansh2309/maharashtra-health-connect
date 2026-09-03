@@ -1,0 +1,60 @@
+/* 
+   BASE.CSS
+   This file holds all the core colors, fonts, and basic setups. 
+*/
+
+/* Define our main colors and settings here so we can reuse them easily */
+:root {
+  /* Dark background color for the 3D look */
+  --bg-dark: #0b0f19;
+  
+  /* Slightly lighter background for panels */
+  --bg-panel: rgba(20, 27, 45, 0.7);
+  
+  /* The saffron/orange accent colors requested by the user */
+  --accent-orange: #f97316;
+  --accent-orange-glow: rgba(249, 115, 22, 0.4);
+  
+  /* Text colors */
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  
+  /* Special colors for statuses */
+  --color-green: #10b981;
+  --color-red: #ef4444;
+  
+  /* Borders for the glass effect */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reset margins and paddings for a clean slate */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Set up the main body to fill the screen and use the dark theme */
+body {
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Prevent scrolling, we want a fixed dashboard */
+}
+
+/* Hide scrollbars but keep scrolling functionality for panels */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}

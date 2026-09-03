@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kacchodis">
+  <meta name="copyright" content="Copyright (c) 2026 Kacchodis. All rights reserved.">
+  <title>Maharashtra Health Connect — Kacchodis | SIH 2026</title>
+  
+  <!-- External Libraries -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  
+  <!-- Our New Modular CSS Files -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/map.css" />
+</head>
+<body>
+
+  <!-- 3-Pane Dashboard Application -->
+  <div id="app">
+    
+    <!-- PANE 1: Left Sidebar (Search, Filters, Hospital List) -->
+    <div id="sidebar">
+      
+      <!-- Top Branding -->
+      <div class="sidebar-header">
+        <div class="brand">
+        <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+          <div class="brand-icon">
+            <i class="fas fa-heartbeat" style="color: white; font-size: 20px;"></i>
+          </div>
+          <div>
+            <h1 class="brand-title">HEALTH CONNECT</h1>
+            <span class="brand-subtitle">By Kacchodis • SIH 2026</span>
+          </div>
+        </a>
+      </div>  
+        <!-- Search Bar -->
+        <div class="search-container">
+          <i class="fas fa-search"></i>
+          <input type="text" id="search-input" placeholder="Search hospitals, cities..." />
+        </div>
+      </div>
+
+      <!-- Advanced Filters & Sort -->
+      <div class="advanced-filters" style="padding: 10px 20px; border-bottom: var(--glass-border); display: flex; gap: 10px; flex-wrap: wrap;">
+        <select id="filter-specialist" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white; border-radius: 5px; padding: 5px; flex: 1;">
+          <option value="all">All Specialists</option>
+          <option value="cardiology">Cardiology</option>
+          <option value="neurology">Neurology</option>
+          <option value="orthopedics">Orthopedics</option>
+          <option value="pediatrics">Pediatrics</option>
+        </select>
+        <select id="filter-budget" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white; border-radius: 5px; padding: 5px; flex: 1;">
+          <option value="all">Any Budget</option>
+          <option value="free">Free / Govt</option>
+          <option value="low">Low Budget</option>
+          <option value="high">Premium</option>
+        </select>
+        <select id="sort-options" style="background: rgba(255,255,255,0.1); border: 1px solid var(--glass-border); color: white; border-radius: 5px; padding: 5px; flex: 1;">
+          <option value="none">Sort By...</option>
+          <option value="distance">Distance (Nearest)</option>
+          <option value="beds">Beds (Highest)</option>
+          <option value="rating">Rating (Highest)</option>
+        </select>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="government">Govt</button>
+        <button class="filter-tab" data-filter="private">Private</button>
+        <button class="filter-tab" data-filter="rural">Rural</button>
+        <button class="filter-tab" data-filter="emergency">ER</button>
+      </div>
+
+      <!-- Summary Count -->
+      <div style="padding: 10px 20px; font-size: 0.8rem; color: var(--text-muted); border-bottom: var(--glass-border);">
+        Found: <strong id="hospital-count" style="color:var(--text-main);">0</strong>
+      </div>
+
+      <!-- The Scrollable List -->
+      <div class="hospital-list" id="hospital-list">
+        <!-- JS ui.js injects cards here -->
+      </div>
+    </div>
+
+
+    <!-- PANE 2: Center Map Area -->
+    <div id="map-container" style="position: relative;">
+      
+      <!-- Top Bar: Map Stats & User Profile -->
+      <div class="map-top-bar" style="display: flex; justify-content: space-between; align-items: flex-start; position: absolute; top: 20px; left: 20px; right: 20px; z-index: 1000; pointer-events: none;">
+        
+        <!-- Stats -->
+        <div class="map-top-stats" style="pointer-events: auto; display: flex; gap: 15px;">
+          <div class="stat-card">
+            <div class="sc-title">Total Hospitals</div>
+            <div class="sc-value" id="stat-total">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-title">Rural Centers</div>
+            <div class="sc-value green" id="stat-rural">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="sc-title">Total Beds</div>
+            <div class="sc-value" id="stat-beds">0</div>
+          </div>
+        </div>
+
+        <!-- User Profile Dropdown -->
+        <div class="user-profile-container" style="pointer-events: auto; position: relative;">
+          <button id="profile-btn" class="profile-btn" onclick="document.getElementById('profile-dropdown').classList.toggle('active')">
+            <img src="https://ui-avatars.com/api/?name=User&background=random" id="profile-img" alt="Profile" style="width: 35px; border-radius: 50%; border: 2px solid var(--glass-border);" />
+            <span id="profile-name" style="color: white; font-weight: 600; margin: 0 10px;">Loading...</span>
+            <i class="fas fa-chevron-down" style="color: var(--text-muted); font-size: 0.8rem;"></i>
+          </button>
+          
+          <div id="profile-dropdown" class="profile-dropdown" style="display: none; position: absolute; top: 100%; right: 0; margin-top: 10px; background: var(--bg-panel); border: 1px solid var(--border-glass); border-radius: 12px; min-width: 240px; backdrop-filter: blur(20px); box-shadow: var(--shadow-md); overflow: hidden;">
+            <div class="profile-banner" style="height: 80px; background: var(--gradient-primary); position: relative; display: flex; justify-content: center;">
+                <img src="https://ui-avatars.com/api/?name=User&background=random" id="dropdown-img" alt="Profile" style="width: 60px; height: 60px; border-radius: 50%; border: 3px solid var(--bg-panel); position: absolute; bottom: -30px;" />
+            </div>
+            <div style="padding: 40px 15px 15px 15px; text-align: center; border-bottom: 1px solid var(--border-glass); margin-bottom: 5px;">
+              <div id="dropdown-name" style="font-weight: 600; color: white; margin-bottom: 5px;">Loading...</div>
+              <div id="dropdown-email" style="font-size: 0.75rem; color: var(--text-muted);">...</div>
+              <div id="dropdown-role" style="font-size: 0.7rem; color: var(--accent-orange); text-transform: uppercase; margin-top: 5px;">ROLE</div>
+            </div>
+            <button onclick="window.location.href='/api/logout'" style="width: 100%; padding: 10px; background: rgba(239, 68, 68, 0.1); color: var(--color-red); border: none; border-radius: 5px; text-align: center; cursor: pointer; transition: all 0.2s;">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- The actual Leaflet Map -->
+      <div id="map"></div>
+      
+    </div>
+
+
+    <!-- PANE 3: Right Emergency Triage Panel -->
+    <div id="emergency-panel">
+      
+      <div class="ep-header">
+        <span><i class="fas fa-exclamation-triangle"></i> EMERGENCY TRIAGE</span>
+      </div>
+
+      <div class="ep-content">
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">
+          Select the nature of the emergency to find the nearest and best-equipped facility instantly.
+        </p>
+        
+        <!-- Triage Categories -->
+        <div class="triage-grid">
+          <button class="triage-btn" data-triage="cardiac" onclick="EmergencyController.setTriage('cardiac')">
+            <i class="fas fa-heartbeat"></i> Cardiac / Chest
+          </button>
+          <button class="triage-btn" data-triage="trauma" onclick="EmergencyController.setTriage('trauma')">
+            <i class="fas fa-bone"></i> Trauma / Crash
+          </button>
+          <button class="triage-btn" data-triage="breathing" onclick="EmergencyController.setTriage('breathing')">
+            <i class="fas fa-lungs"></i> Breathing
+          </button>
+          <button class="triage-btn" data-triage="stroke" onclick="EmergencyController.setTriage('stroke')">
+            <i class="fas fa-brain"></i> Stroke / Neuro
+          </button>
+          <button class="triage-btn" data-triage="pediatric" onclick="EmergencyController.setTriage('pediatric')">
+            <i class="fas fa-baby"></i> Pediatric
+          </button>
+          <button class="triage-btn" data-triage="burn" onclick="EmergencyController.setTriage('burn')">
+            <i class="fas fa-fire"></i> Severe Burns
+          </button>
+        </div>
+
+        <h3 style="font-size:0.9rem; margin:20px 0 10px; border-bottom:var(--glass-border); padding-bottom:5px;">
+          Recommended Facilities
+        </h3>
+        
+        <!-- Recommended Hospitals go here -->
+        <div id="er-recommendations">
+          <p style="color:var(--text-muted); font-size:0.75rem; text-align:center; margin-top:20px;">
+            Select an emergency type to view recommendations.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Detail Panel Overlay (Hidden by default) -->
+  <div class="detail-overlay" id="detail-overlay" onclick="UIController.closeDetailPanel()"></div>
+  
+  <!-- Detail Panel Slide-in (Hidden by default) -->
+  <div id="detail-panel">
+    <div class="detail-header">
+      <button class="detail-back" onclick="UIController.closeDetailPanel()"><i class="fas fa-arrow-left"></i></button>
+      <div class="detail-header-info">
+        <h2 id="detail-name">Hospital Name</h2>
+        <p id="detail-address">Address</p>
+      </div>
+    </div>
+    <div class="route-info-bar">
+      <div class="route-stat"><div class="stat-value" id="route-distance">--</div><div class="stat-label">Distance</div></div>
+      <div class="route-stat"><div class="stat-value" id="route-time">--</div><div class="stat-label">Est. Time</div></div>
+      <div class="route-stat"><div class="stat-value"><i class="fas fa-phone"></i></div><div class="stat-label" id="route-phone">--</div></div>
+    </div>
+    <div class="detail-content" id="detail-content">
+      <!-- Content injected by ui.js -->
+    </div>
+    <div class="detail-footer" style="padding: 20px; border-top: var(--glass-border);">
+       <button id="nav-btn" class="emergency-btn" style="width: 100%; margin: 0;"><i class="fas fa-directions"></i> Start Navigation</button>
+    </div>
+  </div>
+
+  <!-- External Libraries -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Our New Modular JS Files -->
+  <script src="js/state.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/emergency.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
