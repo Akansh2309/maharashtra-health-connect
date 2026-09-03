@@ -58,4 +58,4 @@ When presenting to the judges, follow this flow:
 4. Click **Find Emergency Facility**. The app isolates the map to equipped facilities.
 5. Select a hospital and click **Initiate Referral & Teleconsultation** to demonstrate the closed-loop care continuity (Booking slot + Medicine confirmation + SMS alert).
 
-*Built with ❤️ for rural healthcare accessibility.*
+*Built with passion for rural healthcare accessibility.*
