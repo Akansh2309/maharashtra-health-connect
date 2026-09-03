@@ -170,15 +170,8 @@ function populateSpecialtyFilter() {
     const opt = document.createElement('option');
     opt.value = s;
     const key = s.toLowerCase().replace(/ /g, '_');
-    const translated = t(key);
+    const translated = typeof t === 'function' ? t(key) : key;
     opt.textContent = translated !== key ? translated : s;
-    sel.appendChild(opt);
-  });
-});
-  const sel = document.getElementById('filter-specialty');
-  [...specialties].sort().forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = s; opt.textContent = s;
     sel.appendChild(opt);
   });
 }
