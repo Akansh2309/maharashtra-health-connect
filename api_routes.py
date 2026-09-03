@@ -140,3 +140,32 @@ def handle_review_post(server, body):
         return server._send_error(400, str(e))
 
     return server._send_json(review, status=201)
+
+# ── triage endpoints ────────────────────────────────────
+
+def handle_symptoms_search(server, query_params):
+    # Public endpoint
+    query = ""
+    # Very basic parsing since we only use basic python http.server
+    if "?q=" in server.path:
+        query = server.path.split("?q=")[1].split("&")[0]
+        # urldecode it
+        from urllib.parse import unquote
+        query = unquote(query)
+        
+    symptoms = data_api.search_symptoms(query)
+    return server._send_json(symptoms)
+
+def handle_triage_analyze(server, body):
+    # ASHA worker must be logged in ideally, but let's keep it simple for MVP
+    try:
+        data = json.loads(body)
+    except json.JSONDecodeError:
+        return server._send_error(400, "Invalid JSON")
+        
+    symptom_ids = data.get("symptoms", [])
+    if not isinstance(symptom_ids, list):
+        return server._send_error(400, "Symptoms must be a list of IDs")
+        
+    result = data_api.analyze_symptoms(symptom_ids)
+    return server._send_json(result)

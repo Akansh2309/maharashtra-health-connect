@@ -68,3 +68,83 @@ def add_review(hospital_id, session, rating, text):
     _reviews[hospital_id].append(review)
 
     return review
+
+import sqlite3
+
+DB_PATH = os.path.join(os.path.dirname(__file__), "data", "hpo_database.db")
+
+def search_symptoms(query, limit=20):
+    if not os.path.exists(DB_PATH):
+        return []
+        
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    
+    if not query:
+        # Return 20 random or common ones
+        cur.execute("SELECT hp_id, display_name FROM symptoms LIMIT ?", (limit,))
+    else:
+        cur.execute("SELECT hp_id, display_name FROM symptoms WHERE display_name LIKE ? LIMIT ?", ('%' + query + '%', limit))
+        
+    results = [{"id": r[0], "name": r[1]} for r in cur.fetchall()]
+    conn.close()
+    return results
+
+def analyze_symptoms(symptom_ids):
+    if not os.path.exists(DB_PATH) or not symptom_ids:
+        return {"diseases": [], "recommended_specialty": None}
+        
+    conn = sqlite3.connect(DB_PATH)
+    cur = conn.cursor()
+    
+    # We want to find diseases that have the MOST matches with the given symptom IDs
+    placeholders = ",".join("?" for _ in symptom_ids)
+    query = f'''
+        SELECT d.disease_name, ds.disease_id, COUNT(*) as match_count
+        FROM disease_symptoms ds
+        JOIN diseases d ON ds.disease_id = d.disease_id
+        WHERE ds.hp_id IN ({placeholders})
+        GROUP BY ds.disease_id
+        ORDER BY match_count DESC
+        LIMIT 5
+    '''
+    cur.execute(query, symptom_ids)
+    matched_diseases = cur.fetchall()
+    
+    if not matched_diseases:
+        conn.close()
+        return {"diseases": [], "recommended_specialty": None}
+        
+    # Get the specialty for the top matched disease
+    top_disease_id = matched_diseases[0][1]
+    cur.execute("SELECT primary_specialty FROM disease_specialties WHERE disease_id = ?", (top_disease_id,))
+    spec_row = cur.fetchone()
+    primary_specialty = spec_row[0] if spec_row else "General Practice"
+    
+    # In the dataset, specialties look like "Neurology", "Clinical Genetics", "Cardiology"
+    # Our hospital DB uses "neurology", "cardiology", "pediatrics", "maternity"
+    # We can do a simple mapping for the MVP
+    spec_lower = primary_specialty.lower()
+    if "cardio" in spec_lower:
+        mapped_specialty = "cardiology"
+    elif "pediatric" in spec_lower:
+        mapped_specialty = "pediatrics"
+    elif "obstetrics" in spec_lower or "gynecol" in spec_lower or "matern" in spec_lower:
+        mapped_specialty = "maternity"
+    elif "neurol" in spec_lower:
+        mapped_specialty = "neurology"
+    elif "ortho" in spec_lower:
+        mapped_specialty = "orthopedics"
+    elif "oncol" in spec_lower:
+        mapped_specialty = "oncology"
+    else:
+        mapped_specialty = "general"
+        
+    diseases = [{"name": r[0], "matches": r[2]} for r in matched_diseases]
+    
+    conn.close()
+    return {
+        "diseases": diseases,
+        "recommended_specialty": mapped_specialty,
+        "raw_specialty": primary_specialty
+    }

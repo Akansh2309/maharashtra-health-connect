@@ -48,6 +48,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/api/logout":
             return api_routes.handle_logout(self)
 
+        if path.startswith("/api/symptoms/search"):
+            return api_routes.handle_symptoms_search(self, self.path)
+
         # ── static files ────────────────────────────────
         # redirect to login if not authenticated
         if path in ("/", "/index.html"):
@@ -87,6 +90,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         if path == "/api/reviews":
             return api_routes.handle_review_post(self, body)
+
+        if path == "/api/triage/analyze":
+            return api_routes.handle_triage_analyze(self, body)
 
         self._send_error(404, "Not found")
 
