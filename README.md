@@ -140,7 +140,7 @@ maharashtra-health-connect/
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/maharashtra-health-connect.git
+git clone https://github.com/Akansh2309/maharashtra-health-connect.git
 
 # Navigate into the project directory
 cd maharashtra-health-connect
