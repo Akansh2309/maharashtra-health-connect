@@ -110,9 +110,38 @@ const TriageController = {
             const topDisease = data.diseases[0];
             this.lastRecommendedSpecialty = data.recommended_specialty;
             
+            let isHighRisk = false;
+            let riskTitle = "STANDARD REFERRAL";
+            let color = "#b8860b"; // dark goldenrod for standard
+            let bg = "#fffdf0";
+            
+            // Check if high risk based on specialty
+            const highRiskSpecs = ["cardiology", "neurology", "oncology", "maternity"];
+            if (highRiskSpecs.includes(data.recommended_specialty)) {
+                isHighRisk = true;
+            }
+            
+            // Check BP if entered
+            if (bpInput) {
+                const parts = bpInput.split("/");
+                if (parts.length === 2 && parseInt(parts[0]) >= 140) {
+                    isHighRisk = true;
+                }
+            }
+            
+            if (isHighRisk) {
+                riskTitle = "⚠️ HIGH RISK HPO MATCH";
+                color = "#d32f2f";
+                bg = "#fff3f3";
+            } else {
+                riskTitle = "📋 STANDARD SPECIALIST MATCH";
+                color = "#137333";
+                bg = "#e6f4ea";
+            }
+            
             reasonEl.innerHTML = `
-                <div style="background: #fff3f3; padding: 12px; border-radius: 6px; border-left: 4px solid #d32f2f; margin-bottom: 10px; text-align: left;">
-                    <div style="color: #d32f2f; font-weight: bold; margin-bottom: 5px;">⚠️ HIGH RISK HPO MATCH</div>
+                <div style="background: ${bg}; padding: 12px; border-radius: 6px; border-left: 4px solid ${color}; margin-bottom: 10px; text-align: left;">
+                    <div style="color: ${color}; font-weight: bold; margin-bottom: 5px;">${riskTitle}</div>
                     <strong>Disease:</strong> ${topDisease.name}<br>
                     <strong>Routing to:</strong> ${data.raw_specialty}<br>
                     <small style="color: #666;">Match Confidence: High</small>
