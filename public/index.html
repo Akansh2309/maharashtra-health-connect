@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Kachoris">
+  <meta name="copyright" content="Copyright (c) 2026 Kachoris. All rights reserved.">
+  <title>Maharashtra Health Connect — Kachoris | SIH 2026</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script>
+    if (localStorage.getItem('mhc_security_consent') !== 'granted') {
+      window.location.href = '/terms.html';
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loading-screen">
+    <div class="loading-content">
+      <img src="assets/logo.png" class="loading-logo" alt="Logo">
+      <h2 data-i18n="maharashtra_health_connect">Maharashtra Health Connect</h2>
+      <p data-i18n="connecting_citizens">Connecting citizens to healthcare across Maharashtra</p>
+      <div class="loading-bar"><div class="loading-bar-fill"></div></div>
+      <div class="loading-status" id="loading-status" data-i18n="initializing">Initializing...</div>
+      <div style="margin-top:20px;font-size:.7rem;color:#475569">Developed by <strong style="color:#f97316">Kachoris</strong> &bull; SIH 2026</div>
+    </div>
+  </div>
+
+  <!-- Emergency Modal -->
+  <div id="emergency-modal" class="modal-overlay">
+    <div class="emergency-modal-content">
+      <div class="emg-header">
+        <div class="emg-pulse"></div>
+        <h2><i class="fas fa-exclamation-triangle"></i> <span data-i18n="emergency_mode">Emergency Mode</span></h2>
+        <button class="emg-close" onclick="closeEmergency()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="emg-quick-actions">
+        <a href="tel:108" class="emg-action-btn emg-ambulance"><i class="fas fa-ambulance"></i><span><span data-i18n="call_108">Call 108</span><br><small data-i18n="ambulance">Ambulance</small></span></a>
+        <a href="tel:112" class="emg-action-btn emg-police"><i class="fas fa-phone-alt"></i><span><span data-i18n="call_112">Call 112</span><br><small data-i18n="emergency">Emergency</small></span></a>
+        <a href="tel:1075" class="emg-action-btn emg-helpline"><i class="fas fa-headset"></i><span><span data-i18n="call_1075">Call 1075</span><br><small data-i18n="health_helpline">Health Helpline</small></span></a>
+      </div>
+      <div class="emg-triage">
+        <h3 data-i18n="quick_triage">Quick Triage — What is your emergency?</h3>
+        <div class="triage-options">
+          <button class="triage-btn" onclick="triageFilter('cardiac')"><i class="fas fa-heartbeat"></i> <span data-i18n="heart_chest_pain">Heart / Chest Pain</span></button>
+          <button class="triage-btn" onclick="triageFilter('trauma')"><i class="fas fa-bone"></i> <span data-i18n="injury_accident">Injury / Accident</span></button>
+          <button class="triage-btn" onclick="triageFilter('breathing')"><i class="fas fa-lungs"></i> <span data-i18n="breathing_difficulty">Breathing Difficulty</span></button>
+          <button class="triage-btn" onclick="triageFilter('stroke')"><i class="fas fa-brain"></i> <span data-i18n="stroke_neuro">Stroke / Neurological</span></button>
+          <button class="triage-btn" onclick="triageFilter('pediatric')"><i class="fas fa-baby"></i> <span data-i18n="child_emergency">Child Emergency</span></button>
+          <button class="triage-btn" onclick="triageFilter('obstetric')"><i class="fas fa-female"></i> <span data-i18n="pregnancy_delivery">Pregnancy / Delivery</span></button>
+          <button class="triage-btn" onclick="triageFilter('burn')"><i class="fas fa-fire"></i> <span data-i18n="burns">Burns</span></button>
+          <button class="triage-btn" onclick="triageFilter('general')"><i class="fas fa-hospital"></i> <span data-i18n="general_emergency">General Emergency</span></button>
+        </div>
+      </div>
+      <div class="emg-nearest">
+        <h3><i class="fas fa-location-arrow"></i> <span data-i18n="nearest_emergency_hospitals">Nearest Emergency Hospitals</span></h3>
+        <div id="emg-hospital-list"></div>
+      </div>
+      <div class="emg-footer">
+        <p>&copy; 2026 Kachoris &bull; Maharashtra Health Connect</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app">
+    <div id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand">
+          <img src="assets/logo.png" class="brand-logo-img" alt="Logo">
+          <div class="brand-text">
+            <h1 data-i18n="maharashtra_health_connect">Maharashtra Health Connect</h1>
+            <p data-i18n="by_akansh_shaw">By Kachoris &bull; SIH 2026 &bull; Govt of Maharashtra</p>
+          </div>
+          <!-- Language Switcher -->
+          <div class="lang-switcher">
+            <button class="lang-toggle" onclick="toggleLangMenu()">
+              <i class="fas fa-globe"></i> <span id="lang-current">🇬🇧 EN</span>
+            </button>
+            <div class="lang-dropdown" id="lang-dropdown">
+              <button class="lang-option active" data-lang="en" onclick="setLanguage('en')">🇬🇧 English</button>
+              <button class="lang-option" data-lang="hi" onclick="setLanguage('hi')">🇮🇳 हिंदी</button>
+              <button class="lang-option" data-lang="mr" onclick="setLanguage('mr')">🇮🇳 मराठी</button>
+            </div>
+          </div>
+          <div class="user-menu">
+            <button class="user-btn" id="user-btn" onclick="toggleUserMenu()"><i class="fas fa-user-circle"></i></button>
+            <div class="user-dropdown" id="user-dropdown">
+              <div class="ud-header"><i class="fas fa-user-circle" style="font-size:1.5rem;color:#38bdf8"></i><div><div id="ud-name">User</div><div id="ud-role" class="ud-role">Authenticated</div></div></div>
+              <div class="ud-divider"></div>
+              <a href="/api/logout" class="ud-item"><i class="fas fa-sign-out-alt"></i> <span data-i18n="sign_out">Sign Out</span></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="location-bar">
+          <div class="pulse-dot"></div>
+          <div id="user-location-text"><strong data-i18n="detecting_location_short">Detecting location...</strong></div>
+        </div>
+
+        <div class="search-container">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="search-input" data-i18n="search_placeholder" placeholder="Search hospitals, doctors, specializations..." />
+        </div>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all" data-i18n="all">All</button>
+        <button class="filter-tab" data-filter="government" data-i18n="government">Government</button>
+        <button class="filter-tab" data-filter="private" data-i18n="private">Private</button>
+        <button class="filter-tab" data-filter="rural" data-i18n="rural">🌾 Rural</button>
+        <button class="filter-tab" data-filter="emergency" data-i18n="emergency_er">🚨 ER</button>
+      </div>
+
+      <!-- Advanced Filters -->
+      <div class="advanced-filters">
+        <div class="adv-filter-row">
+          <div class="adv-filter-group">
+            <label><i class="fas fa-stethoscope"></i> <span data-i18n="doctor_specialty">Doctor Specialty</span></label>
+            <select id="filter-specialty">
+              <option value="" data-i18n="all_specialties">All Specialties</option>
+            </select>
+          </div>
+          <div class="adv-filter-group">
+            <label><i class="fas fa-wallet"></i> <span data-i18n="budget_range">Budget Range (Private)</span></label>
+            <select id="filter-budget">
+              <option value="" data-i18n="any_budget">Any Budget</option>
+              <option value="0-5000" data-i18n="under_5k">Under ₹5,000</option>
+              <option value="5000-15000">₹5,000 — ₹15,000</option>
+              <option value="15000-50000">₹15,000 — ₹50,000</option>
+              <option value="50000-150000">₹50,000 — ₹1,50,000</option>
+              <option value="150000-999999">₹1,50,000+</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sort Bar -->
+      <div class="sort-bar">
+        <span id="hospital-count">0 <span data-i18n="hospitals">hospitals</span></span>
+        <div class="sort-options">
+          <button class="sort-btn active" data-sort="distance" data-i18n="distance">Distance</button>
+          <button class="sort-btn" data-sort="rating" data-i18n="rating">Rating</button>
+          <button class="sort-btn" data-sort="beds" data-i18n="beds">Beds</button>
+        </div>
+      </div>
+
+      <div class="hospital-list" id="hospital-list"></div>
+
+      <button class="emergency-btn" id="emergency-btn" onclick="openEmergency()">
+        <i class="fas fa-ambulance"></i> <span data-i18n="emergency_find_nearest">Emergency — Find Nearest ER</span>
+      </button>
+
+      <div class="sidebar-footer">
+        <p>Copyrights are claimed by <strong>Kachoris</strong> &bull; Developed by Kachoris</p>
+      </div>
+    </div>
+
+    <div id="map-container">
+      <div id="map"></div>
+      <div class="map-actions">
+        <button class="map-action-btn" id="btn-recenter" title="Re-center"><i class="fas fa-crosshairs"></i></button>
+      </div>
+      <div class="map-stats-bar" id="map-stats-bar">
+        <div class="map-stat-card"><div class="stat-val" id="stat-total">0</div><div class="stat-lbl" data-i18n="total">Total</div></div>
+        <div class="map-stat-card"><div class="stat-val" id="stat-nearby">0</div><div class="stat-lbl" data-i18n="within_25km">Within 25km</div></div>
+        <div class="map-stat-card"><div class="stat-val" id="stat-rural">0</div><div class="stat-lbl" data-i18n="rural_label">Rural</div></div>
+        <div class="map-stat-card"><div class="stat-val" id="stat-beds">0</div><div class="stat-lbl" data-i18n="beds">Beds</div></div>
+      </div>
+      <div class="map-copyright">Developed by <strong>Kachoris</strong> &bull; SIH 2026 PS#26133</div>
+    </div>
+  </div>
+
+  <!-- Detail Panel -->
+  <div class="detail-overlay" id="detail-overlay"></div>
+  <div id="detail-panel">
+    <div class="detail-header">
+      <button class="detail-back" id="detail-back"><i class="fas fa-arrow-left"></i></button>
+      <div class="detail-header-info"><h2 id="detail-name"></h2><p id="detail-address"></p></div>
+    </div>
+    <div class="route-info-bar" id="route-info-bar">
+      <div class="route-stat"><div class="stat-value" id="route-distance">--</div><div class="stat-label" data-i18n="distance">Distance</div></div>
+      <div class="route-stat"><div class="stat-value" id="route-time">--</div><div class="stat-label" data-i18n="est_time">Est. Time</div></div>
+      <div class="route-stat"><div class="stat-value" id="route-traffic">--</div><div class="stat-label" data-i18n="traffic">Traffic</div></div>
+    </div>
+    <div class="detail-content" id="detail-content"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
