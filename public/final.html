@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharashtra Health Connect</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        #map { height: 220px; width: 100%; border-radius: 0.75rem; z-index: 10; }
+        .glass { background: rgba(255,255,255,0.97); backdrop-filter: blur(12px); }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        .spinner { border:4px solid rgba(255,255,255,0.3); border-radius:50%; border-top:4px solid #3b82f6; width:36px; height:36px; animation:spin 0.8s linear infinite; }
+        @keyframes spin { to { transform:rotate(360deg); } }
+        .tab-btn.active { background: white; color: #1e40af; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .tab-panel { display: none; } .tab-panel.active { display: block; }
+        .symptom-chip { transition: all 0.15s; }
+        .symptom-chip.selected { background: #3b82f6; color: white; border-color: #3b82f6; }
+        .lang-mr .lang-en, .lang-hi .lang-en { display:none; }
+        .lang-en .lang-mr, .lang-hi .lang-mr { display:none; }
+        .lang-en .lang-hi, .lang-mr .lang-hi { display:none; }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col lang-en">
+
+    <!-- CONSENT MODAL -->
+    <div id="consentModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 sm:p-8 fade-in">
+            <div class="text-center mb-6">
+                <div class="bg-blue-100 p-3 rounded-full w-14 h-14 mx-auto flex items-center justify-center mb-3">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h2 class="text-xl font-bold text-slate-900">Data Consent</h2>
+                <p class="text-sm text-slate-500 mt-2">Your health data is processed securely and used only for medical triage. No data is shared with third parties.</p>
+            </div>
+            <div class="space-y-3 mb-6">
+                <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" id="consent1" class="mt-1 w-4 h-4 text-blue-600 rounded"><span class="text-sm text-slate-700">I consent to share my health vitals for AI-assisted triage</span></label>
+                <label class="flex items-start gap-3 cursor-pointer"><input type="checkbox" id="consent2" class="mt-1 w-4 h-4 text-blue-600 rounded"><span class="text-sm text-slate-700">I understand this is a decision-support tool, not a diagnosis</span></label>
+            </div>
+            <div class="space-y-2 mb-4">
+                <label class="block text-sm font-semibold text-slate-700">Your Role</label>
+                <select id="userRole" class="w-full border rounded-xl p-3 bg-slate-50 border-slate-300">
+                    <option value="asha">ASHA / ANM Worker</option>
+                    <option value="doctor">Doctor / Physician</option>
+                    <option value="admin">PHC Administrator</option>
+                </select>
+            </div>
+            <button id="consentBtn" disabled class="w-full bg-blue-600 text-white font-bold py-3 rounded-xl opacity-50 cursor-not-allowed transition-all">I Agree & Continue</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-2.5">
+                <div class="bg-white/20 p-1.5 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div>
+                <h1 class="text-lg font-bold tracking-tight">MH Connect</h1>
+            </div>
+            <div class="flex items-center gap-3">
+                <!-- Language Toggle -->
+                <select id="langSelect" class="bg-white/10 border border-white/20 rounded-lg text-xs px-2 py-1.5 text-white">
+                    <option value="en" class="text-black">English</option>
+                    <option value="mr" class="text-black">मराठी</option>
+                    <option value="hi" class="text-black">हिंदी</option>
+                </select>
+                <div class="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20 text-sm">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span id="workerName" class="hidden sm:block text-xs font-medium">ASHA: Sunita</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- TAB NAVIGATION -->
+    <div class="bg-white border-b border-slate-200 sticky top-14 z-40">
+        <div class="max-w-7xl mx-auto px-4 flex gap-1 py-1.5 overflow-x-auto">
+            <button class="tab-btn active text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap" data-tab="triage">
+                <span class="lang-en">🩺 Triage</span><span class="lang-mr">🩺 ट्रायज</span><span class="lang-hi">🩺 ट्राइएज</span>
+            </button>
+            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="referrals">
+                <span class="lang-en">📋 Referrals</span><span class="lang-mr">📋 संदर्भ</span><span class="lang-hi">📋 रेफरल</span>
+            </button>
+            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="followups">
+                <span class="lang-en">✅ Follow-ups</span><span class="lang-mr">✅ पाठपुरावा</span><span class="lang-hi">✅ फॉलो-अप</span>
+            </button>
+            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="medicines">
+                <span class="lang-en">💊 Medicines</span><span class="lang-mr">💊 औषधे</span><span class="lang-hi">💊 दवाइयाँ</span>
+            </button>
+            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="dashboard">
+                <span class="lang-en">📊 Dashboard</span><span class="lang-mr">📊 डॅशबोर्ड</span><span class="lang-hi">📊 डैशबोर्ड</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 py-5 w-full">
+
+        <!-- ═══ TAB 1: TRIAGE ═══ -->
+        <div id="tab-triage" class="tab-panel active">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- LEFT: Input -->
+                <div class="lg:col-span-5 space-y-4">
+                    <!-- Patient Registration -->
+                    <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                        <h2 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
+                            <span class="lang-en">👤 Patient Registration</span>
+                            <span class="lang-mr">👤 रुग्ण नोंदणी</span>
+                            <span class="lang-hi">👤 रोगी पंजीकरण</span>
+                        </h2>
+                        <div class="grid grid-cols-2 gap-3">
+                            <input type="text" id="patientName" class="col-span-2 border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Patient Name / रुग्णाचे नाव">
+                            <input type="number" id="patientAge" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Age / वय">
+                            <input type="text" id="patientVillage" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Village / गाव">
+                        </div>
+                    </div>
+
+                    <!-- Vitals Form -->
+                    <form id="triageForm" class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5 space-y-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <h2 class="text-sm font-bold text-slate-800">
+                                <span class="lang-en">Vitals & Symptoms</span>
+                                <span class="lang-mr">व्हायटल्स आणि लक्षणे</span>
+                                <span class="lang-hi">वाइटल्स और लक्षण</span>
+                            </h2>
+                            <button type="button" id="voiceBtn" class="text-xs bg-purple-100 text-purple-700 px-2.5 py-1 rounded-lg font-semibold hover:bg-purple-200 transition-all flex items-center gap-1">🎙 Voice</button>
+                        </div>
+
+                        <select id="profile" class="w-full rounded-xl border-slate-300 border p-2.5 bg-slate-50 text-sm">
+                            <option value="maternal">Maternal (Pregnant/Postpartum)</option>
+                            <option value="neonate">Neonate (0-2 months)</option>
+                            <option value="child">Child (2 months - 5 years)</option>
+                            <option value="adult" selected>General Adult</option>
+                        </select>
+
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="relative"><input type="number" id="sysBP" class="w-full border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Sys BP"><span class="absolute right-3 top-3 text-[10px] text-slate-400">mmHg</span></div>
+                            <div class="relative"><input type="number" id="diaBP" class="w-full border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Dia BP"><span class="absolute right-3 top-3 text-[10px] text-slate-400">mmHg</span></div>
+                            <div class="relative"><input type="number" id="hr" class="w-full border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Heart Rate"><span class="absolute right-3 top-3 text-[10px] text-slate-400">bpm</span></div>
+                            <div class="relative"><input type="number" id="temp" step="0.1" class="w-full border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Temp"><span class="absolute right-3 top-3 text-[10px] text-slate-400">°C</span></div>
+                        </div>
+
+                        <!-- Danger Signs -->
+                        <div class="bg-red-50 border border-red-100 rounded-xl p-3 space-y-1.5">
+                            <p class="text-[10px] text-red-600 uppercase tracking-widest font-bold">
+                                <span class="lang-en">Danger Signs</span><span class="lang-mr">धोक्याची चिन्हे</span><span class="lang-hi">खतरे के संकेत</span>
+                            </p>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="checkbox" id="sign_headache" class="w-4 h-4 text-red-600 rounded"> Severe headache</label>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="checkbox" id="sign_bleeding" class="w-4 h-4 text-red-600 rounded"> Heavy bleeding</label>
+                            <label class="flex items-center gap-2 cursor-pointer text-sm"><input type="checkbox" id="sign_convulsions" class="w-4 h-4 text-red-600 rounded"> Convulsions/Fits</label>
+                        </div>
+
+                        <!-- ML Symptom Selector -->
+                        <div>
+                            <p class="text-[10px] text-slate-500 uppercase tracking-widest font-bold mb-2">
+                                <span class="lang-en">Select Symptoms (AI Model)</span><span class="lang-mr">लक्षणे निवडा (AI मॉडेल)</span><span class="lang-hi">लक्षण चुनें (AI मॉडल)</span>
+                            </p>
+                            <div id="symptomChips" class="flex flex-wrap gap-1.5"></div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold py-3 rounded-xl transition-all shadow-md flex justify-center items-center gap-2 text-sm">
+                            <span class="lang-en">🧠 Run AI Analysis</span>
+                            <span class="lang-mr">🧠 AI विश्लेषण करा</span>
+                            <span class="lang-hi">🧠 AI विश्लेषण चलाएं</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- RIGHT: Results -->
+                <div class="lg:col-span-7 space-y-4 relative">
+                    <!-- Loading -->
+                    <div id="loadingOverlay" class="hidden absolute inset-0 bg-white/80 backdrop-blur-sm z-50 rounded-2xl flex flex-col items-center justify-center">
+                        <div class="spinner mb-3 border-blue-200 border-t-blue-600"></div>
+                        <p class="text-blue-800 font-semibold text-sm animate-pulse">Running ML Models...</p>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="emptyState" class="glass h-full rounded-2xl border border-slate-200 border-dashed flex flex-col items-center justify-center text-slate-400 p-8 text-center min-h-[400px]">
+                        <div class="bg-slate-100 p-4 rounded-full mb-3"><svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg></div>
+                        <h3 class="text-base font-semibold text-slate-600 mb-1">
+                            <span class="lang-en">Awaiting Patient Data</span><span class="lang-mr">रुग्ण डेटाची प्रतीक्षा</span><span class="lang-hi">रोगी डेटा की प्रतीक्षा</span>
+                        </h3>
+                        <p class="text-xs max-w-xs">Enter vitals and symptoms, then run AI analysis.</p>
+                    </div>
+
+                    <!-- Results -->
+                    <div id="resultsContainer" class="hidden space-y-4 fade-in">
+                        <!-- Alert Banner -->
+                        <div id="alertBanner" class="hidden bg-gradient-to-r from-rose-50 to-red-50 border-l-4 border-red-500 p-4 rounded-r-xl shadow-sm">
+                            <div class="flex items-start gap-3">
+                                <span class="text-red-500 text-xl">🚨</span>
+                                <div>
+                                    <h3 class="text-xs font-extrabold text-red-800 uppercase tracking-widest" id="alertTitle">RED FLAG</h3>
+                                    <p class="text-sm text-red-900 font-medium" id="alertMessage"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ML Output -->
+                        <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                            <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-3">
+                                <h2 class="text-base font-bold text-slate-800">🧠 AI Diagnostic Insights</h2>
+                                <span class="text-[10px] font-semibold bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded uppercase">Analysis Complete</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-4">
+                                <div class="bg-blue-50 p-3 rounded-xl border border-blue-100/50 relative overflow-hidden">
+                                    <div class="absolute right-0 top-0 h-full w-1 bg-blue-500"></div>
+                                    <p class="text-[9px] text-blue-600 uppercase tracking-widest font-bold mb-0.5">Primary Prediction</p>
+                                    <p class="text-slate-900 font-bold text-sm" id="predictedCondition">—</p>
+                                    <span class="text-[10px] bg-blue-200 text-blue-800 px-1.5 py-0.5 rounded font-bold mt-1 inline-block" id="confidenceScore">—</span>
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-0.5">Specialist</p>
+                                    <p class="text-slate-900 font-bold text-xs mb-2" id="specialistReq">—</p>
+                                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-0.5">Differentials (ML)</p>
+                                    <ul class="text-[11px] text-slate-700 space-y-0.5 font-medium" id="altDiagnoses"></ul>
+                                </div>
+                                <div class="bg-purple-50 p-3 rounded-xl border border-purple-100/50 relative overflow-hidden">
+                                    <div class="absolute right-0 top-0 h-full w-1 bg-purple-500"></div>
+                                    <p class="text-[9px] text-purple-600 uppercase tracking-widest font-bold mb-0.5">Diagnostics</p>
+                                    <p class="text-slate-900 font-semibold text-xs leading-relaxed" id="recommendedTests">—</p>
+                                </div>
+                            </div>
+
+                            <!-- Map + Facility + Specialist -->
+                            <div id="map" class="shadow-md border border-slate-200 mb-3 bg-slate-100"></div>
+
+                            <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900" id="facilityName">—</p>
+                                    <div class="flex items-center gap-2 mt-0.5">
+                                        <span class="text-[10px] font-semibold bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded" id="facilityDist">—</span>
+                                        <span class="text-[10px] text-slate-500" id="facilityCaps">—</span>
+                                    </div>
+                                </div>
+                                <div class="border-t border-slate-100 pt-2">
+                                    <p class="text-[9px] text-slate-500 uppercase tracking-widest font-bold mb-1.5">Available Specialists</p>
+                                    <div id="specialistList" class="space-y-1.5"></div>
+                                </div>
+                                <div class="flex gap-2" id="actionButtons"></div>
+                            </div>
+
+                            <!-- Referral Status (if created) -->
+                            <div id="referralCard" class="hidden mt-3 bg-amber-50 p-3 rounded-xl border border-amber-200">
+                                <p class="text-[9px] text-amber-700 uppercase tracking-widest font-bold mb-1">Digital Referral Created</p>
+                                <p class="text-sm font-bold text-amber-900" id="referralId">REF-1001</p>
+                                <p class="text-xs text-amber-700" id="referralStatus">Status: CREATED → Awaiting facility confirmation</p>
+                                <div class="flex gap-2 mt-2">
+                                    <button onclick="updateRef('IN_TRANSIT','Patient in transit')" class="text-[10px] bg-amber-200 text-amber-800 px-2 py-1 rounded font-bold hover:bg-amber-300">Mark In-Transit</button>
+                                    <button onclick="updateRef('SEEN_BY_DOCTOR','Doctor consultation done')" class="text-[10px] bg-emerald-200 text-emerald-800 px-2 py-1 rounded font-bold hover:bg-emerald-300">Mark Seen</button>
+                                    <button onclick="updateRef('RESOLVED','Case resolved')" class="text-[10px] bg-blue-200 text-blue-800 px-2 py-1 rounded font-bold hover:bg-blue-300">Resolve</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 2: REFERRALS ═══ -->
+        <div id="tab-referrals" class="tab-panel">
+            <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                <h2 class="text-base font-bold text-slate-800 mb-3">📋 Active Referrals</h2>
+                <div id="referralsList" class="space-y-2 text-sm text-slate-600"><p class="text-slate-400 text-xs">No referrals yet. Run a triage to create one.</p></div>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 3: FOLLOW-UPS ═══ -->
+        <div id="tab-followups" class="tab-panel">
+            <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                <h2 class="text-base font-bold text-slate-800 mb-3">✅ Follow-up Tasks</h2>
+                <div id="followupsList" class="space-y-2 text-sm text-slate-600"><p class="text-slate-400 text-xs">No follow-up tasks yet.</p></div>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 4: MEDICINES ═══ -->
+        <div id="tab-medicines" class="tab-panel">
+            <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                <h2 class="text-base font-bold text-slate-800 mb-3">💊 Medicine Availability</h2>
+                <div class="flex gap-2 mb-4">
+                    <input type="text" id="medSearch" class="flex-1 border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Search: Paracetamol, Labetalol, Amoxicillin...">
+                    <button onclick="searchMeds()" class="bg-blue-600 text-white text-sm font-bold px-4 rounded-xl hover:bg-blue-700">Search</button>
+                </div>
+                <div id="medResults" class="space-y-2"></div>
+            </div>
+        </div>
+
+        <!-- ═══ TAB 5: DASHBOARD ═══ -->
+        <div id="tab-dashboard" class="tab-panel">
+            <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
+                <h2 class="text-base font-bold text-slate-800 mb-4">📊 PHC Dashboard</h2>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4" id="dashStats"></div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2">Success Metrics</h3>
+                        <div class="space-y-1.5 text-xs">
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Median Triage → Consult</span><span class="font-bold text-emerald-700">~18 min</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Referral Completion Rate</span><span class="font-bold text-emerald-700">94%</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Follow-up Compliance</span><span class="font-bold text-emerald-700">87%</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Prescriptions Fulfilled</span><span class="font-bold text-emerald-700">91%</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Avg Waiting Time</span><span class="font-bold text-emerald-700">22 min</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Data Completeness</span><span class="font-bold text-emerald-700">96%</span></div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2">Active Facilities (Top 5)</h3>
+                        <div id="topFacilities" class="space-y-1.5 text-xs"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FAKE VIDEO CALL OVERLAY -->
+    <div id="videoCallModal" class="hidden fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-4xl bg-slate-800 rounded-2xl overflow-hidden shadow-2xl border border-slate-700 flex flex-col h-[80vh]">
+            <!-- Header -->
+            <div class="bg-slate-900 px-4 py-3 border-b border-slate-700 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <span class="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse"></span>
+                    <h3 class="text-white font-bold text-sm">Emergency Teleconsultation</h3>
+                    <span class="text-slate-400 text-xs px-2 py-0.5 rounded-md bg-slate-800 border border-slate-600" id="videoDocName">Dr. Specialist</span>
+                </div>
+                <div class="text-slate-300 font-mono text-xs" id="callTimer">00:00</div>
+            </div>
+            
+            <!-- Video Area -->
+            <div class="flex-1 relative bg-black flex items-center justify-center">
+                <!-- "Connecting" State -->
+                <div id="videoConnecting" class="text-center">
+                    <div class="spinner mb-4 mx-auto border-slate-600 border-t-white"></div>
+                    <p class="text-slate-300 text-sm animate-pulse">Establishing secure WebRTC bridge...</p>
+                </div>
+                
+                <!-- "Connected" State (Fake Video feeds) -->
+                <div id="videoFeeds" class="hidden absolute inset-0">
+                    <!-- Main Feed (Doctor) -->
+                    <img src="https://images.unsplash.com/photo-1537368910025-700350fe46c7?auto=format&fit=crop&w=1200&q=80" class="w-full h-full object-cover opacity-80" alt="Doctor" />
+                    <div class="absolute bottom-4 left-4 bg-black/60 text-white text-xs px-2 py-1 rounded">Dr. Specialist (PHC Hub)</div>
+                    
+                    <!-- PIP (Patient/ASHA) -->
+                    <div class="absolute bottom-4 right-4 w-48 h-32 bg-slate-700 rounded-lg overflow-hidden border-2 border-slate-500 shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1584820927498-cafe2c1c9b68?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover" alt="ASHA" />
+                        <div class="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded">You (ASHA)</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Controls -->
+            <div class="bg-slate-900 p-4 flex justify-center gap-4">
+                <button class="w-12 h-12 rounded-full bg-slate-700 text-white flex items-center justify-center hover:bg-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg></button>
+                <button class="w-12 h-12 rounded-full bg-slate-700 text-white flex items-center justify-center hover:bg-slate-600"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></button>
+                <button onclick="endTeleconsult()" class="w-16 h-12 rounded-full bg-red-600 text-white flex items-center justify-center hover:bg-red-700 shadow-[0_0_15px_rgba(220,38,38,0.5)]"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z"></path></svg></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-3 border-t border-slate-200 bg-white">
+        <p class="text-[10px] font-medium text-slate-400 uppercase tracking-wider">&copy; 2026 The Kacchodis. All rights reserved. Building for a healthier Maharashtra.</p>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ── CONSENT ──
+        const c1 = document.getElementById('consent1'), c2 = document.getElementById('consent2');
+        const consentBtn = document.getElementById('consentBtn');
+        const consentModal = document.getElementById('consentModal');
+        function checkConsent() { const ok = c1.checked && c2.checked; consentBtn.disabled = !ok; consentBtn.classList.toggle('opacity-50', !ok); consentBtn.classList.toggle('cursor-not-allowed', !ok); }
+        c1.addEventListener('change', checkConsent); c2.addEventListener('change', checkConsent);
+        consentBtn.addEventListener('click', () => { consentModal.classList.add('hidden'); });
+
+        // ── LANGUAGE ──
+        document.getElementById('langSelect').addEventListener('change', (e) => {
+            document.body.className = document.body.className.replace(/lang-\w+/,'') + ' lang-' + e.target.value;
+        });
+
+        // ── TABS ──
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+                if (btn.dataset.tab === 'referrals') loadReferrals();
+                if (btn.dataset.tab === 'followups') loadFollowups();
+                if (btn.dataset.tab === 'dashboard') loadDashboard();
+            });
+        });
+
+        // ── VOICE INPUT ──
+        document.getElementById('voiceBtn').addEventListener('click', () => {
+            if (!('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) { alert('Voice not supported'); return; }
+            const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const r = new SR(); r.lang = 'en-IN'; r.start();
+            r.onresult = (e) => {
+                const t = e.results[0][0].transcript.toLowerCase();
+                if (t.includes('fever')) toggleChip('Fever');
+                if (t.includes('cough')) toggleChip('Cough');
+                if (t.includes('headache')) toggleChip('Headache');
+                if (t.includes('pain')) toggleChip('Chest pain');
+                if (t.includes('vomit')) toggleChip('Vomiting');
+                if (t.includes('diarr')) toggleChip('Diarrhea');
+                alert('Heard: ' + t);
+            };
+        });
+
+        // ── SYMPTOM CHIPS ──
+        const SYMPTOMS = ['Fever','Cough','Fatigue','Shortness of breath','Headache','Nausea','Vomiting','Diarrhea','Abdominal pain','Joint pain','Muscle aches','Chest pain','Dizziness','Loss of taste or smell','Sore throat','Congestion','Skin rash','Frequent urination','Increased thirst','Unexplained weight loss','Unexplained weight gain','Anxiety','Depressed mood','Insomnia','Heartburn','Constipation','Tremor','Memory loss','Hair loss','Blurred vision'];
+        const selectedSymptoms = new Set();
+        const chipsDiv = document.getElementById('symptomChips');
+        SYMPTOMS.forEach(s => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'symptom-chip text-[11px] px-2.5 py-1 rounded-full border border-slate-300 text-slate-600 hover:border-blue-400 font-medium';
+            chip.textContent = s;
+            chip.addEventListener('click', () => { chip.classList.toggle('selected'); if (selectedSymptoms.has(s)) selectedSymptoms.delete(s); else selectedSymptoms.add(s); });
+            chipsDiv.appendChild(chip);
+        });
+        window.toggleChip = (name) => { const c = [...chipsDiv.children].find(el => el.textContent === name); if (c) c.click(); };
+
+        // ── MAP ──
+        let map = null;
+
+        // ── CURRENT REFERRAL ID ──
+        let currentRefId = null;
+
+        // ── FORM SUBMIT → REAL API CALL ──
+        document.getElementById('triageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+
+            const payload = {
+                profile: document.getElementById('profile').value,
+                symptoms: [...selectedSymptoms],
+                vitals: {
+                    sysBP: parseInt(document.getElementById('sysBP').value) || 0,
+                    diaBP: parseInt(document.getElementById('diaBP').value) || 0,
+                    hr: parseInt(document.getElementById('hr').value) || 0,
+                    temp: parseFloat(document.getElementById('temp').value) || 0,
+                },
+                danger_signs: {
+                    headache: document.getElementById('sign_headache').checked,
+                    bleeding: document.getElementById('sign_bleeding').checked,
+                    convulsions: document.getElementById('sign_convulsions').checked,
+                },
+                patient: {
+                    name: document.getElementById('patientName').value || 'Anonymous',
+                    age: document.getElementById('patientAge').value || '',
+                    village: document.getElementById('patientVillage').value || '',
+                }
+            };
+
+            try {
+                const res = await fetch('/api/predict', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+                const data = await res.json();
+                renderResults(data);
+            } catch (err) {
+                alert('Server error: ' + err.message);
+            } finally {
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }
+        });
+
+        function renderResults(data) {
+            document.getElementById('emptyState').classList.add('hidden');
+            document.getElementById('resultsContainer').classList.remove('hidden');
+
+            const pred = data.prediction;
+            const triage = data.triage;
+            const diag = data.diagnostics;
+            const fac = data.facility;
+
+            // Alert Banner
+            const banner = document.getElementById('alertBanner');
+            if (triage.is_emergency) {
+                banner.classList.remove('hidden');
+                document.getElementById('alertTitle').textContent = triage.severity + ' RED FLAG';
+                document.getElementById('alertMessage').textContent = 'Triggered by: ' + triage.triggers.join(', ') + '. ' + triage.escalation_action;
+            } else {
+                banner.classList.add('hidden');
+            }
+
+            // Prediction
+            document.getElementById('predictedCondition').textContent = pred.top_disease;
+            document.getElementById('confidenceScore').textContent = pred.confidence + '% Confidence';
+            document.getElementById('specialistReq').textContent = diag.specialty;
+            document.getElementById('recommendedTests').textContent = diag.recommended_tests;
+
+            // Alternatives
+            const altEl = document.getElementById('altDiagnoses');
+            if (pred.alternatives.length > 0) {
+                altEl.innerHTML = pred.alternatives.map(a => `<li>• ${a.disease} (${a.confidence}%)</li>`).join('');
+            } else {
+                altEl.innerHTML = '<li>• No close alternatives</li>';
+            }
+
+            // Facility
+            if (fac) {
+                document.getElementById('facilityName').textContent = fac.facility_name;
+                document.getElementById('facilityDist').textContent = fac.district + ' | ' + fac.facility_type;
+                document.getElementById('facilityCaps').textContent = 'Doctor: ' + fac.doctor_available + ' | Telecon: ' + fac.teleconsultation_available + ' | Emergency: ' + fac.emergency_capable;
+
+                // Specialists
+                const specList = document.getElementById('specialistList');
+                specList.innerHTML = `
+                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <div><p class="text-xs font-bold text-slate-800">Dr. S. Kulkarni</p><p class="text-[10px] text-slate-500">${diag.specialty}</p></div>
+                        <span class="text-[10px] bg-blue-50 text-blue-600 font-bold px-1.5 py-0.5 rounded">${fac.next_slot || 'Next Available'}</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg border border-slate-100">
+                        <div><p class="text-xs font-bold text-slate-800">Dr. M. Joshi</p><p class="text-[10px] text-slate-500">${diag.specialty}</p></div>
+                        <span class="text-[10px] bg-blue-50 text-blue-600 font-bold px-1.5 py-0.5 rounded">${fac.operating_hours}</span>
+                    </div>
+                `;
+
+                // Buttons
+                const btnsEl = document.getElementById('actionButtons');
+                if (triage.is_emergency) {
+                    btnsEl.innerHTML = `
+                        <button class="flex-1 bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-md transition-all">🚑 Dispatch Ambulance</button>
+                        <button onclick="startTeleconsult()" class="flex-1 bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-md transition-all">📹 Teleconsult Now</button>
+                    `;
+                } else {
+                    btnsEl.innerHTML = `
+                        <button onclick="bookAppt('${fac.facility_id}','${diag.specialty}')" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold py-2.5 rounded-xl shadow-md transition-all">📅 Book Appointment</button>
+                        <button onclick="startTeleconsult()" class="flex-1 bg-purple-100 hover:bg-purple-200 text-purple-700 text-xs font-bold py-2.5 rounded-xl transition-all">📹 Teleconsult</button>
+                    `;
+                }
+            }
+
+            // Map
+            if (!map) {
+                map = L.map('map').setView([19.0, 74.0], 8);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution:'©OSM'}).addTo(map);
+            } else { map.eachLayer(l => { if (l.toGeoJSON) map.removeLayer(l); }); }
+            const patLat = 18.5 + Math.random()*1.5, patLng = 73.5 + Math.random()*1.5;
+            const facLat = patLat + 0.05 + Math.random()*0.1, facLng = patLng + 0.05 + Math.random()*0.1;
+            L.marker([patLat, patLng]).addTo(map).bindPopup('<b>Patient</b>').openPopup();
+            if (fac) {
+                L.marker([facLat, facLng]).addTo(map).bindPopup('<b>' + fac.facility_name + '</b>');
+                L.polyline([[patLat,patLng],[facLat,facLng]], {color: triage.is_emergency ? '#ef4444' : '#3b82f6', weight:4, dashArray:'8,8'}).addTo(map);
+                map.fitBounds([[patLat,patLng],[facLat,facLng]], {padding:[40,40]});
+            }
+
+            // Referral card
+            const refCard = document.getElementById('referralCard');
+            if (data.referral) {
+                currentRefId = data.referral.id;
+                refCard.classList.remove('hidden');
+                document.getElementById('referralId').textContent = data.referral.id + ' — ' + data.referral.priority;
+                document.getElementById('referralStatus').textContent = 'Status: ' + data.referral.status + ' → ' + data.referral.facility;
+            } else {
+                refCard.classList.add('hidden');
+            }
+        }
+
+        // ── TELECONSULT SIMULATION ──
+        let callInterval = null;
+        window.startTeleconsult = () => {
+            document.getElementById('videoCallModal').classList.remove('hidden');
+            document.getElementById('videoConnecting').classList.remove('hidden');
+            document.getElementById('videoFeeds').classList.add('hidden');
+            document.getElementById('callTimer').textContent = '00:00';
+            
+            // Simulate 2-second connection
+            setTimeout(() => {
+                document.getElementById('videoConnecting').classList.add('hidden');
+                document.getElementById('videoFeeds').classList.remove('hidden');
+                
+                // Start timer
+                let sec = 0;
+                callInterval = setInterval(() => {
+                    sec++;
+                    const m = String(Math.floor(sec/60)).padStart(2,'0');
+                    const s = String(sec%60).padStart(2,'0');
+                    document.getElementById('callTimer').textContent = `${m}:${s}`;
+                }, 1000);
+            }, 2500);
+        };
+
+        window.endTeleconsult = () => {
+            if (callInterval) clearInterval(callInterval);
+            document.getElementById('videoCallModal').classList.add('hidden');
+            alert('Teleconsultation ended. Notes have been added to the patient record.');
+        };
+
+        // ── BOOK APPOINTMENT ──
+        window.bookAppt = async (facilityId, specialty) => {
+            const name = document.getElementById('patientName').value || 'Patient';
+            try {
+                const res = await fetch('/api/appointments', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ patient_name: name, facility_id: facilityId, specialty, slot: 'Next Available' }) });
+                const appt = await res.json();
+                alert('✅ Appointment Booked!\n\nID: ' + appt.id + '\nFacility: ' + appt.facility_name + '\nSlot: ' + appt.slot + '\nStatus: ' + appt.status);
+            } catch(e) { alert('Error booking: ' + e.message); }
+        };
+
+        // ── UPDATE REFERRAL ──
+        window.updateRef = async (status, note) => {
+            if (!currentRefId) return;
+            try {
+                const res = await fetch('/api/referrals/update', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ id: currentRefId, status, note }) });
+                const ref = await res.json();
+                document.getElementById('referralStatus').textContent = 'Status: ' + ref.status + ' → ' + (ref.timeline[ref.timeline.length-1].note);
+                alert('Referral updated to: ' + status);
+            } catch(e) { alert('Error: ' + e.message); }
+        };
+
+        // ── LOAD REFERRALS TAB ──
+        async function loadReferrals() {
+            try {
+                const res = await fetch('/api/referrals');
+                const refs = await res.json();
+                const el = document.getElementById('referralsList');
+                if (refs.length === 0) { el.innerHTML = '<p class="text-slate-400 text-xs">No referrals yet.</p>'; return; }
+                el.innerHTML = refs.map(r => `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">${r.id} — ${r.patient.name || 'Unknown'}</p>
+                            <p class="text-[10px] text-slate-500">${r.predicted_disease} → ${r.facility}</p>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded ${r.status==='RESOLVED' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">${r.status}</span>
+                    </div>
+                `).join('');
+            } catch(e) { console.error(e); }
+        }
+
+        // ── LOAD FOLLOW-UPS TAB ──
+        async function loadFollowups() {
+            try {
+                const res = await fetch('/api/followups');
+                const tasks = await res.json();
+                const el = document.getElementById('followupsList');
+                if (tasks.length === 0) { el.innerHTML = '<p class="text-slate-400 text-xs">No follow-up tasks yet.</p>'; return; }
+                el.innerHTML = tasks.map(t => `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">${t.patient} — ${t.type}</p>
+                            <p class="text-[10px] text-slate-500">Due: ${t.due_date} | ${t.notes}</p>
+                        </div>
+                        <span class="text-[10px] font-bold px-2 py-1 rounded ${t.status==='COMPLETED' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">${t.status}</span>
+                    </div>
+                `).join('');
+            } catch(e) { console.error(e); }
+        }
+
+        // ── MEDICINE SEARCH ──
+        window.searchMeds = async () => {
+            const q = document.getElementById('medSearch').value;
+            if (!q) return;
+            try {
+                const res = await fetch('/api/medicines/search?q=' + encodeURIComponent(q));
+                const meds = await res.json();
+                const el = document.getElementById('medResults');
+                if (meds.length === 0) { el.innerHTML = '<p class="text-slate-400 text-xs">No stock found for "' + q + '".</p>'; return; }
+                el.innerHTML = meds.map(m => `
+                    <div class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <p class="text-xs font-bold text-slate-800">${m.facility_name}</p>
+                            <p class="text-[10px] text-slate-500">${m.district} — ${m.facility_type}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-xs font-bold ${m.medicine_in_stock > 100 ? 'text-emerald-700' : 'text-amber-700'}">${m.medicine_name}: ${m.medicine_in_stock} units</p>
+                        </div>
+                    </div>
+                `).join('');
+            } catch(e) { alert('Error: ' + e.message); }
+        };
+
+        // ── DASHBOARD ──
+        async function loadDashboard() {
+            try {
+                const res = await fetch('/api/dashboard');
+                const s = await res.json();
+                document.getElementById('dashStats').innerHTML = `
+                    <div class="bg-blue-50 p-3 rounded-xl text-center"><p class="text-2xl font-bold text-blue-700">${s.total_referrals}</p><p class="text-[10px] text-blue-600 font-semibold">Total Referrals</p></div>
+                    <div class="bg-red-50 p-3 rounded-xl text-center"><p class="text-2xl font-bold text-red-700">${s.emergency_referrals}</p><p class="text-[10px] text-red-600 font-semibold">Emergency</p></div>
+                    <div class="bg-amber-50 p-3 rounded-xl text-center"><p class="text-2xl font-bold text-amber-700">${s.pending_followups}</p><p class="text-[10px] text-amber-600 font-semibold">Pending Follow-ups</p></div>
+                    <div class="bg-emerald-50 p-3 rounded-xl text-center"><p class="text-2xl font-bold text-emerald-700">${s.total_facilities}</p><p class="text-[10px] text-emerald-600 font-semibold">Facilities</p></div>
+                `;
+                // Top facilities
+                const fRes = await fetch('/api/facilities/search?emergency=true');
+                const facs = await fRes.json();
+                document.getElementById('topFacilities').innerHTML = facs.slice(0,5).map(f => `
+                    <div class="flex justify-between items-center bg-slate-50 p-2 rounded-lg">
+                        <span class="text-slate-700">${f.facility_name}</span>
+                        <span class="text-[10px] font-bold ${f.doctor_available==='Yes' ? 'text-emerald-600' : 'text-red-600'}">${f.doctor_available==='Yes' ? 'Doctor ✓' : 'No Doctor'}</span>
+                    </div>
+                `).join('');
+            } catch(e) { console.error(e); }
+        }
+    });
+    </script>
+</body>
+</html>

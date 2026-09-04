@@ -1,27 +1,3 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-*.egg-info/
-dist/
-build/
-
-# OS
 .DS_Store
-Thumbs.db
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Logs
-*.log
-
-# Temp
-deploy.sh
-walkthrough.md
-start_backend.command.txt
+__pycache__/
+*.sqlite3

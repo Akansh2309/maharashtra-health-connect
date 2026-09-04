@@ -1,61 +1,45 @@
-# SehatSetu: Rural Public Healthcare Access & Continuity Platform
+# Maharashtra Health Connect
 
-## 🏆 Smart India Hackathon 2026 
-**Problem Statement:** #26133 - Accessibility and quality of public healthcare services in rural and underserved areas.
-**Category:** Software (MedTech / HealthTech)
+A comprehensive, AI-powered health triage and referral system built for the Smart India Hackathon 2026. This platform is designed to assist frontline health workers (ASHA/ANM) in rural and underserved areas with offline-first clinical decision support.
 
----
+## Features
 
-## 🚨 The Problem
-Rural communities suffer from distance, specialist shortages, and fragmented health records. Meanwhile, ASHA workers and PHC staff are overwhelmed. High-risk patients (maternal, emergency, chronic) often get lost in the system when referred because there is no digital tracking, resulting in delayed care and poor outcomes.
+*   **AI Disease Prediction:** Real-time ML inference using a K-Nearest Neighbors (KNN) model across 40 clinical symptoms to predict 5,500+ conditions.
+*   **Vitals Triage Engine:** Rule-based triage system for 4 patient profiles (Maternal, Neonate, Child, Adult) to identify critical emergencies.
+*   **Facility Routing:** Live geographic and specialty-based routing to 150 mapped healthcare facilities in Maharashtra.
+*   **Digital Referrals & Follow-ups:** Automated creation of digital referrals and task management for ASHA workers.
+*   **Teleconsultation:** Integrated WebRTC-ready teleconsultation workflow for remote doctor assistance.
+*   **Medicine & Diagnostics lookup:** Search real-time medicine inventory and recommended diagnostic tests at nearby facilities.
+*   **Multilingual Support:** English, Marathi, and Hindi interfaces.
 
-## 🚀 Our Solution: SehatSetu
-SehatSetu is a **digital care-coordination platform** built specifically for frontline health workers (ASHA/ANM) and public health facilities. It ensures no patient, referral, or follow-up is lost due to distance, language, or fragmented records.
+## Project Structure
 
-### Key Features Developed (Hackathon MVP)
-1. **Frontline Worker Registration & Triage:** 
-   - A dedicated workflow for ASHA workers to register patients and input clinical vitals (BP, Temperature, Symptoms).
-2. **Clinical Red-Flag Escalation:**
-   - Automated rule-based engine that detects high-risk danger signs (e.g., high BP in pregnancy) and escalates for immediate referral.
-3. **Smart Emergency Facility Routing:**
-   - Instead of just finding the "nearest" hospital, the system filters for facilities with the exact required specialty (e.g., Pediatric/Maternal) and provides real-time, traffic-aware routing.
-4. **Digital Referral & Teleconsultation:**
-   - 1-click referral initiation that generates a simulated teleconsultation slot and confirms PHC medicine availability, closing the loop on patient care.
-5. **Multilingual Offline-Ready Interface:**
-   - Built-in support for English, Marathi, and Hindi, designed for low-literacy workflows.
+*   `serve.py`: Main Python HTTP server.
+*   `api_routes.py`: API endpoint handlers.
+*   `data_api.py`: Core logic for ML inference, SQLite database queries, and facility routing.
+*   `Disease_symptom_predictor.joblib`: The trained ML model.
+*   `data/hpo_database.db`: SQLite database containing facilities, diseases, and symptoms.
+*   `public/`: Frontend HTML, CSS, and JS.
+    *   `final.html`: The main unified application interface.
 
----
+## Running the Application
 
-## 💻 Tech Stack (Framework-Free & Secure)
-- **Frontend:** Vanilla HTML, CSS, JavaScript (Zero bloat, blazing fast).
-- **Backend:** Custom Python 3 HTTP Server (Modularized routing, state management, and strict security headers).
-- **Mapping & Routing:** Leaflet.js with live Open Source Routing Machine (OSRM) integration.
-- **Localization:** Custom i18n engine dynamically translating the DOM.
+1.  **Install dependencies:**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
----
+2.  **Start the server:**
+    ```bash
+    python3 serve.py
+    ```
 
-## 🏃‍♂️ How to Run Locally
+3.  **Access the application:**
+    Open your web browser and navigate to `http://localhost:3000/final.html`
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Akansh2309/maharashtra-health-connect.git
-   cd maharashtra-health-connect
-   ```
-2. **Start the secure local server:**
-   ```bash
-   python3 serve.py
-   ```
-3. **Open the App:**
-   Navigate to `http://localhost:8000` in your browser.
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
-## 🎥 The Winning Demo Scenario
-When presenting to the judges, follow this flow:
-1. Click the **[+] New Patient Triage** button in the bottom right (simulating an ASHA worker in a village).
-2. Enter a patient's age and a high Blood Pressure reading (e.g., `150/90`). Select "High BP in Pregnancy" as the symptom.
-3. Click **Analyze & Escalate**. The system will flag a **High Risk Pregnancy** and prompt an emergency referral.
-4. Click **Find Emergency Facility**. The app isolates the map to equipped facilities.
-5. Select a hospital and click **Initiate Referral & Teleconsultation** to demonstrate the closed-loop care continuity (Booking slot + Medicine confirmation + SMS alert).
-
-*Built with passion for rural healthcare accessibility.*
+*Developed by The Kacchodis for SIH 2026*
