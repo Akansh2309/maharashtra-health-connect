@@ -4,7 +4,8 @@
   <img src="https://img.shields.io/badge/Machine_Learning-KNN-orange?style=for-the-badge" alt="ML Badge"/>
   <img src="https://img.shields.io/badge/License-MIT-purple?style=for-the-badge" alt="License Badge"/>
 
-  <h1>MAHARASHTRA HEALTH CONNECT</h1>
+  <br/>
+  <img src="https://readme-typing-svg.demolab.com?font=Inter&weight=900&size=40&pause=1000&color=10B981&center=true&vCenter=true&width=800&height=80&lines=MAHARASHTRA+HEALTH+CONNECT" alt="Maharashtra Health Connect" />
   <p><b>Advanced Clinical Decision Support & Tele-triage System</b></p>
   
   <br/>
