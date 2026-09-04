@@ -70,8 +70,6 @@ Launch the backend server:
 python3 serve.py
 ```
 
-Access the application on your local network:
-<kbd>http://localhost:3000/final.html</kbd>
 
 <hr/>
 
