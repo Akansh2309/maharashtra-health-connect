@@ -80,5 +80,4 @@ python3 serve.py
 
 <div align="right">
   <br/><br/>
-  <i>- Akansh Shaw</i>
 </div>
