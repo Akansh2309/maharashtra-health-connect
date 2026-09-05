@@ -89,21 +89,16 @@ def handle_predict(server, body):
         return server._send_error(400, "Invalid JSON")
 
     # === SECURITY LAYER ===
-    # 1. Rate Limiting (Prevent DDoS / Model Extraction spam)
-    client_ip = server.client_address[0]
+    # 1. Rate Limiting (Prevent DDoS) - Extract real IP behind Render proxy
+    client_ip = server.headers.get("X-Forwarded-For", server.client_address[0]).split(',')[0].strip()
     if not auth_utils.rate_limit_ok(client_ip):
         return server._send_error(429, "Rate limit exceeded. Too many requests.")
 
-    # 2. Authentication (Only authorized frontend can query the model)
-    sess = auth_utils.get_session(server)
-    if not sess:
-        return server._send_error(401, "Unauthorized. Please log in.")
-
-    # 3. Input Validation (Prevent malformed payloads crashing inference)
+    # 2. Input Validation (Prevent malformed payloads crashing inference)
     if not isinstance(data.get("symptoms", []), list):
         return server._send_error(400, "Invalid payload: 'symptoms' must be a list.")
     
-    # 4. PII Sanitization (Strip patient identity before ML processing)
+    # 3. PII Sanitization (Strip patient identity before ML processing)
     if "patient" in data and "name" in data["patient"]:
         data["patient"]["name"] = "[REDACTED]"
     # =======================

@@ -458,9 +458,16 @@
             try {
                 const res = await fetch('/api/predict', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
                 const data = await res.json();
+                
+                if (data.error) {
+                    alert('Server error: ' + data.error);
+                    document.getElementById('emptyState').innerHTML = `<p class="text-red-500 font-bold mt-4">Error: ${data.error}</p>`;
+                    return;
+                }
+                
                 renderResults(data);
             } catch (err) {
-                alert('Server error: ' + err.message);
+                alert('Connection error: ' + err.message);
             } finally {
                 document.getElementById('loadingOverlay').classList.add('hidden');
             }
