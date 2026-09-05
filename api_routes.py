@@ -88,6 +88,26 @@ def handle_predict(server, body):
     except json.JSONDecodeError:
         return server._send_error(400, "Invalid JSON")
 
+    # === SECURITY LAYER ===
+    # 1. Rate Limiting (Prevent DDoS / Model Extraction spam)
+    client_ip = server.client_address[0]
+    if not auth_utils.rate_limit_ok(client_ip):
+        return server._send_error(429, "Rate limit exceeded. Too many requests.")
+
+    # 2. Authentication (Only authorized frontend can query the model)
+    sess = auth_utils.get_session(server)
+    if not sess:
+        return server._send_error(401, "Unauthorized. Please log in.")
+
+    # 3. Input Validation (Prevent malformed payloads crashing inference)
+    if not isinstance(data.get("symptoms", []), list):
+        return server._send_error(400, "Invalid payload: 'symptoms' must be a list.")
+    
+    # 4. PII Sanitization (Strip patient identity before ML processing)
+    if "patient" in data and "name" in data["patient"]:
+        data["patient"]["name"] = "[REDACTED]"
+    # =======================
+
     profile = data.get("profile", "adult")
     symptoms = data.get("symptoms", [])
     vitals = data.get("vitals", {})
@@ -96,6 +116,12 @@ def handle_predict(server, body):
 
     # 1. ML Disease Prediction
     predictions = data_api.predict_disease(symptoms)
+    
+    # === SECURITY LAYER: Probability Masking ===
+    # Round confidences to 1 decimal place to prevent model extraction attacks
+    for p in predictions:
+        p["confidence"] = round(p.get("confidence", 0), 1)
+        
     top_disease = predictions[0]["disease"] if predictions else "Unknown"
     top_confidence = predictions[0]["confidence"] if predictions else 0
 
