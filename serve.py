@@ -189,7 +189,7 @@ if __name__ == "__main__":
     ║   Database : 5589 diseases | 150 facilities      ║
     ║   Symptoms : 30 clinical symptoms                ║
     ║                                                  ║
-    ║   © 2026 The Kacchodis                           ║
+    ║    2026 The Kacchodis                           ║
     ╚══════════════════════════════════════════════════╝
     """)
 
