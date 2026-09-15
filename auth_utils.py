@@ -34,7 +34,7 @@ USERS = {
         "password_hash": hashlib.sha256("demo".encode()).hexdigest(),
         "name": "Demo User",
         "email": "demo@kacchodis.org",
-        "role": "user",
+        "role": role,
     },
 }
 
@@ -173,7 +173,7 @@ def authenticate(login_id, password):
     return uname, None
 
 
-def register(username, email, password, name, allergies="", medical_history=""):
+def register(username, email, password, name, role="patient", allergies="", medical_history=""):
     """
     Create a new user account. All validation happens here so the
     caller (api_routes) doesn't need to worry about it.
@@ -202,7 +202,7 @@ def register(username, email, password, name, allergies="", medical_history=""):
             "password_hash": hash_pw(password),
             "name": name.strip(),
             "email": email,
-            "role": "user",
+            "role": role,
             "allergies": allergies,
             "medical_history": medical_history,
         }

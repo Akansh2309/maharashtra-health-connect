@@ -116,6 +116,8 @@
                         <div class="radio-group" style="flex-direction: column;">
                             <label class="radio-label"><input type="radio" name="role" value="patient" onchange="handleRoleChange()" checked> Patient / Caregiver</label>
                             <label class="radio-label"><input type="radio" name="role" value="frontline" onchange="handleRoleChange()"> ASHA / ANM / Frontline Worker</label>
+                            <label class="radio-label"><input type="radio" name="role" value="doctor" onchange="handleRoleChange()"> Doctor / Physician</label>
+                            <label class="radio-label"><input type="radio" name="role" value="admin" onchange="handleRoleChange()"> PHC Administrator</label>
                         </div>
                     </div>
                 </fieldset>
@@ -130,6 +132,40 @@
                         <div class="form-group">
                             <label for="pt-medicines">Medical History</label>
                             <input type="text" id="pt-medicines" name="medical_history" placeholder="List current medicines or conditions">
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="role-frontline" class="role-section" style="display: none;">
+                    <fieldset>
+                        <legend>Worker Details (Optional)</legend>
+                        <div class="form-group">
+                            <label for="fw-center-id">Health Center ID</label>
+                            <input type="text" id="fw-center-id" name="center_id" placeholder="e.g. PHC-1024">
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="role-doctor" class="role-section" style="display: none;">
+                    <fieldset>
+                        <legend>Professional Details (Optional)</legend>
+                        <div class="form-group">
+                            <label for="dr-license">Medical License Number</label>
+                            <input type="text" id="dr-license" name="license_no" placeholder="e.g. MCI-12345">
+                        </div>
+                        <div class="form-group">
+                            <label for="dr-specialization">Specialization</label>
+                            <input type="text" id="dr-specialization" name="specialization" placeholder="e.g. General Medicine">
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="role-admin" class="role-section" style="display: none;">
+                    <fieldset>
+                        <legend>Administrative Details (Optional)</legend>
+                        <div class="form-group">
+                            <label for="admin-phc">Primary Health Center Name</label>
+                            <input type="text" id="admin-phc" name="phc_name" placeholder="e.g. Rural PHC District A">
                         </div>
                     </fieldset>
                 </div>
@@ -190,8 +226,9 @@
         function handleRoleChange() {
             const role = document.querySelector('input[name="role"]:checked').value;
             document.querySelectorAll('.role-section').forEach(sec => sec.style.display = 'none');
-            if (role === 'patient') {
-                document.getElementById('role-patient').style.display = 'block';
+            const targetSection = document.getElementById('role-' + role);
+            if (targetSection) {
+                targetSection.style.display = 'block';
             }
         }
 

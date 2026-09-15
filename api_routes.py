@@ -44,14 +44,15 @@ def handle_register(server, body):
         data = json.loads(body)
     except json.JSONDecodeError:
         return server._send_error(400, "Invalid JSON")
-    username = data.get("username", "")
+    username = data.get("username") or data.get("mobile", "")
+    role = data.get("role", "patient")
     email = data.get("email", "")
     password = data.get("password", "")
     name = data.get("name", "")
     remember = data.get("remember", False)
     allergies = data.get("allergies", "")
     medical_history = data.get("medical_history", "")
-    username, err = auth_utils.register(username, email, password, name, allergies, medical_history)
+    username, err = auth_utils.register(username, email, password, name, role, allergies, medical_history)
     if err:
         return server._send_error(400, err)
     sid, ttl = auth_utils.create_session(username, remember)
