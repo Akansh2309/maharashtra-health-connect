@@ -308,12 +308,12 @@
                     <div>
                         <h3 class="text-xs font-bold text-slate-600 uppercase mb-2">Success Metrics</h3>
                         <div class="space-y-1.5 text-xs">
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Median Triage → Consult</span><span class="font-bold text-emerald-700">~18 min</span></div>
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Referral Completion Rate</span><span class="font-bold text-emerald-700">94%</span></div>
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Follow-up Compliance</span><span class="font-bold text-emerald-700">87%</span></div>
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Prescriptions Fulfilled</span><span class="font-bold text-emerald-700">91%</span></div>
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Avg Waiting Time</span><span class="font-bold text-emerald-700">22 min</span></div>
-                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Data Completeness</span><span class="font-bold text-emerald-700">96%</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Median Triage → Consult</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Referral Completion Rate</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Follow-up Compliance</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Prescriptions Fulfilled</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Avg Waiting Time</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
+                            <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Data Completeness</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
                         </div>
                     </div>
                     <div>
@@ -376,7 +376,29 @@
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
+        // ── SESSION CHECK ──
+        try {
+            const sRes = await fetch('/api/session');
+            const sData = await sRes.json();
+            if (!sData.authenticated) {
+                window.location.href = '/interface.html';
+                return;
+            }
+            // Populate profile
+            if (document.getElementById('ud-name-dash')) document.getElementById('ud-name-dash').textContent = sData.name;
+            if (document.getElementById('ud-role-dash')) document.getElementById('ud-role-dash').textContent = sData.role === 'admin' ? 'Administrator' : (sData.role === 'patient' ? 'Patient / Caregiver' : 'ASHA / Frontline Worker');
+            if (document.getElementById('ud-allergies-dash') && sData.allergies) document.getElementById('ud-allergies-dash').textContent = sData.allergies;
+            if (document.getElementById('ud-medical-history-dash') && sData.medical_history) document.getElementById('ud-medical-history-dash').textContent = sData.medical_history;
+            
+            // Hide consent modal if it exists since they already consented during registration
+            const consentModal = document.getElementById('consentModal');
+            if (consentModal) consentModal.classList.add('hidden');
+        } catch(e) {
+            window.location.href = '/interface.html';
+            return;
+        }
+
         // ── CONSENT ──
         const c1 = document.getElementById('consent1'), c2 = document.getElementById('consent2');
         const consentBtn = document.getElementById('consentBtn');
