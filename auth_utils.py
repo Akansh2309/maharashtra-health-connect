@@ -34,7 +34,7 @@ USERS = {
         "password_hash": hashlib.sha256("demo".encode()).hexdigest(),
         "name": "Demo User",
         "email": "demo@kacchodis.org",
-        "role": role,
+        "role": "patient",
     },
 }
 
