@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>MH Connect - Authentication</title>
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --primary-color: #0056b3;
+            --primary-hover: #004494;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border-color: #cbd5e1;
+            --error-color: #dc2626;
+            --success-color: #15803d;
+            --focus-ring: #93c5fd;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; }
+        .brand-title { font-size: 1.25rem; font-weight: 700; color: var(--primary-color); }
+        .brand-subtitle { font-size: 0.85rem; color: var(--text-muted); }
+        main { flex: 1; padding: 20px 16px; display: flex; justify-content: center; align-items: flex-start; }
+        .auth-container { background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); width: 100%; max-width: 500px; padding: 24px; }
+        .auth-header { text-align: center; margin-bottom: 24px; }
+        .auth-header h1 { font-size: 1.5rem; color: var(--primary-color); margin-bottom: 8px; }
+        .tabs { display: flex; border-bottom: 1px solid var(--border-color); margin-bottom: 20px; }
+        .tab-btn { flex: 1; padding: 12px; background: none; border: none; border-bottom: 3px solid transparent; font-size: 1rem; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+        .tab-btn.active { color: var(--primary-color); border-bottom-color: var(--primary-color); }
+        .form-section { display: none; }
+        .form-section.active { display: block; }
+        fieldset { border: 1px solid var(--border-color); border-radius: 6px; padding: 16px; margin-bottom: 20px; background-color: #fafafa; }
+        legend { font-weight: 600; padding: 0 8px; background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 4px; }
+        .form-group { margin-bottom: 16px; }
+        label { display: block; margin-bottom: 6px; font-weight: 500; font-size: 0.95rem; }
+        .required { color: var(--error-color); }
+        input[type="text"], input[type="tel"], input[type="email"], input[type="password"], input[type="date"], select.form-control { width: 100%; padding: 10px; border: 1px solid var(--border-color); border-radius: 4px; font-size: 1rem; }
+        .radio-group { display: flex; flex-direction: column; gap: 10px; }
+        .radio-label, .checkbox-label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        input[type="radio"], input[type="checkbox"] { accent-color: var(--primary-color); width: 18px; height: 18px; }
+        .btn-primary { width: 100%; padding: 14px; background-color: var(--primary-color); color: white; border: none; border-radius: 6px; font-size: 1.1rem; font-weight: 600; cursor: pointer; }
+        .status-msg { display: none; padding: 12px; border-radius: 6px; margin-bottom: 16px; }
+        .status-error { background-color: #fef2f2; color: var(--error-color); border: 1px solid #f87171; display: block; }
+        .status-success { background-color: #f0fdf4; color: var(--success-color); border: 1px solid #4ade80; display: block; }
+        .privacy-link { color: var(--primary-color); text-decoration: underline; margin-left:30px; font-size: 0.85rem;}
+        @media (min-width: 480px) { .radio-group { flex-direction: row; flex-wrap: wrap; column-gap: 20px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="brand-title">MH Connect</div>
+            <div class="brand-subtitle">Rural Public Healthcare Access</div>
+        </div>
+    </header>
+    <main>
+        <div class="auth-container">
+            <div class="auth-header">
+                <h1>Welcome to MH Connect</h1>
+            </div>
+            <div class="tabs">
+                <button type="button" class="tab-btn active" id="tab-signup" onclick="switchTab('signup')">Sign Up</button>
+                <button type="button" class="tab-btn" id="tab-signin" onclick="switchTab('signin')">Sign In</button>
+            </div>
+
+            <!-- SIGN UP FORM -->
+            <form id="form-signup" class="form-section active" onsubmit="handleSignUp(event)">
+                <div id="signup-status" class="status-msg" role="alert"></div>
+                <fieldset>
+                    <legend>Basic Details</legend>
+                    <div class="form-group">
+                        <label for="su-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="su-name" name="name" required placeholder="Enter your full name">
+                    </div>
+                    <div class="form-group">
+                        <label for="su-mobile">Mobile Number <span class="required">*</span></label>
+                        <input type="tel" id="su-mobile" name="mobile" required placeholder="Enter 10-digit mobile number">
+                    </div>
+                    <div class="form-group">
+                        <label for="su-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="su-email" name="email" required placeholder="Email address">
+                    </div>
+                    <div class="form-group">
+                        <label for="su-password">Password <span class="required">*</span></label>
+                        <input type="password" id="su-password" name="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters" placeholder="Create a secure password">
+                    </div>
+                    <div class="form-group">
+                        <label for="su-lang">Preferred Language <span class="required">*</span></label>
+                        <select id="su-lang" name="lang" class="form-control" required>
+                            <option value="">Select language...</option>
+                            <option value="mr">Marathi</option>
+                            <option value="hi">Hindi</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Location</legend>
+                    <div class="form-group">
+                        <label for="su-village">Village / Locality <span class="required">*</span></label>
+                        <input type="text" id="su-village" name="village" required placeholder="Your village or locality">
+                    </div>
+                    <div class="form-group">
+                        <label for="su-district">District <span class="required">*</span></label>
+                        <input type="text" id="su-district" name="district" required placeholder="Your district">
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Role</legend>
+                    <div class="form-group">
+                        <div class="radio-group" style="flex-direction: column;">
+                            <label class="radio-label"><input type="radio" name="role" value="patient" onchange="handleRoleChange()" checked> Patient / Caregiver</label>
+                            <label class="radio-label"><input type="radio" name="role" value="frontline" onchange="handleRoleChange()"> ASHA / ANM / Frontline Worker</label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <div id="role-patient" class="role-section" style="display: block;">
+                    <fieldset>
+                        <legend>Health Profile (Optional)</legend>
+                        <div class="form-group">
+                            <label for="pt-allergies">Known Allergies</label>
+                            <input type="text" id="pt-allergies" name="allergies" placeholder="List any known allergies">
+                        </div>
+                        <div class="form-group">
+                            <label for="pt-medicines">Medical History</label>
+                            <input type="text" id="pt-medicines" name="medical_history" placeholder="List current medicines or conditions">
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group" style="background-color: #f0f7ff; padding: 12px; border-left: 4px solid var(--primary-color);">
+                    <label class="checkbox-label" for="su-consent">
+                        <input type="checkbox" id="su-consent" name="consent" required>
+                        <span>I consent to share my health data securely.</span>
+                    </label>
+                    <a href="terms.html" class="privacy-link" target="_blank">Privacy and consent information</a>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btn-signup">Create Profile</button>
+            </form>
+
+            <!-- SIGN IN FORM -->
+            <form id="form-signin" class="form-section" onsubmit="handleSignIn(event)">
+                <div id="signin-status" class="status-msg" role="alert"></div>
+
+                <div class="form-group">
+                    <label for="si-username">Mobile Number or Email <span class="required">*</span></label>
+                    <input type="text" id="si-username" name="username" required placeholder="Enter your mobile or email">
+                </div>
+                <div class="form-group">
+                    <label for="si-password">Password <span class="required">*</span></label>
+                    <input type="password" id="si-password" name="password" required placeholder="Enter your password">
+                </div>
+                <div class="form-group" style="margin-bottom: 24px;">
+                    <label class="checkbox-label" for="si-remember">
+                        <input type="checkbox" id="si-remember" name="remember">
+                        <span>Remember me on this device</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-primary" id="btn-signin">Sign In</button>
+            </form>
+
+        </div>
+    </main>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.form-section').forEach(form => form.classList.remove('active'));
+            document.getElementById('signup-status').className = 'status-msg';
+            document.getElementById('signin-status').className = 'status-msg';
+            document.getElementById('tab-' + tabId).classList.add('active');
+            document.getElementById('form-' + tabId).classList.add('active');
+        }
+
+        function showMessage(elementId, message, type) {
+            const el = document.getElementById(elementId);
+            el.innerHTML = message;
+            el.className = 'status-msg status-' + type;
+            el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function handleRoleChange() {
+            const role = document.querySelector('input[name="role"]:checked').value;
+            document.querySelectorAll('.role-section').forEach(sec => sec.style.display = 'none');
+            if (role === 'patient') {
+                document.getElementById('role-patient').style.display = 'block';
+            }
+        }
+
+        async function handleSignUp(event) {
+            event.preventDefault();
+            const btn = document.getElementById('btn-signup');
+            btn.disabled = true;
+            btn.textContent = 'Registering...';
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                const response = await fetch('/api/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = '/final.html';
+                } else {
+                    showMessage('signup-status', result.error || 'Registration failed.', 'error');
+                }
+            } catch (err) {
+                showMessage('signup-status', 'Network error. Try again.', 'error');
+            }
+            btn.disabled = false;
+            btn.textContent = 'Create Profile';
+        }
+
+        async function handleSignIn(event) {
+            event.preventDefault();
+            const btn = document.getElementById('btn-signin');
+            btn.disabled = true;
+            btn.textContent = 'Signing In...';
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            data.remember = !!data.remember;
+            
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    window.location.href = '/final.html';
+                } else {
+                    showMessage('signin-status', result.error || 'Invalid credentials.', 'error');
+                }
+            } catch (err) {
+                showMessage('signin-status', 'Network error. Try again.', 'error');
+            }
+            btn.disabled = false;
+            btn.textContent = 'Sign In';
+        }
+    </script>
+</body>
+</html>

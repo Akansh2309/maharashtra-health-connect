@@ -68,7 +68,7 @@
                 </select>
                 <div class="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20 text-sm">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span id="workerName" class="hidden sm:block text-xs font-medium">ASHA: Sunita</span>
+                    <span id="ud-name" class="hidden sm:block text-xs font-medium"></span>
                 </div>
             </div>
         </div>
@@ -292,6 +292,17 @@
         <div id="tab-dashboard" class="tab-panel">
             <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
                 <h2 class="text-base font-bold text-slate-800 mb-4"> PHC Dashboard</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-1 gap-4 mb-4">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4">
+                        <h3 class="text-sm font-bold text-indigo-900 mb-2">My Profile</h3>
+                        <div class="text-sm space-y-1">
+                            <p><span class="font-semibold text-slate-600">Name:</span> <span id="ud-name-dash" class="font-medium"></span></p>
+                            <p><span class="font-semibold text-slate-600">Role:</span> <span id="ud-role-dash" class="font-medium"></span></p>
+                            <p><span class="font-semibold text-slate-600">Allergies:</span> <span id="ud-allergies-dash" class="font-medium">None</span></p>
+                            <p><span class="font-semibold text-slate-600">Medical History:</span> <span id="ud-medical-history-dash" class="font-medium">None</span></p>
+                        </div>
+                    </div>
+                </div>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4" id="dashStats"></div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>

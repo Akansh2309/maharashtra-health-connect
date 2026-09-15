@@ -68,6 +68,8 @@ def create_session(username, remember=False):
         "name": user["name"],
         "email": user.get("email", ""),
         "role": user["role"],
+        "allergies": user.get("allergies", ""),
+        "medical_history": user.get("medical_history", ""),
         "expires": time.time() + ttl,
     }
     return sid, ttl
@@ -113,6 +115,8 @@ def session_info(sess):
         "name": sess["name"],
         "email": sess.get("email", ""),
         "role": sess["role"],
+        "allergies": sess.get("allergies", ""),
+        "medical_history": sess.get("medical_history", ""),
     }
 
 
@@ -169,7 +173,7 @@ def authenticate(login_id, password):
     return uname, None
 
 
-def register(username, email, password, name):
+def register(username, email, password, name, allergies="", medical_history=""):
     """
     Create a new user account. All validation happens here so the
     caller (api_routes) doesn't need to worry about it.
@@ -199,6 +203,8 @@ def register(username, email, password, name):
             "name": name.strip(),
             "email": email,
             "role": "user",
+            "allergies": allergies,
+            "medical_history": medical_history,
         }
 
     return username, None

@@ -17,7 +17,7 @@ RATE_LIMIT_MAX_REQUESTS = 10
 RATE_LIMIT_WINDOW_SECS = 60
 
 PUBLIC_PATHS = {
-    "/login.html", "/final.html",
+    "/interface.html", "/terms.html", "/login.html", "/final.html",
     "/api/login", "/api/register",
     "/api/predict", "/api/facilities",
     "/api/facilities/search", "/api/medicines/search",

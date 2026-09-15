@@ -30,11 +30,18 @@ async function init() {
   try {
     const sRes = await fetch('/api/session');
     const sData = await sRes.json();
-    if (!sData.authenticated) { window.location.href = '/login.html'; return; }
+    if (!sData.authenticated) { window.location.href = '/interface.html'; return; }
     state.userName = sData.name;
-    document.getElementById('ud-name').textContent = sData.name;
-    document.getElementById('ud-role').textContent = sData.role === 'admin' ? t('administrator') : t('user');
-  } catch(e) { window.location.href = '/login.html'; return; }
+    if (document.getElementById('ud-name')) document.getElementById('ud-name').textContent = sData.name;
+    if (document.getElementById('ud-name-dash')) document.getElementById('ud-name-dash').textContent = sData.name;
+    if (document.getElementById('ud-role-dash')) document.getElementById('ud-role-dash').textContent = sData.role === 'admin' ? t('administrator') : (sData.role === 'patient' ? 'Patient / Caregiver' : 'ASHA / Frontline Worker');
+    if (document.getElementById('ud-allergies-dash') && sData.allergies) {
+        document.getElementById('ud-allergies-dash').textContent = sData.allergies;
+    }
+    if (document.getElementById('ud-medical-history-dash') && sData.medical_history) {
+        document.getElementById('ud-medical-history-dash').textContent = sData.medical_history;
+    }
+  } catch(e) { window.location.href = '/interface.html'; return; }
 
   updateLoadingStatus(t('loading_hospitals'));
   try {
