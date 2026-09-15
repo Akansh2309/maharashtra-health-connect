@@ -56,6 +56,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/api/dashboard":
             return api_routes.handle_dashboard(self)
 
+        if path.startswith("/api/beds/predict"):
+            return api_routes.handle_beds_predict(self)
+
         if path == "/api/session":
             return api_routes.handle_session(self)
 
@@ -118,6 +121,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         if path == "/api/followups/complete":
             return api_routes.handle_followup_complete(self, body)
+
+        if path == "/api/allergy/match":
+            return api_routes.handle_allergy_match(self, body)
+
+        if path == "/api/deficiency/detect":
+            return api_routes.handle_deficiency_detect(self, body)
 
         self._send_error(404, "Not found")
 

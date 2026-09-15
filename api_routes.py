@@ -318,3 +318,47 @@ def handle_followup_complete(server, body):
 def handle_dashboard(server):
     """GET /api/dashboard"""
     return server._send_json(data_api.get_dashboard_stats())
+
+# ── New ML Endpoints ──────────────────────────────────
+
+def handle_allergy_match(server, body):
+    try:
+        data = json.loads(body)
+    except json.JSONDecodeError:
+        return server._send_error(400, "Invalid JSON")
+    
+    symptoms = data.get("symptoms", "")
+    if isinstance(symptoms, list):
+        symptoms = " ".join(symptoms)
+        
+    results = data_api.match_allergy(symptoms)
+    return server._send_json({"matches": results})
+
+def handle_deficiency_detect(server, body):
+    try:
+        data = json.loads(body)
+    except json.JSONDecodeError:
+        return server._send_error(400, "Invalid JSON")
+    
+    symptoms = data.get("symptoms", "")
+    if isinstance(symptoms, list):
+        symptoms = " ".join(symptoms)
+        
+    results = data_api.detect_deficiency(symptoms)
+    return server._send_json({"matches": results})
+
+def handle_beds_predict(server):
+    from urllib.parse import urlparse, parse_qs
+    params = parse_qs(urlparse(server.path).query)
+    try:
+        hour = int(params.get("hour", [12])[0])
+        month = int(params.get("month", [1])[0])
+        dayofweek = int(params.get("dayofweek", [0])[0])
+    except ValueError:
+        return server._send_error(400, "Invalid parameters")
+        
+    occupancy = data_api.predict_bed_availability(hour, month, dayofweek)
+    return server._send_json({
+        "predicted_occupancy_pct": occupancy,
+        "availability_status": "High" if occupancy < 50 else "Medium" if occupancy < 80 else "Low"
+    })

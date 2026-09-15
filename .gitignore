@@ -1,3 +1,10 @@
 .DS_Store
 __pycache__/
 *.sqlite3
+
+ml_predictive_bed_data_10_years.csv
+ml_predictive_bed_data_10_years.zip
+synthetic_disease_symptom_10k.csv
+city_town_village.csv
+allergies_dataset.csv
+deficiencies_dataset.csv

@@ -422,3 +422,77 @@ def get_dashboard_stats():
         "total_facilities": 150,
         "active_asha_workers": 12,
     }
+
+# ── New ML NLP Models ──────────────────────────────────
+import joblib
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+import datetime
+import os
+
+try:
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    _allergy_model = joblib.load(os.path.join(BASE_DIR, "allergy_matcher.joblib"))
+    _deficiency_model = joblib.load(os.path.join(BASE_DIR, "deficiency_detector.joblib"))
+    _disease_nlp_model = joblib.load(os.path.join(BASE_DIR, "disease_predictor_nlp.joblib"))
+    _bed_model = joblib.load(os.path.join(BASE_DIR, "bed_predictor.joblib"))
+except Exception as e:
+    print(f"Warning: Could not load some ML models: {e}")
+    _allergy_model = None
+    _deficiency_model = None
+    _disease_nlp_model = None
+    _bed_model = None
+
+def match_allergy(symptoms_text):
+    if not _allergy_model: return []
+    vec = _allergy_model["vectorizer"].transform([symptoms_text])
+    distances, indices = _allergy_model["model"].kneighbors(vec)
+    results = []
+    for i, idx in enumerate(indices[0]):
+        dist = distances[0][i]
+        # Cosine distance: smaller is closer. We'll return top 3.
+        match = _allergy_model["data"][idx]
+        match["confidence"] = round((1.0 - dist) * 100, 1)
+        results.append(match)
+    return results
+
+def detect_deficiency(symptoms_text):
+    if not _deficiency_model: return []
+    vec = _deficiency_model["vectorizer"].transform([symptoms_text])
+    distances, indices = _deficiency_model["model"].kneighbors(vec)
+    results = []
+    for i, idx in enumerate(indices[0]):
+        dist = distances[0][i]
+        match = _deficiency_model["data"][idx]
+        match["confidence"] = round((1.0 - dist) * 100, 1)
+        results.append(match)
+    return results
+
+def predict_disease_nlp(symptoms_text):
+    """Predict from 15,500+ diseases using NLP."""
+    if not _disease_nlp_model: return []
+    vec = _disease_nlp_model["vectorizer"].transform([symptoms_text])
+    distances, indices = _disease_nlp_model["model"].kneighbors(vec)
+    results = []
+    for i, idx in enumerate(indices[0]):
+        dist = distances[0][i]
+        disease_name = _disease_nlp_model["disease_names"][idx]
+        results.append({
+            "disease": disease_name,
+            "confidence": round((1.0 - dist) * 100, 1)
+        })
+    return results
+
+def predict_bed_availability(hour, month, dayofweek):
+    if not _bed_model: return 0.0
+    X = np.array([[hour, month, dayofweek]])
+    X_scaled = _bed_model["scaler"].transform(X)
+    occupancy = _bed_model["model"].predict(X_scaled)[0]
+    return max(0.0, min(100.0, occupancy))
+
+# ── Replace old predict_disease ───────────────────────
+def predict_disease(selected_symptoms):
+    """Legacy wrapper: passes list of symptom strings to NLP model."""
+    symptoms_text = " ".join(selected_symptoms)
+    return predict_disease_nlp(symptoms_text)
+
