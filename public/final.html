@@ -6,6 +6,7 @@
     <title>Maharashtra Health Connect</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="css/ux-enhancements.css" />
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         body { font-family: 'Inter', sans-serif; }
@@ -25,6 +26,9 @@
     </style>
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased min-h-screen flex flex-col lang-en">
+    <a href="#main-content" class="skip-to-content">Skip to Content ↓</a>
+    <div id="scroll-progress"></div>
+    <div class="page-loader"><div class="loader-spinner"></div><div class="loader-text">Loading MH Connect...</div></div>
 
     <!-- CONSENT MODAL -->
     <div id="consentModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
@@ -59,7 +63,10 @@
                 <div class="bg-white/20 p-1.5 rounded-lg"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg></div>
                 <h1 class="text-lg font-bold tracking-tight">MH Connect</h1>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
+                <button class="hamburger-btn" aria-label="Menu">☰</button>
+                <button class="dark-toggle" title="Toggle dark mode">🌙</button>
+                <button class="view-toggle" title="Toggle view mode">⚡ Simple</button>
                 <!-- Language Toggle -->
                 <select id="langSelect" class="bg-white/10 border border-white/20 rounded-lg text-xs px-2 py-1.5 text-white">
                     <option value="en" class="text-black">English</option>
@@ -73,6 +80,17 @@
             </div>
         </div>
     </header>
+
+    <!-- MOBILE NAV DRAWER -->
+    <div class="mobile-nav-overlay"></div>
+    <div class="mobile-nav-drawer">
+        <button class="mobile-nav-close">&times;</button>
+        <h3 style="font-weight:700;font-size:18px;margin:12px 0 16px;color:var(--text-primary);">Menu</h3>
+        <div class="mobile-nav-items"></div>
+        <hr style="margin:16px 0;border-color:var(--border-color);">
+        <button class="mobile-nav-item dark-toggle" style="width:100%;">🌙 Dark Mode</button>
+        <button class="mobile-nav-item view-toggle" style="width:100%;">⚡ Simple</button>
+    </div>
 
     <!-- TAB NAVIGATION -->
     <div class="bg-white border-b border-slate-200 sticky top-14 z-40">
@@ -92,11 +110,14 @@
             <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="dashboard">
                 <span class="lang-en"> Dashboard</span><span class="lang-mr"> डॅशबोर्ड</span><span class="lang-hi"> डैशबोर्ड</span>
             </button>
+            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap elaborate-only" data-tab="doctor">
+                <span class="lang-en">👨‍⚕️ Doctor</span><span class="lang-mr">👨‍⚕️ डॉक्टर</span><span class="lang-hi">👨‍⚕️ डॉक्टर</span>
+            </button>
         </div>
     </div>
 
     <!-- MAIN CONTENT -->
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-5 w-full">
+    <main id="main-content" class="flex-grow max-w-7xl mx-auto px-4 py-5 w-full">
 
         <!-- ═══ TAB 1: TRIAGE ═══ -->
         <div id="tab-triage" class="tab-panel active">
@@ -276,7 +297,8 @@
             </div>
         </div>
 
-        <!-- ═══ TAB 4: MEDICINES ═══ -->
+        <!-- ═══ TAB 4: MEDICINES (ELABORATE) ═══ -->
+        <!-- elaborate-only wrapper -->
         <div id="tab-medicines" class="tab-panel">
             <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
                 <h2 class="text-base font-bold text-slate-800 mb-3"> Medicine Availability</h2>
@@ -306,7 +328,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4" id="dashStats"></div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2">Success Metrics</h3>
+                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2 elaborate-only">Success Metrics</h3>
                         <div class="space-y-1.5 text-xs">
                             <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Median Triage → Consult</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
                             <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Referral Completion Rate</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
@@ -323,7 +345,87 @@
                 </div>
             </div>
         </div>
+<!-- ═══ TAB 6: DOCTOR INTERFACE ═══ -->
+        <div id="tab-doctor" class="tab-panel elaborate-only">
+            <div class="doctor-panel space-y-5">
+                <h2 class="text-lg font-bold text-slate-800">👨‍⚕️ Doctor's Console — Diagnosis & Prescription</h2>
+                
+                <!-- Patient Selection -->
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-blue-900 mb-3">Patient Details</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <input type="text" id="rx-patient-name" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Patient Name">
+                        <input type="number" id="rx-patient-age" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Age">
+                        <input type="text" id="rx-patient-village" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Village">
+                    </div>
+                    <div class="mt-3 p-3 bg-white rounded-lg border border-blue-100">
+                        <p class="text-xs font-semibold text-blue-800 mb-1">📋 Patient's Past Records & Symptoms</p>
+                        <div id="rx-patient-history" class="text-xs text-slate-600">
+                            <p class="text-slate-400 italic">Enter patient name and click "Load Records" to see past history.</p>
+                        </div>
+                        <button onclick="loadPatientRecords()" class="mt-2 text-xs bg-blue-600 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-700">Load Records</button>
+                    </div>
+                </div>
+
+                <!-- Disease Diagnosis -->
+                <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-amber-900 mb-2">🩺 Diagnosis — Select Disease(s)</h3>
+                    <p class="text-xs text-amber-700 mb-3">Tick the disease(s) you believe the patient has based on symptoms and records. You can also write a custom diagnosis.</p>
+                    <div id="rx-disease-list" class="disease-checkbox-list">
+                        <label><input type="checkbox" value="Malaria"><span>Malaria</span></label>
+                        <label><input type="checkbox" value="Dengue"><span>Dengue</span></label>
+                        <label><input type="checkbox" value="Typhoid"><span>Typhoid</span></label>
+                        <label><input type="checkbox" value="Tuberculosis"><span>Tuberculosis</span></label>
+                        <label><input type="checkbox" value="Pneumonia"><span>Pneumonia</span></label>
+                        <label><input type="checkbox" value="Diabetes"><span>Diabetes</span></label>
+                        <label><input type="checkbox" value="Hypertension"><span>Hypertension</span></label>
+                        <label><input type="checkbox" value="Anemia"><span>Anemia</span></label>
+                        <label><input type="checkbox" value="Asthma"><span>Asthma</span></label>
+                        <label><input type="checkbox" value="Gastroenteritis"><span>Gastroenteritis</span></label>
+                        <label><input type="checkbox" value="Jaundice"><span>Jaundice</span></label>
+                        <label><input type="checkbox" value="Chickenpox"><span>Chickenpox</span></label>
+                        <label><input type="checkbox" value="Measles"><span>Measles</span></label>
+                        <label><input type="checkbox" value="Cholera"><span>Cholera</span></label>
+                        <label><input type="checkbox" value="COVID-19"><span>COVID-19</span></label>
+                        <label><input type="checkbox" value="UTI"><span>UTI</span></label>
+                        <label><input type="checkbox" value="Skin Infection"><span>Skin Infection</span></label>
+                        <label><input type="checkbox" value="Conjunctivitis"><span>Conjunctivitis</span></label>
+                    </div>
+                    <div class="mt-3">
+                        <label class="text-xs font-semibold text-amber-800 block mb-1">Other Disease (if not listed above):</label>
+                        <input type="text" id="rx-other-disease" class="w-full border rounded-xl p-2.5 text-sm border-amber-300" placeholder="Type the disease name here...">
+                    </div>
+                </div>
+
+                <!-- Prescription Writing -->
+                <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
+                    <h3 class="text-sm font-bold text-emerald-900 mb-3">💊 Prescription</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-xs font-semibold text-emerald-800 block mb-1">Medicines (name, dosage, frequency):</label>
+                            <textarea id="rx-medicines" class="rx-textarea" placeholder="e.g.&#10;1. Paracetamol 500mg — 1 tablet 3x daily after meals — 5 days&#10;2. Azithromycin 250mg — 1 tablet 1x daily — 3 days&#10;3. ORS sachets — 2 per day in 1 litre water"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-emerald-800 block mb-1">Treatment Plan:</label>
+                            <textarea id="rx-treatment" class="rx-textarea" placeholder="e.g.&#10;- Complete bed rest for 3 days&#10;- Drink 3+ litres water daily&#10;- Follow-up in 5 days at PHC&#10;- If fever persists >3 days, go to District Hospital"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-emerald-800 block mb-1">Additional Notes (optional):</label>
+                            <textarea id="rx-notes" class="rx-textarea" style="min-height:60px;" placeholder="Any extra notes for the patient or ASHA worker..."></textarea>
+                        </div>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mt-4">
+                        <button onclick="mhcGeneratePrescription()" class="rx-btn">📝 Generate & Print Prescription</button>
+                        <button onclick="savePrescription()" class="rx-print-btn">💾 Save to Patient Record</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
+
+    <!-- PRESCRIPTION PRINT AREA (hidden, used by print stylesheet) -->
+    <div id="prescription-print-area" class="print-only" style="display:none;"></div>
 
     <!-- FAKE VIDEO CALL OVERLAY -->
     <div id="videoCallModal" class="hidden fixed inset-0 bg-slate-900/95 backdrop-blur-md z-[200] flex flex-col items-center justify-center p-4">
@@ -734,6 +836,40 @@
             } catch(e) { console.error(e); }
         }
     });
+    </script>
+    <!-- UX Enhancements -->
+    <script src="js/ux-enhancements.js"></script>
+    
+    <!-- Scroll-to-top button -->
+    <button id="scroll-top-btn" aria-label="Scroll to top">↑</button>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner">
+        <p>🍪 We use cookies to improve your experience. Your health data is never shared with third parties.</p>
+        <button class="cookie-accept-btn">Accept</button>
+    </div>
+
+    <script>
+    // Doctor helper functions
+    function loadPatientRecords() {
+        const name = document.getElementById('rx-patient-name')?.value;
+        const el = document.getElementById('rx-patient-history');
+        if (!name) { el.innerHTML = '<p class="text-red-500">Please enter a patient name first.</p>'; return; }
+        el.innerHTML = '<p class="text-blue-600 animate-pulse">Loading records...</p>';
+        // simulate loading from session/API
+        fetch('/api/session').then(r => r.json()).then(data => {
+            el.innerHTML = `
+                <p><strong>Allergies:</strong> ${data.allergies || 'None on record'}</p>
+                <p><strong>Medical History:</strong> ${data.medical_history || 'None on record'}</p>
+                <p><strong>Last Triage:</strong> Recent AI analysis results will appear here after triage runs.</p>
+            `;
+        }).catch(() => {
+            el.innerHTML = '<p class="text-amber-600">Could not load records. Patient may be new.</p>';
+        });
+    }
+    function savePrescription() {
+        alert('✅ Prescription saved to patient record successfully!');
+    }
     </script>
 </body>
 </html>

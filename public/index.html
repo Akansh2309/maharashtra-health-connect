@@ -14,8 +14,12 @@
       window.location.href = '/terms.html';
     }
   </script>
+  <link rel="stylesheet" href="css/ux-enhancements.css" />
 </head>
 <body>
+  <a href="#app" class="skip-to-content">Skip to Content ↓</a>
+  <div id="scroll-progress"></div>
+  <div class="page-loader"><div class="loader-spinner"></div><div class="loader-text">Loading MH Connect...</div></div>
 
   <!-- Loading -->
   <div id="loading-screen">
@@ -117,7 +121,7 @@
       </div>
 
       <!-- Advanced Filters -->
-      <div class="advanced-filters">
+      <div class="advanced-filters elaborate-only">
         <div class="adv-filter-row">
           <div class="adv-filter-group">
             <label><i class="fas fa-stethoscope"></i> <span data-i18n="doctor_specialty">Doctor Specialty</span></label>
@@ -140,7 +144,7 @@
       </div>
 
       <!-- Sort Bar -->
-      <div class="sort-bar">
+      <div class="sort-bar elaborate-only">
         <span id="hospital-count">0 <span data-i18n="hospitals">hospitals</span></span>
         <div class="sort-options">
           <button class="sort-btn active" data-sort="distance" data-i18n="distance">Distance</button>
@@ -165,7 +169,7 @@
       <div class="map-actions">
         <button class="map-action-btn" id="btn-recenter" title="Re-center"><i class="fas fa-crosshairs"></i></button>
       </div>
-      <div class="map-stats-bar" id="map-stats-bar">
+      <div class="map-stats-bar elaborate-only" id="map-stats-bar">
         <div class="map-stat-card"><div class="stat-val" id="stat-total">0</div><div class="stat-lbl" data-i18n="total">Total</div></div>
         <div class="map-stat-card"><div class="stat-val" id="stat-nearby">0</div><div class="stat-lbl" data-i18n="within_25km">Within 25km</div></div>
         <div class="map-stat-card"><div class="stat-val" id="stat-rural">0</div><div class="stat-lbl" data-i18n="rural_label">Rural</div></div>
@@ -193,5 +197,11 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/i18n.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/ux-enhancements.js"></script>
+  <button id="scroll-top-btn" aria-label="Scroll to top">↑</button>
+  <div id="cookie-banner">
+    <p>🍪 We use cookies to improve your experience. Your health data is never shared with third parties.</p>
+    <button class="cookie-accept-btn">Accept</button>
+  </div>
 </body>
 </html>

@@ -48,15 +48,20 @@
         .privacy-link { color: var(--primary-color); text-decoration: underline; margin-left:30px; font-size: 0.85rem;}
         @media (min-width: 480px) { .radio-group { flex-direction: row; flex-wrap: wrap; column-gap: 20px; } }
     </style>
+    <link rel="stylesheet" href="css/ux-enhancements.css" />
 </head>
 <body>
+    <a href="#auth-main" class="skip-to-content">Skip to Content ↓</a>
+    <div id="scroll-progress"></div>
+    <div class="page-loader"><div class="loader-spinner"></div><div class="loader-text">Loading...</div></div>
     <header>
         <div class="header-left">
             <div class="brand-title">MH Connect</div>
             <div class="brand-subtitle">Rural Public Healthcare Access</div>
         </div>
+            <button class="dark-toggle" title="Toggle dark mode" style="background:rgba(0,86,179,0.15);border-color:rgba(0,86,179,0.3);color:var(--primary-color);">🌙</button>
     </header>
-    <main>
+    <main id="auth-main">
         <div class="auth-container">
             <div class="auth-header">
                 <h1>Welcome to MH Connect</h1>
@@ -291,5 +296,11 @@
             btn.textContent = 'Sign In';
         }
     </script>
+    <script src="js/ux-enhancements.js"></script>
+    <button id="scroll-top-btn" aria-label="Scroll to top">↑</button>
+    <div id="cookie-banner">
+        <p>🍪 We use cookies to improve your experience. Your health data is never shared with third parties.</p>
+        <button class="cookie-accept-btn">Accept</button>
+    </div>
 </body>
 </html>
