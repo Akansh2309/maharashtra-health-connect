@@ -258,3 +258,13 @@ html, body { overflow-x: hidden; max-width: 100vw; }
   background: #059669; color: #fff; border: none; border-radius: 10px;
   padding: 10px 20px; font-size: 14px; font-weight: 600; cursor: pointer;
 }
+
+/* ── EXTRA DARK MODE TEXT VISIBILITY FIXES ── */
+[data-theme="dark"] .text-blue-900, [data-theme="dark"] .text-blue-800, [data-theme="dark"] .text-blue-700 { color: #93c5fd !important; }
+[data-theme="dark"] .text-amber-900, [data-theme="dark"] .text-amber-800, [data-theme="dark"] .text-amber-700 { color: #fcd34d !important; }
+[data-theme="dark"] .text-emerald-900, [data-theme="dark"] .text-emerald-800, [data-theme="dark"] .text-emerald-700 { color: #6ee7b7 !important; }
+[data-theme="dark"] .text-red-600, [data-theme="dark"] .text-red-500 { color: #fca5a5 !important; }
+[data-theme="dark"] .text-slate-800, [data-theme="dark"] .text-slate-900, [data-theme="dark"] .text-slate-700 { color: #f1f5f9 !important; }
+[data-theme="dark"] .bg-blue-50, [data-theme="dark"] .bg-amber-50, [data-theme="dark"] .bg-emerald-50, [data-theme="dark"] .bg-white {
+    background: var(--bg-hover) !important;
+}

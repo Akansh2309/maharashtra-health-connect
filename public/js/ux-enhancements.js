@@ -14,9 +14,9 @@
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
         localStorage.setItem('mhc-theme', isDark ? 'light' : 'dark');
-        btn.textContent = isDark ? '🌙' : '☀️';
+        btn.textContent = isDark ? 'Dark Mode' : 'Light Mode';
       });
-      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'Light' : 'Dark';
     });
   }
 
@@ -36,7 +36,7 @@
     });
   }
   function updateViewBtn(btn, mode) {
-    btn.innerHTML = mode === 'simple' ? '⚡ Simple' : '📊 Detailed';
+    btn.innerHTML = mode === 'simple' ? 'Simple' : 'Detailed';
     btn.title = mode === 'simple' ? 'Switch to Detailed View' : 'Switch to Simple View';
   }
 
@@ -91,12 +91,12 @@
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'pw-toggle-btn';
-      btn.innerHTML = '👁';
+      btn.innerHTML = 'Show';
       btn.title = 'Show/hide password';
       btn.addEventListener('click', () => {
         const isPassword = input.type === 'password';
         input.type = isPassword ? 'text' : 'password';
-        btn.innerHTML = isPassword ? '🔒' : '👁';
+        btn.innerHTML = isPassword ? 'Hide' : 'Show';
       });
       wrapper.appendChild(btn);
     });
@@ -106,7 +106,7 @@
   window.mhcCopy = function(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const orig = btn.innerHTML;
-      btn.innerHTML = '✓ Copied';
+      btn.innerHTML = 'Copied!';
       btn.classList.add('copied');
       setTimeout(() => { btn.innerHTML = orig; btn.classList.remove('copied'); }, 1500);
     });
@@ -128,11 +128,15 @@
       overlay.classList.remove('open');
       drawer.classList.remove('open');
     }
-    // populate drawer from tabs
+    // populate drawer from tabs - pick only the visible language span
     document.querySelectorAll('.tab-btn[data-tab]').forEach(tab => {
+      if (tab.offsetParent === null && !tab.closest('.mobile-nav-drawer')) return; // skip hidden
       const item = document.createElement('button');
       item.className = 'mobile-nav-item';
-      item.textContent = tab.textContent.trim();
+      item.setAttribute('data-tab-target', tab.getAttribute('data-tab'));
+      // Get only the visible text from the correct language span
+      const visibleSpan = tab.querySelector('.lang-en') || tab;
+      item.textContent = visibleSpan.textContent.trim().replace(/[^\w\s-]/g, '');
       item.addEventListener('click', () => { tab.click(); closeMobileMenu(); });
       drawer.querySelector('.mobile-nav-items')?.appendChild(item);
     });
@@ -194,6 +198,20 @@
     setTimeout(() => window.print(), 300);
   };
 
+  // ── ROLE-BASED TAB VISIBILITY ──
+  function initRoleTabs() {
+    fetch('/api/session').then(r => r.json()).then(data => {
+      if (!data.authenticated) return;
+      const role = data.role || 'patient';
+      // Doctor tab only visible to doctors
+      document.querySelectorAll('[data-tab="doctor"]').forEach(el => {
+        if (role !== 'doctor') el.style.display = 'none';
+      });
+      const doctorPanel = document.getElementById('tab-doctor');
+      if (doctorPanel && role !== 'doctor') doctorPanel.style.display = 'none';
+    }).catch(() => {});
+  }
+
   // ── INIT ALL ──
   document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
@@ -205,5 +223,6 @@
     initPwToggle();
     initMobileMenu();
     initSiteSearch();
+    initRoleTabs();
   });
 })();

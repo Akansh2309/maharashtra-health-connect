@@ -603,6 +603,10 @@ document.addEventListener('languageChanged', () => {
   updateStats();
   // Update role display
   const roleEl = document.getElementById('ud-role');
+  const ddRoleEl = document.getElementById('dd-role');
+  if (ddRoleEl && window.mhcSessionData) {
+    ddRoleEl.textContent = window.mhcSessionData.role ? window.mhcSessionData.role.toUpperCase() : 'USER';
+  }
   if (roleEl) {
     roleEl.textContent = roleEl.textContent.includes('Admin') || roleEl.textContent.includes('प्रशासक') ? t('administrator') : t('user');
   }

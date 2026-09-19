@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+import os
+
+interface_html = """<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -48,20 +50,15 @@
         .privacy-link { color: var(--primary-color); text-decoration: underline; margin-left:30px; font-size: 0.85rem;}
         @media (min-width: 480px) { .radio-group { flex-direction: row; flex-wrap: wrap; column-gap: 20px; } }
     </style>
-    <link rel="stylesheet" href="css/ux-enhancements.css" />
 </head>
 <body>
-    <a href="#auth-main" class="skip-to-content">Skip to Content ↓</a>
-    <div id="scroll-progress"></div>
-    <div class="page-loader"><div class="loader-spinner"></div><div class="loader-text">Loading...</div></div>
     <header>
         <div class="header-left">
             <div class="brand-title">MH Connect</div>
             <div class="brand-subtitle">Rural Public Healthcare Access</div>
         </div>
-            <button class="dark-toggle" title="Toggle dark mode" style="background:rgba(0,86,179,0.15);border-color:rgba(0,86,179,0.3);color:var(--primary-color);">Dark Mode</button>
     </header>
-    <main id="auth-main">
+    <main>
         <div class="auth-container">
             <div class="auth-header">
                 <h1>Welcome to MH Connect</h1>
@@ -121,8 +118,6 @@
                         <div class="radio-group" style="flex-direction: column;">
                             <label class="radio-label"><input type="radio" name="role" value="patient" onchange="handleRoleChange()" checked> Patient / Caregiver</label>
                             <label class="radio-label"><input type="radio" name="role" value="frontline" onchange="handleRoleChange()"> ASHA / ANM / Frontline Worker</label>
-                            <label class="radio-label"><input type="radio" name="role" value="doctor" onchange="handleRoleChange()"> Doctor / Physician</label>
-                            <label class="radio-label"><input type="radio" name="role" value="admin" onchange="handleRoleChange()"> PHC Administrator</label>
                         </div>
                     </div>
                 </fieldset>
@@ -137,40 +132,6 @@
                         <div class="form-group">
                             <label for="pt-medicines">Medical History</label>
                             <input type="text" id="pt-medicines" name="medical_history" placeholder="List current medicines or conditions">
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="role-frontline" class="role-section" style="display: none;">
-                    <fieldset>
-                        <legend>Worker Details (Optional)</legend>
-                        <div class="form-group">
-                            <label for="fw-center-id">Health Center ID</label>
-                            <input type="text" id="fw-center-id" name="center_id" placeholder="e.g. PHC-1024">
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="role-doctor" class="role-section" style="display: none;">
-                    <fieldset>
-                        <legend>Professional Details (Optional)</legend>
-                        <div class="form-group">
-                            <label for="dr-license">Medical License Number</label>
-                            <input type="text" id="dr-license" name="license_no" placeholder="e.g. MCI-12345">
-                        </div>
-                        <div class="form-group">
-                            <label for="dr-specialization">Specialization</label>
-                            <input type="text" id="dr-specialization" name="specialization" placeholder="e.g. General Medicine">
-                        </div>
-                    </fieldset>
-                </div>
-
-                <div id="role-admin" class="role-section" style="display: none;">
-                    <fieldset>
-                        <legend>Administrative Details (Optional)</legend>
-                        <div class="form-group">
-                            <label for="admin-phc">Primary Health Center Name</label>
-                            <input type="text" id="admin-phc" name="phc_name" placeholder="e.g. Rural PHC District A">
                         </div>
                     </fieldset>
                 </div>
@@ -231,9 +192,8 @@
         function handleRoleChange() {
             const role = document.querySelector('input[name="role"]:checked').value;
             document.querySelectorAll('.role-section').forEach(sec => sec.style.display = 'none');
-            const targetSection = document.getElementById('role-' + role);
-            if (targetSection) {
-                targetSection.style.display = 'block';
+            if (role === 'patient') {
+                document.getElementById('role-patient').style.display = 'block';
             }
         }
 
@@ -296,11 +256,30 @@
             btn.textContent = 'Sign In';
         }
     </script>
-    <script src="js/ux-enhancements.js"></script>
-    <button id="scroll-top-btn" aria-label="Scroll to top">↑</button>
-    <div id="cookie-banner">
-        <p>We use cookies to improve your experience. Your health data is never shared with third parties.</p>
-        <button class="cookie-accept-btn">Accept</button>
-    </div>
 </body>
 </html>
+"""
+
+terms_html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MH Connect - Terms</title>
+    <style>body { font-family: sans-serif; padding: 20px; line-height: 1.6; max-width: 800px; margin: auto; } h1 { color: #0056b3; } .btn-back { color: #0056b3; font-weight: bold; text-decoration: none; display: inline-block; margin-bottom: 20px; }</style>
+</head>
+<body>
+    <a href="interface.html" class="btn-back">&larr; Back to MH Connect</a>
+    <h1>Terms and Conditions</h1>
+    <p>We collect your basic details, such as your name, mobile number, and location, to help connect you with healthcare services.</p>
+    <p>By registering, you agree to our policies.</p>
+</body>
+</html>
+"""
+
+with open("public/interface.html", "w") as f:
+    f.write(interface_html)
+
+with open("public/terms.html", "w") as f:
+    f.write(terms_html)
+
+print("Created interface.html and terms.html")

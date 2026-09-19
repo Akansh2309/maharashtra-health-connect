@@ -298,6 +298,8 @@ function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('mhc_lang', lang);
   document.documentElement.lang = lang === 'en' ? 'en' : lang === 'hi' ? 'hi' : 'mr';
+  document.body.classList.remove('lang-en', 'lang-hi', 'lang-mr');
+  document.body.classList.add('lang-' + (lang === 'en' ? 'en' : lang === 'hi' ? 'hi' : 'mr'));
 
   // Update all elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {

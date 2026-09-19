@@ -8,3 +8,4 @@ synthetic_disease_symptom_10k.csv
 city_town_village.csv
 allergies_dataset.csv
 deficiencies_dataset.csv
+*.csv

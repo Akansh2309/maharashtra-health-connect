@@ -65,17 +65,30 @@
             </div>
             <div class="flex items-center gap-2 sm:gap-3">
                 <button class="hamburger-btn" aria-label="Menu">☰</button>
-                <button class="dark-toggle" title="Toggle dark mode">🌙</button>
-                <button class="view-toggle" title="Toggle view mode">⚡ Simple</button>
+                <button class="dark-toggle" title="Toggle dark mode">Dark Mode</button>
+                <button class="view-toggle" title="Toggle view mode">Simple</button>
                 <!-- Language Toggle -->
                 <select id="langSelect" class="bg-white/10 border border-white/20 rounded-lg text-xs px-2 py-1.5 text-white">
                     <option value="en" class="text-black">English</option>
                     <option value="mr" class="text-black">मराठी</option>
                     <option value="hi" class="text-black">हिंदी</option>
                 </select>
-                <div class="flex items-center gap-2 bg-white/10 px-3 py-1 rounded-full border border-white/20 text-sm">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span id="ud-name" class="hidden sm:block text-xs font-medium"></span>
+                <div class="relative group">
+                    <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-full border border-white/20 text-sm cursor-pointer hover:bg-white/20 transition-colors">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        <span id="ud-name" class="hidden sm:block text-xs font-medium">Profile</span>
+                    </div>
+                    <!-- Dropdown -->
+                    <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-slate-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                        <div class="p-3 border-b border-slate-100">
+                            <p class="text-xs text-slate-500 mb-1">Signed in as</p>
+                            <p class="text-sm font-bold text-slate-800" id="dd-role">User</p>
+                        </div>
+                        <div class="p-2">
+                            <a href="interface.html" class="block px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600 rounded-lg transition-colors">Edit Registry</a>
+                            <button onclick="localStorage.removeItem('mhc_session'); window.location.href='interface.html';" class="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded-lg transition-colors mt-1">Sign Out</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,8 +101,8 @@
         <h3 style="font-weight:700;font-size:18px;margin:12px 0 16px;color:var(--text-primary);">Menu</h3>
         <div class="mobile-nav-items"></div>
         <hr style="margin:16px 0;border-color:var(--border-color);">
-        <button class="mobile-nav-item dark-toggle" style="width:100%;">🌙 Dark Mode</button>
-        <button class="mobile-nav-item view-toggle" style="width:100%;">⚡ Simple</button>
+        <button class="mobile-nav-item dark-toggle" style="width:100%;">Dark Mode Dark Mode</button>
+        <button class="mobile-nav-item view-toggle" style="width:100%;">Simple</button>
     </div>
 
     <!-- TAB NAVIGATION -->
@@ -111,7 +124,7 @@
                 <span class="lang-en"> Dashboard</span><span class="lang-mr"> डॅशबोर्ड</span><span class="lang-hi"> डैशबोर्ड</span>
             </button>
             <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap elaborate-only" data-tab="doctor">
-                <span class="lang-en">👨‍⚕️ Doctor</span><span class="lang-mr">👨‍⚕️ डॉक्टर</span><span class="lang-hi">👨‍⚕️ डॉक्टर</span>
+                <span class="lang-en">Doctor</span><span class="lang-mr">डॉक्टर</span><span class="lang-hi">डॉक्टर</span>
             </button>
         </div>
     </div>
@@ -348,7 +361,7 @@
 <!-- ═══ TAB 6: DOCTOR INTERFACE ═══ -->
         <div id="tab-doctor" class="tab-panel elaborate-only">
             <div class="doctor-panel space-y-5">
-                <h2 class="text-lg font-bold text-slate-800">👨‍⚕️ Doctor's Console — Diagnosis & Prescription</h2>
+                <h2 class="text-lg font-bold text-slate-800">Doctor's Console — Diagnosis & Prescription</h2>
                 
                 <!-- Patient Selection -->
                 <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
@@ -359,7 +372,7 @@
                         <input type="text" id="rx-patient-village" class="border rounded-xl p-2.5 text-sm border-slate-300" placeholder="Village">
                     </div>
                     <div class="mt-3 p-3 bg-white rounded-lg border border-blue-100">
-                        <p class="text-xs font-semibold text-blue-800 mb-1">📋 Patient's Past Records & Symptoms</p>
+                        <p class="text-xs font-semibold text-blue-800 mb-1">Patient's Past Records & Symptoms</p>
                         <div id="rx-patient-history" class="text-xs text-slate-600">
                             <p class="text-slate-400 italic">Enter patient name and click "Load Records" to see past history.</p>
                         </div>
@@ -369,7 +382,7 @@
 
                 <!-- Disease Diagnosis -->
                 <div class="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                    <h3 class="text-sm font-bold text-amber-900 mb-2">🩺 Diagnosis — Select Disease(s)</h3>
+                    <h3 class="text-sm font-bold text-amber-900 mb-2">Diagnosis — Select Disease(s)</h3>
                     <p class="text-xs text-amber-700 mb-3">Tick the disease(s) you believe the patient has based on symptoms and records. You can also write a custom diagnosis.</p>
                     <div id="rx-disease-list" class="disease-checkbox-list">
                         <label><input type="checkbox" value="Malaria"><span>Malaria</span></label>
@@ -399,7 +412,7 @@
 
                 <!-- Prescription Writing -->
                 <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4">
-                    <h3 class="text-sm font-bold text-emerald-900 mb-3">💊 Prescription</h3>
+                    <h3 class="text-sm font-bold text-emerald-900 mb-3">Prescription</h3>
                     <div class="space-y-3">
                         <div>
                             <label class="text-xs font-semibold text-emerald-800 block mb-1">Medicines (name, dosage, frequency):</label>
@@ -415,8 +428,8 @@
                         </div>
                     </div>
                     <div class="flex flex-wrap gap-3 mt-4">
-                        <button onclick="mhcGeneratePrescription()" class="rx-btn">📝 Generate & Print Prescription</button>
-                        <button onclick="savePrescription()" class="rx-print-btn">💾 Save to Patient Record</button>
+                        <button onclick="mhcGeneratePrescription()" class="rx-btn">Generate & Print Prescription</button>
+                        <button onclick="savePrescription()" class="rx-print-btn">Save to Patient Record</button>
                     </div>
                 </div>
             </div>
@@ -545,7 +558,16 @@
         });
 
         // ── SYMPTOM CHIPS ──
-        const SYMPTOMS = ['Fever','Cough','Fatigue','Shortness of breath','Headache','Nausea','Vomiting','Diarrhea','Abdominal pain','Joint pain','Muscle aches','Chest pain','Dizziness','Loss of taste or smell','Sore throat','Congestion','Skin rash','Frequent urination','Increased thirst','Unexplained weight loss','Unexplained weight gain','Anxiety','Depressed mood','Insomnia','Heartburn','Constipation','Tremor','Memory loss','Hair loss','Blurred vision'];
+        const SYMPTOMS = [
+            'Fever', 'Dry Cough', 'Wet Cough', 'Feeling Weak / Fatigue', 'Breathing Problem', 
+            'Headache', 'Feeling like Vomiting / Nausea', 'Throwing up / Vomiting', 'Loose Motions / Diarrhea', 
+            'Stomach Ache', 'Body Pain', 'Chest Pain', 'Dizziness / Fainting', 'Loss of Taste', 
+            'Loss of Smell', 'Sore Throat', 'Runny Nose', 'Skin Rash or Itching', 'Peeing too much', 
+            'Feeling very thirsty', 'Losing weight quickly', 'Gaining weight quickly', 'Feeling anxious or scared', 
+            'Feeling sad or crying', 'Cannot sleep', 'Acidity / Heartburn', 'Cannot poop / Constipation', 
+            'Hands shaking / Tremor', 'Forgetting things', 'Hair falling out', 'Blurry vision',
+            'Chills / Shivering', 'Sweating at night', 'Swelling in legs', 'Bleeding gums', 'Toothache'
+        ];
         const selectedSymptoms = new Set();
         const chipsDiv = document.getElementById('symptomChips');
         SYMPTOMS.forEach(s => {
@@ -845,7 +867,7 @@
 
     <!-- Cookie Banner -->
     <div id="cookie-banner">
-        <p>🍪 We use cookies to improve your experience. Your health data is never shared with third parties.</p>
+        <p>We use cookies to improve your experience. Your health data is never shared with third parties.</p>
         <button class="cookie-accept-btn">Accept</button>
     </div>
 
