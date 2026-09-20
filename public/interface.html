@@ -20,6 +20,7 @@
             --focus-ring: #93c5fd;
             --input-bg: #ffffff;
             --fieldset-bg: #fafafa;
+            --consent-bg: #f0f7ff;
         }
         :root[data-theme="dark"] {
             --primary-color: #3b82f6;
@@ -31,6 +32,7 @@
             --border-color: #334155;
             --input-bg: #0f172a;
             --fieldset-bg: transparent;
+            --consent-bg: rgba(59, 130, 246, 0.1);
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: system-ui, sans-serif; background-color: var(--bg-color); color: var(--text-main); line-height: 1.5; min-height: 100vh; display: flex; flex-direction: column; }
@@ -190,7 +192,7 @@
                     </fieldset>
                 </div>
 
-                <div class="form-group" style="background-color: #f0f7ff; padding: 12px; border-left: 4px solid var(--primary-color);">
+                <div class="form-group" style="background-color: var(--consent-bg); padding: 12px; border-left: 4px solid var(--primary-color);">
                     <label class="checkbox-label" for="su-consent">
                         <input type="checkbox" id="su-consent" name="consent" required>
                         <span>I consent to share my health data securely.</span>
