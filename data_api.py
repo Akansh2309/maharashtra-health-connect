@@ -423,7 +423,7 @@ def get_dashboard_stats():
         "active_asha_workers": 12,
     }
 
-# ── New ML NLP Models ──────────────────────────────────
+# ── New ML NLP Models (Two-Tier Prediction System) ─────
 import joblib
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
@@ -436,12 +436,16 @@ try:
     _deficiency_model = joblib.load(os.path.join(BASE_DIR, "deficiency_detector.joblib"))
     _disease_nlp_model = joblib.load(os.path.join(BASE_DIR, "disease_predictor_nlp.joblib"))
     _bed_model = joblib.load(os.path.join(BASE_DIR, "bed_predictor.joblib"))
+    # TIER 1: Common disease matcher (35 diseases, exact frontend vocabulary)
+    _common_disease_model = joblib.load(os.path.join(BASE_DIR, "common_disease_matcher.joblib"))
+    print("  >> Tier 1 Common Disease Matcher loaded (35 diseases)")
 except Exception as e:
     print(f"Warning: Could not load some ML models: {e}")
     _allergy_model = None
     _deficiency_model = None
     _disease_nlp_model = None
     _bed_model = None
+    _common_disease_model = None
 
 def match_allergy(symptoms_text):
     if not _allergy_model: return []
@@ -450,7 +454,6 @@ def match_allergy(symptoms_text):
     results = []
     for i, idx in enumerate(indices[0]):
         dist = distances[0][i]
-        # Cosine distance: smaller is closer. We'll return top 3.
         match = _allergy_model["data"][idx]
         match["confidence"] = round((1.0 - dist) * 100, 1)
         results.append(match)
@@ -468,8 +471,40 @@ def detect_deficiency(symptoms_text):
         results.append(match)
     return results
 
+
+def predict_disease_common(symptoms_text):
+    """
+    TIER 1: Match against 35 common diseases using cosine similarity.
+    Returns top-5 matches with confidence scores.
+    Uses the exact frontend symptom vocabulary for maximum accuracy.
+    """
+    if not _common_disease_model:
+        return []
+
+    vectorizer = _common_disease_model["vectorizer"]
+    tfidf_matrix = _common_disease_model["tfidf_matrix"]
+    disease_names = _common_disease_model["disease_names"]
+
+    vec = vectorizer.transform([symptoms_text])
+    sims = cosine_similarity(vec, tfidf_matrix)[0]
+
+    # Get top 5 indices sorted by similarity (highest first)
+    top_indices = np.argsort(sims)[-5:][::-1]
+
+    results = []
+    for idx in top_indices:
+        score = sims[idx]
+        if score > 0:  # Only include non-zero matches
+            results.append({
+                "disease": disease_names[idx],
+                "confidence": round(score * 100, 1)
+            })
+
+    return results
+
+
 def predict_disease_nlp(symptoms_text):
-    """Predict from 15,500+ diseases using NLP."""
+    """TIER 2: Predict from 15,500+ diseases using full NLP model (fallback)."""
     if not _disease_nlp_model: return []
     vec = _disease_nlp_model["vectorizer"].transform([symptoms_text])
     distances, indices = _disease_nlp_model["model"].kneighbors(vec)
@@ -490,9 +525,44 @@ def predict_bed_availability(hour, month, dayofweek):
     occupancy = _bed_model["model"].predict(X_scaled)[0]
     return max(0.0, min(100.0, occupancy))
 
-# ── Replace old predict_disease ───────────────────────
+
+# ── Two-Tier Disease Prediction ───────────────────────
+TIER1_CONFIDENCE_THRESHOLD = 25.0  # Minimum confidence to use Tier 1 result
+
 def predict_disease(selected_symptoms):
-    """Legacy wrapper: passes list of symptom strings to NLP model."""
+    """
+    Two-Tier Disease Prediction:
+    
+    TIER 1: Check against 35 common diseases (exact frontend vocabulary).
+            If top match has confidence >= 25%, return Tier 1 results.
+            This handles all everyday diseases (fever, cold, dengue, etc.)
+    
+    TIER 2: Fall back to full 15,500+ disease NLP model for rare diseases.
+            Only used when Tier 1 has very low confidence (unusual symptoms).
+    """
     symptoms_text = " ".join(selected_symptoms)
-    return predict_disease_nlp(symptoms_text)
+
+    # TIER 1: Common disease matching (fast, accurate for everyday diseases)
+    tier1_results = predict_disease_common(symptoms_text)
+
+    if tier1_results and tier1_results[0]["confidence"] >= TIER1_CONFIDENCE_THRESHOLD:
+        # Tier 1 has a confident match — use it
+        return tier1_results
+
+    # TIER 2: Full NLP fallback for rare/complex diseases
+    tier2_results = predict_disease_nlp(symptoms_text)
+
+    # If Tier 2 also has results, merge: prefer Tier 1 if it had anything
+    if tier1_results and tier2_results:
+        # Combine both, Tier 1 first
+        combined = tier1_results + tier2_results
+        # Deduplicate by disease name, keep highest confidence
+        seen = {}
+        for r in combined:
+            name = r["disease"]
+            if name not in seen or r["confidence"] > seen[name]["confidence"]:
+                seen[name] = r
+        return sorted(seen.values(), key=lambda x: x["confidence"], reverse=True)[:5]
+
+    return tier2_results if tier2_results else tier1_results
 
