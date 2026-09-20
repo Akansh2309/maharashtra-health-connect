@@ -3,7 +3,7 @@ services:
     name: maharashtra-health-connect
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python server.py
+    startCommand: python serve.py
     envVars:
       - key: PORT
         value: "8000"
