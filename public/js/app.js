@@ -79,7 +79,7 @@ async function init() {
     }
   }, 3600000);
 
-  setTimeout(() => document.getElementById('loading-screen').classList.add('hidden'), 800);
+  
 }
 
 function updateLoadingStatus(txt) {
