@@ -274,7 +274,8 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    window.location.href = '/final.html';
+                    const roleMap = { 'patient': '/patient.html', 'frontline': '/asha.html', 'doctor': '/doctor.html', 'admin': '/hospital.html' };
+                    window.location.href = roleMap[result.role] || '/patient.html';
                 } else {
                     showMessage('signup-status', result.error || 'Registration failed.', 'error');
                 }
@@ -304,7 +305,8 @@
                 const result = await response.json();
                 
                 if (response.ok) {
-                    window.location.href = '/final.html';
+                    const roleMap = { 'patient': '/patient.html', 'frontline': '/asha.html', 'doctor': '/doctor.html', 'admin': '/hospital.html' };
+                    window.location.href = roleMap[result.role] || '/patient.html';
                 } else {
                     showMessage('signin-status', result.error || 'Invalid credentials.', 'error');
                 }

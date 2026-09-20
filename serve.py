@@ -20,7 +20,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=PUBLIC_DIR, **kwargs)
 
-    # ── GET routes ──────────────────────────────────────
+    #  GET routes 
     def do_GET(self):
         path = urlparse(self.path).path
 
@@ -65,7 +65,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path == "/api/logout":
             return api_routes.handle_logout(self)
 
-        # ── static files ────────────────────────────────
+        #  static files 
         if path in ("/", "/index.html"):
             self.send_response(302)
             self.send_header("Location", "/final.html")
@@ -92,7 +92,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         super().do_GET()
 
-    # ── POST routes ─────────────────────────────────────
+    #  POST routes 
     def do_POST(self):
         path = urlparse(self.path).path
         length = int(self.headers.get("Content-Length", 0))
@@ -130,7 +130,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
         self._send_error(404, "Not found")
 
-    # ── OPTIONS (CORS) ──────────────────────────────────
+    #  OPTIONS (CORS) 
     def do_OPTIONS(self):
         self.send_response(204)
         self.send_header("Access-Control-Allow-Origin", "*")
@@ -138,7 +138,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
-    # ── security headers ────────────────────────────────
+    #  security headers 
     def end_headers(self):
         self.send_header("X-Frame-Options", "DENY")
         self.send_header("X-Content-Type-Options", "nosniff")
@@ -153,7 +153,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             "font-src 'self' https://fonts.gstatic.com;")
         super().end_headers()
 
-    # ── helpers ─────────────────────────────────────────
+    #  helpers 
     def _send_json(self, data, status=200):
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
@@ -188,18 +188,18 @@ if __name__ == "__main__":
     t.start()
 
     print(f"""
-    ╔══════════════════════════════════════════════════╗
-    ║   Maharashtra Health Connect — Hacked Build     ║
-    ║   Server running at http://localhost:{PORT}        ║
-    ║                                                  ║
-    ║   → Open http://localhost:{PORT}/final.html        ║
-    ║                                                  ║
-    ║   ML Model : Disease_symptom_predictor.joblib    ║
-    ║   Database : 5589 diseases | 150 facilities      ║
-    ║   Symptoms : 30 clinical symptoms                ║
-    ║                                                  ║
-    ║    2026 The Kacchodis                           ║
-    ╚══════════════════════════════════════════════════╝
+    
+       Maharashtra Health Connect — Hacked Build     
+       Server running at http://localhost:{PORT}        
+                                                      
+       → Open http://localhost:{PORT}/final.html        
+                                                      
+       ML Model : Disease_symptom_predictor.joblib    
+       Database : 5589 diseases | 150 facilities      
+       Symptoms : 30 clinical symptoms                
+                                                      
+        2026 The Kacchodis                           
+    
     """)
 
     with ReusableTCPServer(("", PORT), Handler) as httpd:

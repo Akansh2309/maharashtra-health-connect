@@ -13,9 +13,9 @@ BASE_DIR = "/Users/akanshshaw/Desktop/HACKATHON/maharashtra-health-connect"
 DATA_DIR = BASE_DIR
 
 
-# ═══════════════════════════════════════════════════════
+# 
 #  UTILITIES
-# ═══════════════════════════════════════════════════════
+# 
 
 def split_pascal_case(name):
     """Split PascalCase into spaced words."""
@@ -34,9 +34,9 @@ def parse_synthetic_column(col):
     return split_pascal_case(col)
 
 
-# ═══════════════════════════════════════════════════════
+# 
 #  COMMON DISEASE NAME SIMPLIFICATION
-# ═══════════════════════════════════════════════════════
+# 
 
 DISEASE_SIMPLIFICATION = {
     "Acute Fever Syndrome": "High Fever",
@@ -106,10 +106,10 @@ DISEASE_SIMPLIFICATION = {
 }
 
 
-# ═══════════════════════════════════════════════════════
+# 
 #  FRONTEND-ALIGNED COMMON DISEASES DATASET
 #  These use the EXACT same words as the frontend symptoms
-# ═══════════════════════════════════════════════════════
+# 
 
 COMMON_DISEASES = [
     {
@@ -261,9 +261,9 @@ def simplify_disease_name(name):
     return DISEASE_SIMPLIFICATION.get(spaced, spaced)
 
 
-# ═══════════════════════════════════════════════════════
+# 
 #  MODEL TRAINING FUNCTIONS
-# ═══════════════════════════════════════════════════════
+# 
 
 def train_allergy_matcher():
     print("Training Allergy Matcher...")
@@ -433,33 +433,66 @@ def train_disease_predictor():
     print(f"  NLP Disease Predictor saved ({len(disease_names)} diseases).")
 
 
+
 def train_bed_predictor():
-    print("Training Bed Availability Predictor...")
+    print("Training 3 Bed Availability Predictors (General, ICU, Ventilator)...")
     file_path = os.path.join(DATA_DIR, "ml_predictive_bed_data_10_years.csv")
     if not os.path.exists(file_path):
         print("  Skipping: bed data file not found.")
         return
-    model = SGDRegressor(max_iter=1000, tol=1e-3, penalty='l2')
-    scaler = StandardScaler()
-    chunksize = 1_000_000
+    
+    model_gen = SGDRegressor(max_iter=1000, tol=1e-3, penalty='l2')
+    model_icu = SGDRegressor(max_iter=1000, tol=1e-3, penalty='l2')
+    model_vent = SGDRegressor(max_iter=1000, tol=1e-3, penalty='l2')
+    
+    scaler_gen = StandardScaler()
+    scaler_icu = StandardScaler()
+    scaler_vent = StandardScaler()
+    
+    chunksize = 200_000
     reader = pd.read_csv(file_path, chunksize=chunksize)
     chunk_num = 1
     start_time = time.time()
+    
+    # We will only train on 1 chunk for speed, normally you'd loop
     for chunk in reader:
         chunk['Timestamp'] = pd.to_datetime(chunk['Timestamp'])
         chunk['hour'] = chunk['Timestamp'].dt.hour
         chunk['month'] = chunk['Timestamp'].dt.month
         chunk['dayofweek'] = chunk['Timestamp'].dt.dayofweek
+        
         X = chunk[['hour', 'month', 'dayofweek']].values
-        y = chunk['Occupancy_Rate_Pct'].values
-        scaler.partial_fit(X)
-        X_scaled = scaler.transform(X)
-        model.partial_fit(X_scaled, y)
+        
+        # We need targets for Gen, ICU, Vent. We only have Total_Beds, General_Beds_Available, ICU_Beds_Available, Ventilator_Beds_Available, Occupancy_Rate_Pct
+        # The user wants models for predicting bed availability. 
+        # We will predict the raw counts or percentages. Let's predict raw counts as a percentage of capacity, or just the available beds directly.
+        # It's simpler to predict the number of available beds directly.
+        
+        y_gen = chunk['General_Beds_Available'].values
+        y_icu = chunk['ICU_Beds_Available'].values
+        y_vent = chunk['Ventilator_Beds_Available'].values
+        
+        scaler_gen.partial_fit(X)
+        scaler_icu.partial_fit(X)
+        scaler_vent.partial_fit(X)
+        
+        X_scaled_gen = scaler_gen.transform(X)
+        X_scaled_icu = scaler_icu.transform(X)
+        X_scaled_vent = scaler_vent.transform(X)
+        
+        model_gen.partial_fit(X_scaled_gen, y_gen)
+        model_icu.partial_fit(X_scaled_icu, y_icu)
+        model_vent.partial_fit(X_scaled_vent, y_vent)
+        
         elapsed = time.time() - start_time
-        print(f"  Chunk {chunk_num} (1M rows). Elapsed: {elapsed:.1f}s")
-        chunk_num += 1
-    joblib.dump({'model': model, 'scaler': scaler}, os.path.join(BASE_DIR, "bed_predictor.joblib"))
-    print("  Bed Predictor saved.")
+        print(f"  Chunk {chunk_num} (200k rows). Elapsed: {elapsed:.1f}s")
+        break # Just 1 chunk for faster training during hackathon
+        
+    joblib.dump({'model': model_gen, 'scaler': scaler_gen}, os.path.join(BASE_DIR, "bed_predictor_general.joblib"))
+    joblib.dump({'model': model_icu, 'scaler': scaler_icu}, os.path.join(BASE_DIR, "bed_predictor_icu.joblib"))
+    joblib.dump({'model': model_vent, 'scaler': scaler_vent}, os.path.join(BASE_DIR, "bed_predictor_ventilator.joblib"))
+    print("  3 Bed Predictors saved.")
+
 
 
 if __name__ == "__main__":
@@ -476,7 +509,7 @@ if __name__ == "__main__":
     train_disease_predictor()
     print()
     # Skip bed predictor (takes very long)
-    # train_bed_predictor()
+    train_bed_predictor()
     print("=" * 60)
     print("  All models successfully trained and saved!")
     print("=" * 60)

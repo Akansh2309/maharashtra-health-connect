@@ -40,15 +40,15 @@
 The application is built on a lightweight, high-performance Python backend serving a highly interactive frontend.
 
 ```bash
-├── Disease_symptom_predictor.joblib  # Trained ML model (3.8MB)
-├── data/
-│   └── hpo_database.db               # SQLite DB (Facilities, Diseases, Symptoms)
-├── render.yaml                       # Automated Render deployment blueprint
-├── serve.py                          # Primary Python HTTP server
-├── api_routes.py                     # API endpoint handlers
-├── data_api.py                       # ML inference & facility routing logic
-└── public/
-    └── final.html                    # Unified application interface
+ Disease_symptom_predictor.joblib  # Trained ML model (3.8MB)
+ data/
+    hpo_database.db               # SQLite DB (Facilities, Diseases, Symptoms)
+ render.yaml                       # Automated Render deployment blueprint
+ serve.py                          # Primary Python HTTP server
+ api_routes.py                     # API endpoint handlers
+ data_api.py                       # ML inference & facility routing logic
+ public/
+     final.html                    # Unified application interface
 ```
 
 <br/>

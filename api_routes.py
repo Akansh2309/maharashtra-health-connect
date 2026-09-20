@@ -6,7 +6,7 @@ import auth_utils
 import data_api
 
 
-# ── auth endpoints ──────────────────────────────────────
+#  auth endpoints 
 
 def handle_login(server, body):
     ip = server.client_address[0]
@@ -76,7 +76,7 @@ def handle_logout(server):
     server.end_headers()
 
 
-# ── ML Prediction + Triage (THE MAIN ENDPOINT) ─────────
+#  ML Prediction + Triage (THE MAIN ENDPOINT) 
 
 def handle_predict(server, body):
     """
@@ -171,7 +171,7 @@ def handle_predict(server, body):
     return server._send_json(response)
 
 
-# ── Symptom List ────────────────────────────────────────
+#  Symptom List 
 
 def handle_symptom_list(server):
     """GET /api/symptoms — returns the 30 real symptoms the ML model knows."""
@@ -199,7 +199,7 @@ def handle_triage_analyze(server, body):
     return server._send_json(result)
 
 
-# ── Facility Endpoints ─────────────────────────────────
+#  Facility Endpoints 
 
 def handle_facilities(server):
     """GET /api/facilities — all 150 facilities."""
@@ -218,7 +218,7 @@ def handle_facilities_search(server):
     return server._send_json(results)
 
 
-# ── Medicine Lookup ────────────────────────────────────
+#  Medicine Lookup 
 
 def handle_medicines_search(server):
     """GET /api/medicines/search?q=paracetamol"""
@@ -231,7 +231,7 @@ def handle_medicines_search(server):
     return server._send_json(results)
 
 
-# ── Referral Endpoints ─────────────────────────────────
+#  Referral Endpoints 
 
 def handle_referrals_get(server):
     """GET /api/referrals"""
@@ -261,7 +261,7 @@ def handle_referral_update(server, body):
     return server._send_json(ref)
 
 
-# ── Appointment Endpoints ──────────────────────────────
+#  Appointment Endpoints 
 
 def handle_appointment_book(server, body):
     """POST /api/appointments"""
@@ -282,7 +282,7 @@ def handle_appointments_get(server):
     return server._send_json(data_api.get_all_appointments())
 
 
-# ── Follow-up Endpoints ───────────────────────────────
+#  Follow-up Endpoints 
 
 def handle_followups_get(server):
     """GET /api/followups"""
@@ -316,13 +316,13 @@ def handle_followup_complete(server, body):
     return server._send_json(task)
 
 
-# ── Dashboard ──────────────────────────────────────────
+#  Dashboard 
 
 def handle_dashboard(server):
     """GET /api/dashboard"""
     return server._send_json(data_api.get_dashboard_stats())
 
-# ── New ML Endpoints ──────────────────────────────────
+#  New ML Endpoints 
 
 def handle_allergy_match(server, body):
     try:
@@ -360,8 +360,7 @@ def handle_beds_predict(server):
     except ValueError:
         return server._send_error(400, "Invalid parameters")
         
-    occupancy = data_api.predict_bed_availability(hour, month, dayofweek)
+    beds = data_api.predict_bed_availability(hour, month, dayofweek)
     return server._send_json({
-        "predicted_occupancy_pct": occupancy,
-        "availability_status": "High" if occupancy < 50 else "Medium" if occupancy < 80 else "Low"
+        "predictions": beds
     })

@@ -1,11 +1,11 @@
-/* ═══════════════════════════════════════════════════════════════
+/* 
    MH Connect — UX Enhancements JS
    All interactive UX features in one file
-   ═══════════════════════════════════════════════════════════════ */
+    */
 (function() {
   'use strict';
 
-  // ── DARK MODE ──
+  //  DARK MODE 
   function initDarkMode() {
     const saved = localStorage.getItem('mhc-theme');
     if (saved === 'dark') document.documentElement.setAttribute('data-theme', 'dark');
@@ -20,7 +20,7 @@
     });
   }
 
-  // ── SIMPLE / ELABORATE VIEW TOGGLE ──
+  //  SIMPLE / ELABORATE VIEW TOGGLE 
   function initViewToggle() {
     const saved = localStorage.getItem('mhc-view') || 'simple';
     document.documentElement.setAttribute('data-view', saved);
@@ -40,7 +40,7 @@
     btn.title = mode === 'simple' ? 'Switch to Detailed View' : 'Switch to Simple View';
   }
 
-  // ── SCROLL PROGRESS BAR ──
+  //  SCROLL PROGRESS BAR 
   function initScrollProgress() {
     const bar = document.getElementById('scroll-progress');
     if (!bar) return;
@@ -50,7 +50,7 @@
     }, { passive: true });
   }
 
-  // ── SCROLL-TO-TOP BUTTON ──
+  //  SCROLL-TO-TOP BUTTON 
   function initScrollTop() {
     const btn = document.getElementById('scroll-top-btn');
     if (!btn) return;
@@ -60,7 +60,7 @@
     btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
-  // ── COOKIE BANNER ──
+  //  COOKIE BANNER 
   function initCookieBanner() {
     const banner = document.getElementById('cookie-banner');
     if (!banner) return;
@@ -71,7 +71,7 @@
     });
   }
 
-  // ── PAGE LOADER ──
+  //  PAGE LOADER 
   function initPageLoader() {
     const loader = document.querySelector('.page-loader');
     if (!loader) return;
@@ -80,7 +80,7 @@
     });
   }
 
-  // ── PASSWORD VISIBILITY TOGGLE ──
+  //  PASSWORD VISIBILITY TOGGLE 
   function initPwToggle() {
     document.querySelectorAll('input[type="password"]').forEach(input => {
       if (input.closest('.pw-wrapper')) return;
@@ -102,7 +102,7 @@
     });
   }
 
-  // ── COPY BUTTON ──
+  //  COPY BUTTON 
   window.mhcCopy = function(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const orig = btn.innerHTML;
@@ -112,7 +112,7 @@
     });
   };
 
-  // ── MOBILE HAMBURGER MENU ──
+  //  MOBILE HAMBURGER MENU 
   function initMobileMenu() {
     const hamburger = document.querySelector('.hamburger-btn');
     const overlay = document.querySelector('.mobile-nav-overlay');
@@ -142,7 +142,7 @@
     });
   }
 
-  // ── SITE SEARCH (within page) ──
+  //  SITE SEARCH (within page) 
   function initSiteSearch() {
     const input = document.getElementById('site-search-input');
     if (!input) return;
@@ -155,7 +155,7 @@
     });
   }
 
-  // ── DOCTOR PRESCRIPTION SYSTEM ──
+  //  DOCTOR PRESCRIPTION SYSTEM 
   window.mhcGeneratePrescription = function() {
     const patientName = document.getElementById('rx-patient-name')?.value || 'Patient';
     const patientAge = document.getElementById('rx-patient-age')?.value || '--';
@@ -198,7 +198,7 @@
     setTimeout(() => window.print(), 300);
   };
 
-  // ── ROLE-BASED TAB VISIBILITY ──
+  //  ROLE-BASED TAB VISIBILITY 
   function initRoleTabs() {
     fetch('/api/session').then(r => r.json()).then(data => {
       if (!data.authenticated) return;
@@ -212,7 +212,7 @@
     }).catch(() => {});
   }
 
-  // ── INIT ALL ──
+  //  INIT ALL 
   document.addEventListener('DOMContentLoaded', () => {
     initDarkMode();
     initViewToggle();

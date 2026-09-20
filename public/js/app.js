@@ -11,6 +11,7 @@ const state = {
   userLat: 19.076,
   userLng: 72.8777,
   hospitals: [],
+  mlBeds: { general: 50, icu: 30, ventilator: 20 },
   filteredHospitals: [],
   map: null,
   userMarker: null,
@@ -45,9 +46,17 @@ async function init() {
 
   updateLoadingStatus(t('loading_hospitals'));
   try {
-    const hRes = await fetch('/api/hospitals');
+    const hRes = await fetch('/api/facilities'); // 150 facilities
     state.hospitals = await hRes.json();
-  } catch(e) { console.error('Failed to load hospitals', e); }
+    
+    // Fetch ML Bed Predictions
+    const d = new Date();
+    const bRes = await fetch(`/api/predict-beds?hour=${d.getHours()}&month=${d.getMonth()+1}&dayofweek=${d.getDay()}`);
+    if(bRes.ok) {
+       const bedData = await bRes.json();
+       if(bedData.predictions) state.mlBeds = bedData.predictions;
+    }
+  } catch(e) { console.error('Failed to load hospitals/beds', e); }
 
   updateLoadingStatus(t('detecting_location'));
   await detectLocation();
@@ -232,6 +241,19 @@ function updateStats() {
 }
 
 // ====== RENDER LIST ======
+function toggleElaborate(id, event) {
+  event.stopPropagation();
+  const content = document.getElementById(`elaborate-${id}`);
+  const icon = document.getElementById(`icon-${id}`);
+  if(content.style.display === 'none') {
+    content.style.display = 'block';
+    icon.style.transform = 'rotate(180deg)';
+  } else {
+    content.style.display = 'none';
+    icon.style.transform = 'rotate(0deg)';
+  }
+}
+
 function renderHospitalList() {
   const container = document.getElementById('hospital-list');
   if (state.filteredHospitals.length === 0) {
@@ -245,16 +267,14 @@ function renderHospitalList() {
     const typeLabel = h.type === 'government' ? t('govt') : t('pvt');
     const areaCls = h.area;
     const areaLabel = h.area === 'rural' ? t('rural_tag') : h.area === 'semi-urban' ? t('semi_urban') : t('urban');
-    const stars = '★'.repeat(Math.round(h.rating)) + '☆'.repeat(5 - Math.round(h.rating));
+    const stars = ''.repeat(Math.round(h.rating)) + ''.repeat(5 - Math.round(h.rating));
     const budgetHtml = h.budget ? `<span class="hc-budget">₹${(h.budget.minEstimate/1000).toFixed(0)}k — ₹${(h.budget.maxEstimate/1000).toFixed(0)}k</span>` : '';
 
     // Dynamic bed availability simulation
-    const hour = new Date().getHours();
-    const factor = 0.5 + 0.3 * Math.sin((hour + h.id) * 0.5);
-    const avail = Math.floor(h.totalBeds * factor);
+    const avail = Math.floor(h.totalBeds * (state.mlBeds.general / 100));
 
     return `
-      <div class="hospital-card" onclick="openDetail(state.hospitals.find(x=>x.id===${h.id}))" style="animation-delay:${i * 40}ms">
+      <div class="hospital-card" style="animation-delay:${i * 40}ms">
         <div class="hc-top">
           <div>
             <div class="hc-name">${h.name}</div>
@@ -264,15 +284,19 @@ function renderHospitalList() {
             <span class="hc-type ${typeCls}">${typeLabel}</span>
           </div>
         </div>
-        <div class="hc-info">
-          <span><i class="fas fa-map-marker-alt"></i>${h.city}</span>
-          <span><i class="fas fa-bed"></i>${avail}/${h.totalBeds} ${t('beds')}</span>
-          <span><i class="fas fa-user-md"></i>${h.doctors.length} ${t('doctors')}</span>
+        
+        <!-- DEFAULT VIEW: Very simple, just address, specialist count, distance -->
+        <div class="hc-info" style="font-size: 1rem; color: var(--text-primary); margin: 10px 0;">
+          <div style="margin-bottom: 6px;"><i class="fas fa-map-marker-alt" style="color:var(--accent-primary)"></i> ${h.address}, ${h.city}, ${h.district}</div>
+          <div style="margin-bottom: 6px;"><i class="fas fa-user-md" style="color:var(--accent-primary)"></i> ${h.doctors.length} Specialists Available</div>
+          <div style="margin-bottom: 6px;"><i class="fas fa-route" style="color:var(--accent-primary)"></i> Distance: <strong>${dist}</strong></div>
         </div>
-        <div class="hc-bottom">
-          <div class="hc-stars"><span style="color:var(--accent-amber)">${stars}</span> <span>${h.rating} (${h.reviewCount})</span></div>
-          ${budgetHtml}
-          <span class="hc-distance">${dist}</span>
+        
+        <div class="hc-bottom" style="margin-top: 15px; border-top: 1px solid var(--border-glass); padding-top: 10px;">
+          <button class="btn-elaborate" onclick="openDetail(state.hospitals.find(x=>x.id===${h.id}))" style="width: 100%; padding: 12px; background: var(--bg-glass-hover); border: 1px solid var(--border-active); color: var(--text-primary); border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: bold; display: flex; justify-content: space-between; align-items: center;">
+            <span data-i18n="elaborate">Elaborate (Details & Map)</span>
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>`;
   }).join('');
@@ -291,11 +315,9 @@ function openDetail(h) {
   showRoute(h);
 
   // Content
-  const hour = new Date().getHours();
-  const factor = 0.5 + 0.3 * Math.sin((hour + h.id) * 0.5);
-  const genAvail = Math.floor(h.totalBeds * factor);
-  const icuAvail = Math.floor(h.icuBeds * factor);
-  const ventAvail = Math.floor(h.ventilators * factor);
+  const genAvail = Math.floor(h.totalBeds * (state.mlBeds.general / 100));
+  const icuAvail = Math.floor(h.icuBeds * (state.mlBeds.icu / 100));
+  const ventAvail = Math.floor(h.ventilators * (state.mlBeds.ventilator / 100));
   const genPct = (genAvail / h.totalBeds * 100).toFixed(0);
   const icuPct = h.icuBeds > 0 ? (icuAvail / h.icuBeds * 100).toFixed(0) : 0;
   const ventPct = h.ventilators > 0 ? (ventAvail / h.ventilators * 100).toFixed(0) : 0;
@@ -614,3 +636,128 @@ document.addEventListener('languageChanged', () => {
 
 // ====== START ======
 document.addEventListener('DOMContentLoaded', init);
+
+
+
+// ====== PATIENT PREDICTION LOGIC ======
+async function runPatientPrediction() {
+    const selectedSymptoms = Array.from(document.querySelectorAll('#symptomChips .chip.selected')).map(c => c.dataset.val);
+    if(selectedSymptoms.length === 0) {
+        alert("Please select at least one symptom.");
+        return;
+    }
+    
+    document.getElementById('predictionResults').innerHTML = '<div class="text-center p-4"><div class="spinner"></div><p>Analyzing symptoms...</p></div>';
+    document.getElementById('predictionResults').classList.remove('hidden');
+    
+    try {
+        const payload = { 
+            patient_name: "Patient", 
+            age: 30, 
+            village: "Local", 
+            vitals: {}, 
+            danger_signs: [], 
+            symptoms: selectedSymptoms 
+        };
+        const res = await fetch('/api/predict', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(payload) });
+        const data = await res.json();
+        
+        let html = '<h4 class="font-bold text-md mb-2">Predictions</h4>';
+        if(data.prediction && data.prediction.length > 0) {
+            let emergencyTriggered = false;
+            
+            data.prediction.forEach(p => {
+                const isEmergency = p.disease.toLowerCase().includes('emergency');
+                if(isEmergency && p.confidence > 25) emergencyTriggered = true;
+                
+                html += `
+                <div class="border rounded p-3 mb-2 bg-white">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="font-bold text-sm ${isEmergency ? 'text-red-600' : 'text-slate-800'}">${p.disease}</span>
+                        <span class="text-xs bg-slate-100 px-2 py-1 rounded">${p.confidence}%</span>
+                    </div>
+                </div>`;
+            });
+            
+            // Bed Availability
+            html += `<h4 class="font-bold text-md mt-4 mb-2">Estimated Bed Availability (Live)</h4>`;
+            html += `
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                <div class="bg-green-50 border border-green-200 rounded p-2">
+                    <div class="font-bold text-green-700 text-lg">${data.bed_availability.general}%</div>
+                    <div class="text-slate-500">General</div>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 rounded p-2">
+                    <div class="font-bold text-orange-700 text-lg">${data.bed_availability.icu}%</div>
+                    <div class="text-slate-500">ICU</div>
+                </div>
+                <div class="bg-red-50 border border-red-200 rounded p-2">
+                    <div class="font-bold text-red-700 text-lg">${data.bed_availability.ventilator}%</div>
+                    <div class="text-slate-500">Ventilator</div>
+                </div>
+            </div>`;
+            
+            html += `<button onclick="document.getElementById('predictor-section').style.display='none'; document.getElementById('hospitals-section').style.display='block';" class="mt-4 w-full bg-blue-600 text-white rounded p-2 text-sm font-bold">Find Hospitals</button>`;
+            
+            document.getElementById('predictionResults').innerHTML = html;
+            
+            if(emergencyTriggered) {
+                alert("EMERGENCY DETECTED! Routing to nearest hospital with Emergency Room.");
+                openEmergency();
+            }
+        } else {
+            document.getElementById('predictionResults').innerHTML = '<p class="text-sm text-slate-500">No matching diseases found.</p>';
+        }
+    } catch (e) {
+        document.getElementById('predictionResults').innerHTML = '<p class="text-sm text-red-500">Error connecting to AI service.</p>';
+    }
+}
+
+function initSymptomChips() {
+    const chipsContainer = document.getElementById('symptomChips');
+    if(!chipsContainer) return;
+    const symptoms = [
+        "itching", "skin_rash", "nodal_skin_eruptions", "continuous_sneezing", "shivering", "chills", "joint_pain", 
+        "stomach_pain", "acidity", "ulcers_on_tongue", "muscle_wasting", "vomiting", "burning_micturition", "spotting_ urination", 
+        "fatigue", "weight_gain", "anxiety", "cold_hands_and_feets", "mood_swings", "weight_loss", "restlessness", "lethargy", 
+        "patches_in_throat", "irregular_sugar_level", "cough", "high_fever", "sunken_eyes", "breathlessness", "sweating", 
+        "dehydration", "indigestion", "headache", "yellowish_skin", "dark_urine", "nausea", "loss_of_appetite", "pain_behind_the_eyes", 
+        "back_pain", "constipation", "abdominal_pain", "diarrhoea", "mild_fever", "yellow_urine", "yellowing_of_eyes", "acute_liver_failure", 
+        "fluid_overload", "swelling_of_stomach", "swelled_lymph_nodes", "malaise", "blurred_and_distorted_vision", "phlegm", 
+        "throat_irritation", "redness_of_eyes", "sinus_pressure", "runny_nose", "congestion", "chest_pain", "weakness_in_limbs", 
+        "fast_heart_rate", "pain_during_bowel_movements", "pain_in_anal_region", "bloody_stool", "irritation_in_anus", "neck_pain", 
+        "dizziness", "cramps", "bruising", "obesity", "swollen_legs", "swollen_blood_vessels", "puffy_face_and_eyes", "enlarged_thyroid", 
+        "brittle_nails", "swollen_extremeties", "excessive_hunger", "extra_marital_contacts", "drying_and_tingling_lips", "slurred_speech", 
+        "knee_pain", "hip_joint_pain", "muscle_weakness", "stiff_neck", "swelling_joints", "movement_stiffness", "spinning_movements", 
+        "loss_of_balance", "unsteadiness", "weakness_of_one_body_side", "loss_of_smell", "bladder_discomfort", "foul_smell_of urine", 
+        "continuous_feel_of_urine", "passage_of_gases", "internal_itching", "toxic_look_(typhos)", "depression", "irritability", 
+        "muscle_pain", "altered_sensorium", "red_spots_over_body", "belly_pain", "abnormal_menstruation", "dischromic _patches", 
+        "watering_from_eyes", "increased_appetite", "polyuria", "family_history", "mucoid_sputum", "rusty_sputum", "lack_of_concentration", 
+        "visual_disturbances", "receiving_blood_transfusion", "receiving_unsterile_injections", "coma", "stomach_bleeding", 
+        "distention_of_abdomen", "history_of_alcohol_consumption", "fluid_overload", "blood_in_sputum", "prominent_veins_on_calf", 
+        "palpitations", "painful_walking", "pus_filled_pimples", "blackheads", "scurring", "skin_peeling", "silver_like_dusting", 
+        "small_dents_in_nails", "inflammatory_nails", "blister", "red_sore_around_nose", "yellow_crust_ooze"
+    ];
+    
+    // Convert to readable
+    const formatName = (s) => s.replace(/_/g, ' ').replace(/\w/g, c => c.toUpperCase());
+    
+    symptoms.forEach(s => {
+        const div = document.createElement('div');
+        div.className = 'chip cursor-pointer bg-slate-200 text-slate-700 px-3 py-1 rounded-full text-xs hover:bg-slate-300';
+        div.dataset.val = s;
+        div.innerText = formatName(s);
+        div.onclick = function() {
+            this.classList.toggle('selected');
+            if(this.classList.contains('selected')) {
+                this.classList.replace('bg-slate-200', 'bg-blue-600');
+                this.classList.replace('text-slate-700', 'text-white');
+            } else {
+                this.classList.replace('bg-blue-600', 'bg-slate-200');
+                this.classList.replace('text-white', 'text-slate-700');
+            }
+        };
+        chipsContainer.appendChild(div);
+    });
+}
+window.addEventListener('DOMContentLoaded', initSymptomChips);

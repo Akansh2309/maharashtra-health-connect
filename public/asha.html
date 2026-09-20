@@ -108,24 +108,16 @@
     <!-- TAB NAVIGATION -->
     <div class="bg-white border-b border-slate-200 sticky top-14 z-40">
         <div class="max-w-7xl mx-auto px-4 flex gap-1 py-1.5 overflow-x-auto">
-            <button class="tab-btn active text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap" data-tab="triage">
+            <button class="tab-btn active active text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap" data-tab="triage">
                 <span class="lang-en"> Triage</span><span class="lang-mr"> ट्रायज</span><span class="lang-hi"> ट्राइएज</span>
             </button>
-            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="referrals">
-                <span class="lang-en"> Referrals</span><span class="lang-mr"> संदर्भ</span><span class="lang-hi"> रेफरल</span>
-            </button>
-            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="followups">
-                <span class="lang-en"> Follow-ups</span><span class="lang-mr"> पाठपुरावा</span><span class="lang-hi"> फॉलो-अप</span>
-            </button>
-            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="medicines">
-                <span class="lang-en"> Medicines</span><span class="lang-mr"> औषधे</span><span class="lang-hi"> दवाइयाँ</span>
-            </button>
+            
+            
+            
             <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap" data-tab="dashboard">
                 <span class="lang-en"> Dashboard</span><span class="lang-mr"> डॅशबोर्ड</span><span class="lang-hi"> डैशबोर्ड</span>
             </button>
-            <button class="tab-btn text-xs font-semibold px-3 py-1.5 rounded-lg text-slate-500 whitespace-nowrap elaborate-only" data-tab="doctor">
-                <span class="lang-en">Doctor</span><span class="lang-mr">डॉक्टर</span><span class="lang-hi">डॉक्टर</span>
-            </button>
+            
         </div>
     </div>
 
@@ -311,7 +303,7 @@
         </div>
 
         <!--  TAB 4: MEDICINES (ELABORATE)  -->
-        <!-- elaborate-only wrapper -->
+        <!-- active wrapper -->
         <div id="tab-medicines" class="tab-panel">
             <div class="glass rounded-2xl shadow-sm border border-slate-200/60 p-5">
                 <h2 class="text-base font-bold text-slate-800 mb-3"> Medicine Availability</h2>
@@ -341,7 +333,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4" id="dashStats"></div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2 elaborate-only">Success Metrics</h3>
+                        <h3 class="text-xs font-bold text-slate-600 uppercase mb-2 active">Success Metrics</h3>
                         <div class="space-y-1.5 text-xs">
                             <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Median Triage → Consult</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
                             <div class="flex justify-between bg-slate-50 p-2 rounded-lg"><span class="text-slate-600">Referral Completion Rate</span><span class="font-bold text-slate-400">Awaiting Data</span></div>
@@ -359,7 +351,7 @@
             </div>
         </div>
 <!--  TAB 6: DOCTOR INTERFACE  -->
-        <div id="tab-doctor" class="tab-panel elaborate-only">
+        <div id="tab-doctor" class="tab-panel active">
             <div class="doctor-panel space-y-5">
                 <h2 class="text-lg font-bold text-slate-800">Doctor's Console — Diagnosis & Prescription</h2>
                 

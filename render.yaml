@@ -2,9 +2,10 @@ services:
   - type: web
     name: maharashtra-health-connect
     env: python
-    plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: python3 serve.py
+    startCommand: python server.py
     envVars:
-      - key: PYTHONUNBUFFERED
-        value: "1"
+      - key: PORT
+        value: "8000"
+      - key: PYTHON_VERSION
+        value: 3.10.0

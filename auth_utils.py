@@ -21,7 +21,7 @@ from config import (
 # stepping on each other. reads are fine without it honestly
 _write_lock = threading.Lock()
 
-# ── mock user database ──────────────────────────────────
+#  mock user database 
 # in production you'd swap this for postgres/mongo/whatever
 USERS = {
     "akansh": {
@@ -45,7 +45,7 @@ SESSIONS = {}
 _rate_hits = {}
 
 
-# ── password helpers ────────────────────────────────────
+#  password helpers 
 
 def hash_pw(password):
     # sha256 is fine for a hackathon demo, but use bcrypt in real life
@@ -56,7 +56,7 @@ def check_pw(plain_text, hashed):
     return hash_pw(plain_text) == hashed
 
 
-# ── session management ──────────────────────────────────
+#  session management 
 
 def create_session(username, remember=False):
     sid = str(uuid.uuid4())
@@ -128,7 +128,7 @@ def purge_expired():
         del SESSIONS[sid]
 
 
-# ── cookie builders ─────────────────────────────────────
+#  cookie builders 
 
 def make_cookie(sid, ttl):
     # HttpOnly stops JS from reading the cookie (XSS protection)
@@ -140,7 +140,7 @@ def expire_cookie():
     return f"{COOKIE_NAME}=; Path=/; Max-Age=0; HttpOnly"
 
 
-# ── authentication ──────────────────────────────────────
+#  authentication 
 
 def authenticate(login_id, password):
     """
@@ -210,7 +210,7 @@ def register(username, email, password, name, role="patient", allergies="", medi
     return username, None
 
 
-# ── rate limiting ───────────────────────────────────────
+#  rate limiting 
 
 def rate_limit_ok(ip):
     """Returns True if this IP still has requests left, False if blocked."""
@@ -230,7 +230,7 @@ def rate_limit_ok(ip):
     return True
 
 
-# ── path protection ─────────────────────────────────────
+#  path protection 
 
 def needs_auth(path):
     """Quick check — does this URL need the user to be logged in?"""
@@ -242,7 +242,7 @@ def needs_auth(path):
     return True
 
 
-# ── RBAC (role check) ──────────────────────────────────
+#  RBAC (role check) 
 
 def has_role(sess, role):
     """Check if user has the given role. Admins pass every check."""
