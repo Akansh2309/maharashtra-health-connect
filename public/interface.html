@@ -64,6 +64,8 @@
         .status-success { background-color: #f0fdf4; color: var(--success-color); border: 1px solid #4ade80; display: block; }
         .privacy-link { color: var(--primary-color); text-decoration: underline; margin-left:30px; font-size: 0.85rem;}
         @media (min-width: 480px) { .radio-group { flex-direction: row; flex-wrap: wrap; column-gap: 20px; } }
+    
+        .consent-box { background-color: var(--consent-bg); padding: 12px; border-left: 4px solid var(--primary-color); }
     </style>
     <link rel="stylesheet" href="css/ux-enhancements.css" />
 </head>
@@ -192,7 +194,7 @@
                     </fieldset>
                 </div>
 
-                <div class="form-group" style="background-color: var(--consent-bg); padding: 12px; border-left: 4px solid var(--primary-color);">
+                <div class="form-group consent-box">
                     <label class="checkbox-label" for="su-consent">
                         <input type="checkbox" id="su-consent" name="consent" required>
                         <span>I consent to share my health data securely.</span>
