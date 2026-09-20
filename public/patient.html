@@ -15,12 +15,11 @@
 <body>
   <a href="#app" class="skip-to-content">Skip to Content ↓</a>
   <div id="scroll-progress"></div>
-  <div class="loader-text">Loading MH Connect...</div></div>
-
-  
-      <div class="loading-status" id="loading-status" data-i18n="initializing">Initializing...</div>
-      <div style="margin-top:20px;font-size:.7rem;color:#475569">Developed by <strong style="color:#f97316">Kachoris</strong> &bull; SIH 2026</div>
-    </div>
+  <!-- Loading overlay -->
+  <div id="loading" class="loading-overlay">
+    <div class="loader-text">Loading MH Connect...</div>
+    <div class="loading-status" id="loading-status" data-i18n="initializing">Initializing...</div>
+    <div style="margin-top:20px;font-size:.7rem;color:#475569">Developed by <strong style="color:#f97316">Kachoris</strong> &bull; SIH 2026</div>
   </div>
 
   <!-- Emergency Modal -->
@@ -145,7 +144,6 @@
 
       <div class="hospital-list" id="hospital-list"></div>
 
-      </div>
       <button class="emergency-btn" id="emergency-btn" onclick="openEmergency()">
         <i class="fas fa-ambulance"></i> <span data-i18n="emergency_find_nearest">Emergency — Find Nearest ER</span>
       </button>
