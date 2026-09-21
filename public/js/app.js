@@ -1,6 +1,6 @@
 /*
  * Maharashtra Health Connect — App Logic
- * Copyrights are claimed by Kachoris. Developed by Kachoris.
+ * Copyrights are claimed by MH Connect Team. Developed by MH Connect Team.
  * SIH 2026 — PS#26133 | Government of Maharashtra
  * 
  * Data Source: Hospital data sourced from the Maharashtra Open Data Portal 
@@ -422,7 +422,7 @@ function openDetail(h) {
   </div>`;
 
   // Copyright
-  html += `<div style="text-align:center;padding:16px 0;font-size:.6rem;color:var(--text-muted);border-top:1px solid var(--border-glass);margin-top:10px">Copyrights are claimed by Kachoris &bull; Developed by Kachoris</div>`;
+  html += `<div style="text-align:center;padding:16px 0;font-size:.6rem;color:var(--text-muted);border-top:1px solid var(--border-glass);margin-top:10px">Copyrights are claimed by MH Connect Team &bull; Developed by MH Connect Team</div>`;
 
   document.getElementById('detail-content').innerHTML = html;
 }

@@ -27,13 +27,19 @@ USERS = {
     "akansh": {
         "password_hash": hashlib.sha256("admin123".encode()).hexdigest(),
         "name": "Akansh Shaw",
-        "email": "akansh@kacchodis.org",
+        "email": "akansh@MH Connect Team.org",
         "role": "admin",
+    },
+        "9999999999": {
+        "password_hash": hashlib.sha256("demo123".encode()).hexdigest(),
+        "name": "Demo Patient",
+        "email": "demopatient@mhconnect.org",
+        "role": "patient",
     },
     "demo": {
         "password_hash": hashlib.sha256("demo".encode()).hexdigest(),
         "name": "Demo User",
-        "email": "demo@kacchodis.org",
+        "email": "demo@MH Connect Team.org",
         "role": "patient",
     },
 }

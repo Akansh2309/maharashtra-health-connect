@@ -31,6 +31,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         if path.startswith("/api/symptoms/search"):
             return api_routes.handle_symptoms_search(self, self.path)
 
+        if path == "/api/locations":
+            return api_routes.handle_locations(self)
+
         if path == "/api/facilities":
             return api_routes.handle_facilities(self)
 
@@ -198,7 +201,7 @@ if __name__ == "__main__":
        Database : 5589 diseases | 150 facilities      
        Symptoms : 30 clinical symptoms                
                                                       
-        2026 The Kacchodis                           
+        2026 MH Connect Team                           
     
     """)
 

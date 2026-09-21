@@ -75,7 +75,7 @@ python3 serve.py
 <hr/>
 
 <div align="center">
-  <p>Developed with precision by <b>The Kacchodis</b> for SIH 2026</p>
+  <p>Developed with precision by <b>MH Connect Team</b> for SIH 2026</p>
 </div>
 
 <div align="right">

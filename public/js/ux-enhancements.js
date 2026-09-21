@@ -192,7 +192,7 @@
       <div style="text-align:right;margin-top:40px;border-top:1px solid #000;width:200px;margin-left:auto;padding-top:8px;">
         <span style="font-size:12px;">Doctor's Signature</span>
       </div>
-      <p style="text-align:center;font-size:10px;color:#999;margin-top:24px;">© 2026 The Kacchodis — Maharashtra Health Connect</p>
+      <p style="text-align:center;font-size:10px;color:#999;margin-top:24px;">© 2026 MH Connect Team — Maharashtra Health Connect</p>
     `;
     printArea.style.display = 'block';
     setTimeout(() => window.print(), 300);

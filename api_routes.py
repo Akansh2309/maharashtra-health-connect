@@ -364,3 +364,23 @@ def handle_beds_predict(server):
     return server._send_json({
         "predictions": beds
     })
+
+
+def handle_locations(server):
+    import csv
+    import os
+    locations = {"districts": set(), "villages": set()}
+    try:
+        with open(os.path.join(os.path.dirname(__file__), "city_town_village.csv"), "r", encoding="utf-8") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                d = row.get("District", "").strip()
+                v = row.get("Location_Name", "").strip()
+                if d: locations["districts"].add(d)
+                if v: locations["villages"].add(v)
+    except Exception as e:
+        pass
+    return server._send_json({
+        "districts": sorted(list(locations["districts"])),
+        "villages": sorted(list(locations["villages"]))
+    })
