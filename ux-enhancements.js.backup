@@ -14,9 +14,9 @@
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
         localStorage.setItem('mhc-theme', isDark ? 'light' : 'dark');
-        btn.textContent = isDark ? '' : '☀️';
+        btn.textContent = isDark ? '🌙' : '☀️';
       });
-      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '';
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '🌙';
     });
   }
 
@@ -36,7 +36,7 @@
     });
   }
   function updateViewBtn(btn, mode) {
-    btn.innerHTML = mode === 'simple' ? '⚡ Simple' : ' Detailed';
+    btn.innerHTML = mode === 'simple' ? '⚡ Simple' : '📊 Detailed';
     btn.title = mode === 'simple' ? 'Switch to Detailed View' : 'Switch to Simple View';
   }
 
@@ -91,12 +91,12 @@
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'pw-toggle-btn';
-      btn.innerHTML = '';
+      btn.innerHTML = '👁';
       btn.title = 'Show/hide password';
       btn.addEventListener('click', () => {
         const isPassword = input.type === 'password';
         input.type = isPassword ? 'text' : 'password';
-        btn.innerHTML = isPassword ? '' : '';
+        btn.innerHTML = isPassword ? '🔒' : '👁';
       });
       wrapper.appendChild(btn);
     });
@@ -188,7 +188,7 @@
       <div style="text-align:right;margin-top:40px;border-top:1px solid #000;width:200px;margin-left:auto;padding-top:8px;">
         <span style="font-size:12px;">Doctor's Signature</span>
       </div>
-      <p style="text-align:center;font-size:10px;color:#999;margin-top:24px;">© 2026 The MH Connect Team — Maharashtra Health Connect</p>
+      <p style="text-align:center;font-size:10px;color:#999;margin-top:24px;">© 2026 The Kacchodis — Maharashtra Health Connect</p>
     `;
     printArea.style.display = 'block';
     setTimeout(() => window.print(), 300);

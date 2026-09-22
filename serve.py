@@ -71,7 +71,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         #  static files 
         if path in ("/", "/index.html"):
             self.send_response(302)
-            self.send_header("Location", "/final.html")
+            self.send_header("Location", "/interface.html")
             self.end_headers()
             return
 
