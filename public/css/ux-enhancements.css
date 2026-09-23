@@ -7,6 +7,9 @@
 :root {
   --bg-primary: #f3f4f6;
   --bg-card: #ffffff;
+  --bg-glass: #ffffff;
+  --bg-glass-hover: #e5e7eb;
+  --border-glass: #d1d5db;
   --bg-hover: #e5e7eb;
   --text-primary: #000000;
   --text-secondary: #333333;
@@ -29,6 +32,9 @@
 [data-theme="dark"] {
   --bg-primary: #0b0c0c;
   --bg-card: #1d2021;
+  --bg-glass: #1d2021;
+  --bg-glass-hover: #292d2e;
+  --border-glass: #3b3f41;
   --bg-hover: #292d2e;
   --text-primary: #ffffff;
   --text-secondary: #b1b4b6;
