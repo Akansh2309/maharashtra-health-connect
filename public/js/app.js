@@ -121,7 +121,7 @@ async function reverseGeocode(lat, lng) {
 // ====== MAP ======
 function initMap() {
   state.map = L.map('map', { zoomControl: false, attributionControl: false }).setView([state.userLat, state.userLng], 11);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19, subdomains: 'abcd'
   }).addTo(state.map);
   L.control.zoom({ position: 'bottomright' }).addTo(state.map);
