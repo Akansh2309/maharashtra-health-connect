@@ -14,9 +14,9 @@
         const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
         document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
         localStorage.setItem('mhc-theme', isDark ? 'light' : 'dark');
-        btn.textContent = isDark ? '' : '☀️';
+        btn.textContent = isDark ? 'Dark Mode' : 'Light Mode';
       });
-      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '☀️' : '';
+      btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'Light Mode' : 'Dark Mode';
     });
   }
 
