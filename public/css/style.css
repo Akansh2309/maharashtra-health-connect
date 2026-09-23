@@ -317,3 +317,30 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg-primary);c
 .gov-search-wrapper button:hover {
   background: var(--accent-hover);
 }
+
+@media(max-width: 768px) {
+  #main-content {
+    flex-direction: column !important;
+  }
+  #sidebar {
+    width: 100% !important;
+    min-width: 100% !important;
+    height: 50vh !important;
+  }
+  #map {
+    width: 100% !important;
+    height: 50vh !important;
+  }
+  #top-gov-search {
+    height: auto !important;
+    padding: 10px !important;
+    flex-direction: column !important;
+  }
+  .gov-search-wrapper {
+    flex-direction: column !important;
+  }
+  .gov-search-wrapper input {
+    border-right: 2px solid var(--border-active) !important;
+    border-bottom: none !important;
+  }
+}
